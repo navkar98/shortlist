@@ -1,0 +1,20 @@
+{% from "_ui.html" import icon %}
+{% if offset == 0 %}
+  {% if not rows %}
+  <div class="list"><div class="empty-state">{{ icon("search", "big") }}<h3>No jobs match these filters</h3>
+    <p>Lower the minimum score, widen the time range, or clear the search.</p></div></div>
+  {% else %}
+  <div class="list-head"><span><b class="num">{{ "{:,}".format(total) }}</b> job{{ "" if total == 1 else "s" }}</span>
+    <span class="hint">Press <kbd>J</kbd> <kbd>K</kbd> to move, <kbd>O</kbd> to open, <kbd>?</kbd> for all keys</span></div>
+  <div class="list">
+  {% endif %}
+{% endif %}
+{% for r in rows %}{% include "_match.html" %}{% endfor %}
+{% if rows and offset + rows | length < total %}
+<div class="more" id="more-{{ offset }}">
+  <button class="btn" hx-get="/matches/rows" hx-include="#filters" hx-vals='{"offset": {{ offset + page_size }}}'
+          hx-target="#more-{{ offset }}" hx-swap="outerHTML">Show {{ [page_size, total - offset - rows | length] | min }} more
+    <span class="muted">· {{ "{:,}".format(total - offset - rows | length) }} left</span></button>
+</div>
+{% endif %}
+{% if offset == 0 and rows %}</div>{% endif %}

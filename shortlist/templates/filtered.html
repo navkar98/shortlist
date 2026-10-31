@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon %}
+{% block title %}Filtered out · Shortlist{% endblock %}
+{% macro filter_button(action, field, term, label, confirm="") %}
+<form hx-post="/filters/{{ action }}" class="inline-form" {% if confirm %}hx-confirm="{{ confirm }}"{% endif %}>
+  <input type="hidden" name="field" value="{{ field }}"><input type="hidden" name="term" value="{{ term }}">
+  <input type="hidden" name="scope" value="{{ scope }}">
+  <button class="btn sm ghost" type="submit">{{ label }}</button>
+</form>
+{% endmacro %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <p class="eyebrow"><a href="/matches">Matches</a> /</p>
+    <h1>Filtered out</h1>
+    <p class="lede">Jobs your title and place rules dropped before scoring, so no model call was spent on them. Let a word
+      through and the jobs it matches are scored in the next run.</p>
+  </div>
+  <div class="seg" role="radiogroup" aria-label="Which jobs">
+    {% for value, label in [("run", "New in the last run"), ("open", "Every open job")] %}
+    <label><input type="radio" name="scope" value="{{ value }}" {{ "checked" if scope == value }}
+                  onchange="location.search = '?scope=' + this.value"><span>{{ label }}</span></label>
+    {% endfor %}
+  </div>
+</header>
+
+{% if added %}<p class="notice">{{ icon("check") }} Added “{{ added }}”: {{ passing }} job{{ "" if passing == 1 else "s" }} it lets through will be scored in the next run.</p>{% endif %}
+{% if removed %}<p class="notice">{{ icon("check") }} Removed “{{ removed }}”: {{ passing }} more job{{ "" if passing == 1 else "s" }} will be scored in the next run.</p>{% endif %}
+
+<section class="stats-strip">
+  <div class="card kpi"><span class="label">{{ icon("filter") }} Dropped</span><span class="value">{{ "{:,}".format(dropped | length) }}</span>
+    <span class="hint">{{ "first seen in the last run" if scope == "run" else "of the jobs the last run listed" }}, {{ last_run | ago }}</span></div>
+  <div class="card kpi"><span class="label">No title word</span><span class="value">{{ "{:,}".format(reasons["title"]) }}</span>
+    <span class="hint">none of your title words in the title</span></div>
+  <div class="card kpi"><span class="label">Excluded word</span><span class="value">{{ "{:,}".format(reasons["excluded title"]) }}</span>
+    <span class="hint">a word you ruled out</span></div>
+  <div class="card kpi"><span class="label">{{ icon("map-pin") }} Place</span><span class="value">{{ "{:,}".format(reasons["location"]) }}</span>
+    <span class="hint">not in your places</span></div>
+</section>
+
+<div class="filter-grid">
+  <section class="card">
+    <div class="card-head"><h2>Words in titles you didn't match</h2><span class="hint">common in the dropped titles</span></div>
+    {% if titles %}
+    <table class="table">
+      <thead><tr><th>Word or phrase</th><th class="r">In titles</th><th class="r">Would be scored</th><th></th></tr></thead>
+      <tbody>
+        {% for t in titles %}
+        <tr><td><b>{{ t.phrase }}</b></td><td class="r">{{ t.titles }}</td><td class="r">{{ t.passing }}</td>
+          <td class="r">{{ filter_button("add", "title_include", t.phrase, "Add to titles",
+              confirm=("Add “%s”? It lets %d jobs through: about %d scoring calls in the next run."
+                       | format(t.phrase, t.passing, (t.passing / batch_size) | round(0, "ceil") | int)) if t.passing > 100 else "") }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="hint card-foot">"Would be scored" leaves out jobs your excluded words or places still drop.</p>
+    {% else %}<p class="empty-state small">Nothing common enough to suggest.</p>{% endif %}
+  </section>
+
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><h2>Excluded words that matched</h2></div>
+      {% if words %}
+      <table class="table">
+        <tbody>
+          {% for word, n in words.most_common(10) %}
+          <tr><td><b>{{ word }}</b></td><td class="r">{{ n }} job{{ "" if n == 1 else "s" }}</td>
+            <td class="r">{{ filter_button("remove", "title_exclude", word, "Stop excluding") }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}<p class="card-body muted small">None of your excluded words dropped a job here.</p>{% endif %}
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>Places you don't list</h2></div>
+      {% if places %}
+      <table class="table">
+        <tbody>
+          {% for p in places %}
+          <tr><td><b>{{ p.place }}</b></td><td class="r">{{ p.jobs }} job{{ "" if p.jobs == 1 else "s" }}</td>
+            <td class="r">{{ filter_button("add", "locations", p.place, "Add place") }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}<p class="card-body muted small">No job was dropped for its location.</p>{% endif %}
+    </section>
+  </div>
+</div>
+
+<div class="page-head section-gap" style="margin-bottom: 12px">
+  <h2>The dropped jobs <span class="hint">{% if dropped | length > 400 %}first 400 of {{ "{:,}".format(dropped | length) }}{% else %}{{ dropped | length }}{% endif %}</span></h2>
+  <input class="filter-input" type="search" placeholder="Filter" aria-label="Filter dropped jobs" data-filter="#dropped">
+</div>
+<div class="card table-wrap">
+<table class="table" id="dropped">
+  <thead><tr><th>Role</th><th>Company</th><th>Location</th><th>Why</th></tr></thead>
+  <tbody>
+    {% for d in dropped[:400] %}
+    <tr>
+      <td><a href="{{ d.url }}" target="_blank" rel="noopener noreferrer">{{ d.title }}</a></td>
+      <td class="nowrap">{{ d.company }}</td>
+      <td class="note">{{ d.location | truncate(60, true, "…") }}</td>
+      <td class="nowrap">{% if d.reason == "title" %}<span class="pill">no title word</span>
+        {% elif d.reason == "excluded title" %}<span class="pill">excluded: {{ d.word }}</span>
+        {% else %}<span class="pill">place</span>{% endif %}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="4" class="muted">Nothing was filtered out.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, mono %}
+{% block title %}Sources · Shortlist{% endblock %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <h1>Sources</h1>
+    <p class="lede">Where jobs come from: {{ boards | length }} job boards and {{ sites | length }} careers pages, read politely
+      (robots.txt respected, about one request per second per site).</p>
+  </div>
+</header>
+
+<section class="stats-strip">
+  <div class="card kpi"><span class="label">{{ icon("check") }} Boards found</span><span class="value">{{ site_status.board }}</span>
+    <span class="hint">careers pages with a job board</span></div>
+  <div class="card kpi"><span class="label">{{ icon("file") }} Recipes</span><span class="value">{{ site_status.recipe }}</span>
+    <span class="hint">pages read with CSS selectors</span></div>
+  <div class="card kpi"><span class="label">{{ icon("alert") }} Unsupported</span><span class="value">{{ site_status.unsupported }}</span>
+    <span class="hint">blocked or unreadable</span></div>
+  <div class="card kpi"><span class="label">{{ icon("activity") }} Boards silent</span><span class="value">{{ empty_boards }}</span>
+    <span class="hint">no jobs in the latest run</span></div>
+</section>
+
+<section class="card pad">
+  <h2>Add a careers page</h2>
+  <p class="hint" style="margin: 4px 0 12px">Shortlist finds the job board behind it, or writes a recipe for it, and remembers the result.</p>
+  <form class="add-form" hx-post="/sources/career-pages">
+    <input name="name" placeholder="Company name" required aria-label="Company name">
+    <input name="url" type="url" placeholder="https://company.com/careers" required aria-label="Careers page URL">
+    <button class="btn primary" type="submit">{{ icon("plus") }} Add and discover</button>
+  </form>
+</section>
+
+<div class="page-head section-gap" style="margin-bottom: 12px">
+  <h2>Careers pages <span class="hint">{{ sites | length }}</span></h2>
+  <input class="filter-input" type="search" placeholder="Filter" aria-label="Filter careers pages" data-filter="#sites">
+</div>
+<div class="card table-wrap">
+<table class="table" id="sites">
+  <thead><tr><th>Company</th><th>Found</th><th class="r">Model calls</th><th>Health</th><th>Notes</th><th></th></tr></thead>
+  <tbody>
+    {% for s in sites %}{% set r = s.row %}
+    <tr>
+      <td class="nowrap"><a href="{{ s.url }}" target="_blank" rel="noopener noreferrer">{{ s.name }}</a></td>
+      <td class="found">
+        {% if not r %}<span class="status pending">waiting for the next run</span>
+        {% elif r.status == "board" %}<span class="status ok"><code>{{ r.board }}</code></span>
+        {% elif r.status == "recipe" %}<span class="status recipe">CSS recipe</span>
+        {% else %}<span class="status bad">unsupported</span>{% endif %}
+      </td>
+      <td class="r">{{ r.agent_calls if r else "" }}</td>
+      <td class="nowrap">
+        {% if r and r.status != "unsupported" %}
+          {% if r.empty_runs %}<span class="status warn">empty {{ r.empty_runs }}×</span>
+          {% elif r.last_ok %}<span class="status ok">ok</span> <span class="hint">{{ r.last_ok | ago }}</span>
+          {% else %}<span class="hint">no run yet</span>{% endif %}
+        {% endif %}
+      </td>
+      <td class="note">{{ (r.note or "")[:160] if r else "" }}</td>
+      <td class="r"><button class="icon-btn" hx-post="/sources/rediscover" hx-vals='{"name": {{ s.name | tojson }}}'
+                            title="Rediscover: work out how to read this page again" aria-label="Rediscover {{ s.name }}">{{ icon("refresh") }}</button></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="muted">No careers pages yet. Add one above, or follow a company pack in Settings.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<div class="page-head section-gap" style="margin-bottom: 12px">
+  <h2>Job boards <span class="hint">{{ boards | length }}</span></h2>
+  <input class="filter-input" type="search" placeholder="Filter" aria-label="Filter job boards" data-filter="#boards">
+</div>
+<div class="card table-wrap">
+<table class="table" id="boards">
+  <thead><tr><th>Company</th><th>Board</th><th class="r">Stored</th><th class="r">Seen last run</th><th class="r">Scored</th><th>Last seen</th></tr></thead>
+  <tbody>
+    {% for b in boards %}
+    <tr>
+      <td class="nowrap">{{ mono(b.company, "sm") }} {{ b.company }}</td>
+      <td><code>{{ b.ats }}:{{ b.slug }}</code></td>
+      <td class="r">{{ "{:,}".format(b.stored) }}</td>
+      <td class="r">{% if b.seen_last_run %}{{ "{:,}".format(b.seen_last_run) }}{% else %}<span class="status warn">0</span>{% endif %}</td>
+      <td class="r">{{ b.scored }}</td>
+      <td class="hint nowrap">{{ b.last_seen | ago }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% if listings or html_boards %}
+<section class="card pad section-gap">
+  <h2>Other sources</h2>
+  <ul class="facts" style="padding-left: 18px; margin: 10px 0 0">
+    {% for l in listings %}<li>GitHub job list: <a href="{{ l.url }}" target="_blank" rel="noopener noreferrer">{{ l.name }}</a></li>{% endfor %}
+    {% for b in html_boards %}<li>Page search: <a href="{{ b.url }}" target="_blank" rel="noopener noreferrer">{{ b.name }}</a>{% if b.render %} <span class="hint">(rendered in a browser)</span>{% endif %}</li>{% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

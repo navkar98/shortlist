@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, ring, mono %}
+{% block title %}Overview · Shortlist{% endblock %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <p class="eyebrow">{{ greeting }}</p>
+    <h1>{% if kpi.waiting %}{{ kpi.waiting }} strong match{{ "" if kpi.waiting == 1 else "es" }} waiting for you{% else %}You're all caught up{% endif %}</h1>
+    <p class="lede">
+      {% if last_run %}Last run {{ last_run.started_at | ago }}: {{ "{:,}".format(last_run.jobs_fetched) }} jobs checked,
+        {{ last_run.first_seen or 0 }} new, {{ last_run.scored or 0 }} scored{% if last_run.exit_code %}, <span class="accent">ended with an error</span>{% endif %}.
+      {% else %}No runs yet. Start one to fetch and score jobs.{% endif %}
+    </p>
+  </div>
+  <div class="actions">
+    <button class="btn" hx-post="/runs" hx-vals='{"kind": "dry"}' title="Score new jobs and print the digest without sending it">{{ icon("eye") }} Dry run</button>
+    <button class="btn primary" hx-post="/runs" hx-vals='{"kind": "real"}' hx-confirm="Run now and send the digest of new matches?" data-confirm-ok="Run now">{{ icon("play") }} Run now</button>
+  </div>
+</header>
+
+<section class="kpis">
+  <a class="card kpi feature" href="/matches">
+    <span class="label">{{ icon("inbox") }} Waiting for you</span>
+    <span class="value">{{ kpi.waiting or 0 }}</span>
+    <span class="hint">scored {{ min_score }}+ and not acted on</span>
+  </a>
+  <div class="card kpi">
+    <span class="label">{{ icon("trending") }} Strong this week</span>
+    <span class="value">{{ kpi.strong_week or 0 }}</span>
+    <span class="hint">of {{ "{:,}".format(kpi.scored_week or 0) }} new jobs scored</span>
+  </div>
+  <a class="card kpi" href="/tracker">
+    <span class="label">{{ icon("send") }} Applied</span>
+    <span class="value">{{ kpi.applied or 0 }}</span>
+    <span class="hint">applied, interviewing, or offer</span>
+  </a>
+  <a class="card kpi" href="/tracker">
+    <span class="label">{{ icon("star") }} Interviews</span>
+    <span class="value">{{ kpi.interviewing or 0 }}</span>
+    <span class="hint">interviewing or offer</span>
+  </a>
+</section>
+
+<div class="overview-grid">
+  <section class="card">
+    <div class="card-head"><h2>Best new matches</h2><a href="/matches">All matches →</a></div>
+    {% if top %}
+    <div class="list" style="border: 0; box-shadow: none; border-radius: 0 0 var(--radius) var(--radius); border-top: 1px solid var(--line)">
+      {% for r in top %}{% set since = "" %}{% include "_match.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">{{ icon("inbox", "big") }}<h3>Nothing waiting</h3><p>New jobs that score {{ min_score }}+ show up here after the next run.</p></div>
+    {% endif %}
+  </section>
+
+  <div class="stack">
+    <section class="card">
+      <div class="card-head"><h2>Score distribution</h2><span class="hint">{{ "{:,}".format(kpi.scored or 0) }} scored</span></div>
+      <div class="card-body">
+        {% set peak = [buckets | max, 1] | max %}
+        <svg class="chart" viewBox="0 0 300 97" preserveAspectRatio="none" role="img" aria-label="How many jobs scored in each range of 10 points">
+          {% for n in buckets %}{% set h = (n / peak * 88) | round(1) %}
+          <rect class="{{ 'hi' if loop.index0 * 10 >= (min_score // 10) * 10 }}" x="{{ loop.index0 * 30 + 2 }}" y="{{ 96 - h }}" width="26" height="{{ [h, 1.5] | max }}"><title>{{ loop.index0 * 10 }}–{{ loop.index0 * 10 + 9 }}: {{ n }} jobs</title></rect>
+          {% endfor %}
+          <line x1="0" y1="96.5" x2="300" y2="96.5"/>
+        </svg>
+        <div class="axis">{% for label in [0, 20, 40, 60, 80, 100] %}<span>{{ label }}</span>{% endfor %}</div>
+        <p class="hint">Highlighted: {{ min_score }} and above, the ones you're notified about.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Strong matches per day</h2><span class="hint">last 14 days</span></div>
+      <div class="card-body">
+        {% set peak = [daily | map(attribute=1) | max, 1] | max %}
+        <svg class="chart short" viewBox="0 0 300 71" preserveAspectRatio="none" role="img" aria-label="New jobs scoring {{ min_score }} or more, per day">
+          {% for day, n in daily %}{% set h = (n / peak * 64) | round(1) %}
+          <rect class="{{ 'hi' if n }}" x="{{ loop.index0 * 21.4 + 1 }}" y="{{ 70 - h }}" width="17" height="{{ [h, 1.5] | max }}"><title>{{ day.strftime("%b %d") }}: {{ n }}</title></rect>
+          {% endfor %}
+          <line x1="0" y1="70.5" x2="300" y2="70.5"/>
+        </svg>
+        <div class="axis"><span>{{ daily[0][0].strftime("%b %d") }}</span><span>today</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Your pipeline</h2><a href="/tracker">Applications →</a></div>
+      <div class="card-body">
+        {% set stages_shown = ["saved", "applied", "interviewing", "offer"] %}
+        {% set counts_list = [] %}{% for s in stages_shown %}{% set _ = counts_list.append(funnel.get(s, 0)) %}{% endfor %}
+        {% set top_count = [counts_list | max, 1] | max %}
+        {% if counts_list | sum %}
+        <div class="funnel">
+          {% for s in stages_shown %}{% set n = funnel.get(s, 0) %}
+          <div class="funnel-row stage-{{ s }}"><span>{{ stage_labels[s] }}</span>
+            <span class="funnel-bar"><i style="width: {{ (n / top_count * 100) | round(1) }}%"></i></span><b class="num">{{ n }}</b></div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="muted small">Save or apply to jobs from Matches (press <kbd>S</kbd> or <kbd>A</kbd> on a selected job) and your pipeline fills in here.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Schedule</h2><a href="/runs">Runs →</a></div>
+      <div class="card-body facts">
+        <div><span>Runs a day, at most</span><b>{{ schedule.max_runs_per_day }}</b></div>
+        <div><span>Hours between runs, at least</span><b>{{ "%g" | format(schedule.min_hours_between_runs) }}</b></div>
+        <div><span>Last run</span><b>{{ (last_run.started_at | ago) if last_run else "never" }}</b></div>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

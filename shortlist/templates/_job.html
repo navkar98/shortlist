@@ -1,0 +1,73 @@
+{% from "_ui.html" import icon, ring, mono, feedback_button %}
+<div class="drawer-inner" hx-get="/jobs/{{ job.id }}" hx-trigger="jobChanged from:body" hx-target="#drawer">
+  <header class="drawer-head band-{{ job.score | band }}">
+    {{ ring(job.score, "lg") }}
+    <div>
+      <p class="eyebrow">{{ mono(job.company, "sm") }} {{ job.company }}</p>
+      <h2>{{ job.title }}</h2>
+      <div class="meta">{% if job.location %}<span>{{ icon("map-pin") }} {{ job.location }}</span>{% endif %}</div>
+    </div>
+    <button class="icon-btn" type="button" data-close-drawer aria-label="Close (Esc)" title="Close (Esc)">{{ icon("x") }}</button>
+  </header>
+
+  <div class="drawer-body">
+    <div class="drawer-bar">
+      <a class="btn primary" href="{{ job.url }}" target="_blank" rel="noopener noreferrer">Open the posting {{ icon("external-link") }}</a>
+      <div class="actions">
+        <span class="hint">Fit?</span>
+        {{ feedback_button(job, "good", 1, "Good fit", "thumbs-up") }}
+        {{ feedback_button(job, "bad", -1, "Poor fit", "thumbs-down") }}
+      </div>
+    </div>
+
+    {% if job.closed %}
+    <div class="callout muted">{{ icon("clock") }}<div><b>No longer listed.</b> Its board stopped showing this posting; it was last
+      seen {{ job.last_seen | ago }}. It may have closed.</div></div>
+    {% endif %}
+
+    {% if job.result.one_line_reason %}
+    <section class="why band-{{ job.score | band }}"><h3>Why this score</h3><blockquote>{{ job.result.one_line_reason }}</blockquote></section>
+    {% endif %}
+
+    {% if job.result.dealbreakers %}
+    <div class="callout warn">{{ icon("alert") }}
+      <div><b>Dealbreakers</b><div>{% for s in job.result.dealbreakers %}<span class="chip bad">{{ s }}</span>{% endfor %}</div></div>
+    </div>
+    {% endif %}
+
+    <div class="grid2">
+      <section><h3>You have</h3>
+        {% for s in job.result.matched_skills or [] %}<span class="chip ok">{{ s }}</span>{% else %}<span class="muted small">none listed</span>{% endfor %}
+      </section>
+      <section><h3>Missing</h3>
+        {% for s in job.result.missing_skills or [] %}<span class="chip miss">{{ s }}</span>{% else %}<span class="muted small">none listed</span>{% endfor %}
+      </section>
+    </div>
+
+    <section><h3>Stage</h3>
+      <div class="stage-picker" role="radiogroup" aria-label="Stage">
+        {% for s in stages %}
+        <label class="stage-{{ s }}"><input type="radio" name="stage" value="{{ s }}" {{ "checked" if s == job.stage }}
+               hx-post="/jobs/{{ job.id }}/track" hx-trigger="change" hx-swap="none"><span>{{ stage_labels[s] }}</span></label>
+        {% endfor %}
+      </div>
+      {% if job.applied_at %}<p class="hint" style="margin-top: 8px">Applied {{ job.applied_at | ago }} ({{ job.applied_at | fromiso }})</p>{% endif %}
+    </section>
+
+    <section><h3>Notes <span class="saved-hint" data-saved-hint>{{ icon("check") }} Saved</span></h3>
+      <textarea name="notes" rows="4" aria-label="Notes" placeholder="Referral, contacts, interview dates, what to mention…"
+                hx-post="/jobs/{{ job.id }}/track" hx-trigger="input changed delay:700ms" hx-swap="none">{{ job.notes }}</textarea>
+    </section>
+
+    <section><h3>Description</h3>
+      {% if job.description %}
+      <div class="desc {{ 'clamped' if job.description | length > 900 }}" id="desc-{{ job.id }}">{{ job.description }}</div>
+      {% if job.description | length > 900 %}<button class="btn ghost sm" type="button" data-expand="desc-{{ job.id }}">Show the full description</button>{% endif %}
+      {% else %}
+      <p class="muted small">Not stored for jobs scored before descriptions were kept. Open the posting to read it.</p>
+      {% endif %}
+    </section>
+
+    <footer class="drawer-foot">First seen {{ job.first_seen | ago }} · scored {{ job.scored_at | ago }} · <code>{{ job.ats }}:{{ job.slug }}</code></footer>
+  </div>
+</div>

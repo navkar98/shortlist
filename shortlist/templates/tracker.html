@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, mono %}
+{% block title %}Applications · Shortlist{% endblock %}
+{% block main %}
+{% set tracked = columns.values() | map("length") | sum %}
+<header class="page-head">
+  <div>
+    <h1>Applications</h1>
+    <p class="lede">{% if tracked %}{{ counts.tracker }} in play · drag a card to another column to move it{% else %}Every job you save or apply to, by stage{% endif %}</p>
+  </div>
+  <a class="btn" href="/tracker.csv">{{ icon("download") }} Export CSV</a>
+</header>
+
+{% if not tracked %}
+<div class="card intro">{{ icon("bookmark", "big") }}
+  <div><b>Nothing tracked yet.</b>
+    <p class="muted">On <a href="/matches">Matches</a>, select a job and press <kbd>S</kbd> to save it or <kbd>A</kbd> when you've applied.
+      It lands here, and you can drag it along as things move.</p></div>
+</div>
+{% endif %}
+
+{% macro column(stage, cards) %}
+  <section class="column stage-{{ stage }}" data-stage="{{ stage }}" aria-label="{{ stage_labels[stage] }}">
+    <header class="column-head"><span class="dot"></span>{{ stage_labels[stage] }}<span class="count">{{ cards | length }}</span></header>
+    {% for c in cards %}
+    <article class="tcard {{ 'closed' if c.closed }}" draggable="true" data-job="{{ c.id }}">
+      <div class="tcard-top">{{ mono(c.company, "sm") }}<span class="company">{{ c.company }}</span>
+        {% if c.score is not none %}<span class="score-pill band-{{ c.score | band }}">{{ c.score }}</span>{% endif %}</div>
+      <a href="#" class="tcard-title" hx-get="/jobs/{{ c.id }}" hx-target="#drawer">{{ c.title }}</a>
+      {% if c.closed %}<div class="tcard-meta"><span class="pill closed">Closed</span> no longer listed, last seen {{ c.last_seen | ago }}</div>{% endif %}
+      {% if c.applied_at %}<div class="tcard-meta">{{ icon("send") }} applied {{ c.applied_at | ago }}</div>
+      {% else %}<div class="tcard-meta">{{ icon("clock") }} updated {{ c.updated_at | ago }}</div>{% endif %}
+      {% if c.notes %}<p class="tcard-notes">{{ c.notes | truncate(140, true, "…") }}</p>{% endif %}
+      <select class="move" name="stage" aria-label="Move to stage" hx-post="/jobs/{{ c.id }}/track" hx-trigger="change" hx-swap="none">
+        {% for s in stages %}<option value="{{ s }}" {{ "selected" if s == c.stage }}>{{ stage_labels[s] }}</option>{% endfor %}
+      </select>
+    </article>
+    {% else %}
+    <div class="drop-hint">Drop jobs here</div>
+    {% endfor %}
+  </section>
+{% endmacro %}
+<div id="pipeline" hx-get="/tracker" hx-trigger="jobChanged from:body" hx-select="#pipeline" hx-target="this" hx-swap="outerHTML">
+  <div class="board">{% for stage in ["saved", "applied", "interviewing", "offer"] %}{{ column(stage, columns[stage]) }}{% endfor %}</div>
+  <h2 class="closed-title">Closed <span class="hint">{{ columns.rejected | length + columns.not_interested | length }}</span></h2>
+  <div class="board closed">{% for stage in ["rejected", "not_interested"] %}{{ column(stage, columns[stage]) }}{% endfor %}</div>
+</div>
+{% endblock %}

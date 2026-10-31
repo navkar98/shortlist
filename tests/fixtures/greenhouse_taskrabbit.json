@@ -1,0 +1,225 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/taskrabbit/jobs/8234605",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3563192,
+   "location": {
+    "name": "San Francisco, California, United States"
+   },
+   "metadata": null,
+   "id": 8234605,
+   "updated_at": "2026-10-09T19:09:11-04:00",
+   "requisition_id": "421",
+   "title": "Analytics Engineer",
+   "company_name": "Taskrabbit",
+   "first_published": "2026-09-28T12:44:51-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;About Taskrabbit:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;Taskrabbit is a marketplace platform that conveniently connects people with Taskers to handle everyday home to-do’s, such as furniture assembly, handyman work, moving help, and much more.&lt;/p&gt;\n&lt;p&gt;At Taskrabbit, we want to transform lives one task at a time. As a company we celebrate innovation, inclusion and hard work. Our culture is collaborative, pragmatic, and fast-paced. We’re looking for talented, entrepreneurially minded and data-driven people who also have a passion for helping people do what they love.&amp;nbsp;Together with IKEA, we’re creating more opportunities for people to earn a consistent, meaningful income on their own terms by building lasting relationships with clients in communities around the world.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is a hybrid company with employees distributed across the US and EU and a Built In — Best Places to Work (2022, 2023, 2024, 2025) continually ranked across multiple national and regional categories. Join us at Taskrabbit, where your work will be meaningful, your ideas valued, and your potential unleashed!&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Prior to applying please note:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;We are currently unable to provide visa sponsorship for this position (including H-1B, OPT, F1, CPT or other employment-based visas). Candidates must be legally authorized to work in the United States without employer sponsorship now or in the future.&lt;/li&gt;\n&lt;li&gt;This role is hybrid, requiring 2 days in office at our San Francisco hub every Tuesday &amp;amp; Wednesday (located at 130 Sutter St, San Francisco, CA).&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;About the Role&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;Taskrabbit&#39;s Data Engineering team is looking for a Senior Analytics Engineer to build and maintain the data models that power decision-making across the company. You&#39;ll sit at the intersection of data engineering and analytics — turning raw data into trusted, well-documented datasets that business teams rely on every day. This is a hands-on, individual-contributor role: you&#39;ll own key parts of the data model layer end to end, partnering closely with data engineers, analysts, and business stakeholders to keep our metrics consistent and our warehouse trustworthy.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;What you will work on&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Design, build, and maintain scalable dbt models that transform raw data into clean, tested, well-documented datasets&lt;/li&gt;\n&lt;li&gt;Own key parts of the data model layer, from source to mart, ensuring consistency in business logic and metric definitions across the warehouse&lt;/li&gt;\n&lt;li&gt;Partner with data engineers, analysts, and business stakeholders to understand reporting needs and translate them into reliable data pipelines&lt;/li&gt;\n&lt;li&gt;Establish and enforce testing, documentation, and code review standards for dbt projects&lt;/li&gt;\n&lt;li&gt;Monitor data quality and freshness, and troubleshoot discrepancies when numbers don&#39;t match across reports&lt;/li&gt;\n&lt;li&gt;Improve query performance and warehouse efficiency as data volume grows&lt;/li&gt;\n&lt;li&gt;Mentor junior analytics engineers and contribute to team best practices and tooling decisions&lt;/li&gt;\n&lt;li&gt;Help define and maintain a single source of truth for core business metrics (e.g., GMV, completed tasks, take rate)&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Requirements + Areas of Expertise&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;2+ years of experience in analytics engineering, data engineering, or a related role, with deep hands-on experience in dbt and SQL&lt;/li&gt;\n&lt;li&gt;Strong understanding of dimensional modeling and data warehouse design (Snowflake, BigQuery, or Redshift experience preferred)&lt;/li&gt;\n&lt;li&gt;Experience with orchestration tools (e.g., Airflow, dbt Cloud) and version control (Git)&lt;/li&gt;\n&lt;li&gt;Working knowledge of Python for data pipeline development and automation&lt;/li&gt;\n&lt;li&gt;A track record of translating ambiguous business questions into clear, well-structured data models&lt;/li&gt;\n&lt;li&gt;Strong communication skills — able to explain technical tradeoffs to both engineers and non-technical stakeholders&lt;/li&gt;\n&lt;li&gt;Experience mentoring other engineers or leading technical projects&lt;/li&gt;\n&lt;li&gt;Familiarity with BI or semantic-layer tools such as Looker, Mode, or Tableau is a plus&lt;/li&gt;\n&lt;li&gt;Experience with marketplace or on-demand business models is a plus&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Compensation &amp;amp; Benefits:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;At Taskrabbit, our approach to compensation is designed to be competitive, transparent, and equitable. Total compensation consists of base pay + bonus + benefits + perks. The base pay range for this position is $110,000 - 145,000. This range is representative of base pay only, and does not include any other total cash compensation amounts, such as company bonus or benefits. Final offer amounts may vary from the amounts listed above and will be determined by factors including, but not limited to, relevant experience, qualifications, geography, and level.&lt;/p&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;You’ll love working here because:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Taskrabbit is a Hybrid Company.&lt;/strong&gt; We value flexibility and choice but also stay committed to regular in-person connection.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The People.&lt;/strong&gt; You will be surrounded by some of the most talented, supportive, smart, and kind leaders and teams -- people you can be proud to work with!&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Diverse Culture.&lt;/strong&gt; We believe that we make better decisions when our workforce reflects the diversity of the communities in which we operate. Women make up half of our leadership team and our diversity representation is above that of the tech industry average.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Perks.&lt;/strong&gt; Taskrabbit offers our employees with employer-paid health insurance and a 401k match with immediate vesting for our US based employees. We offer all of our global employees generous and flexible time off with 2 company-wide closure weeks, Taskrabbit product stipends, wellness + productivity + education stipends, IKEA discounts, reproductive health support, and more. &lt;strong&gt;Benefits vary by country of employment.&amp;nbsp;&lt;/strong&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;Taskrabbit’s commitment to Diversity and Inclusion:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;An Active Commitment to Equity within our Company and Platform. We are an inclusive community where all who share our mission and values belong. Our diverse team represents the communities we serve, breaking down systemic barriers, and transforming lives- one action at a time.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is an equal opportunity employer and values diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, ancestry, citizenship, sex, gender, gender identity, sexual orientation, age, marital status, military/veteran status, or disability status. Taskrabbit is committed to working with and providing reasonable accommodation to applicants with physical and mental disabilities. Taskrabbit will consider for employment all qualified applicants with criminal histories in a manner consistent with applicable law.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt;&lt;strong&gt;AI-Assisted Prescreening Notice [US Based Candidates Only]&lt;/strong&gt;: As part of our hiring process, we may use artificial intelligence tools to assist with the initial prescreening of applications and responses. This tool does not make hiring decisions — every application and response is reviewed by a member of our recruiting team to determine fit for the role. If you would prefer not to have your application processed using this tool, you may opt out by selecting &#39;opt out&#39; in the application form or by emailing&amp;nbsp;&lt;a href=&quot;mailto:careers@taskrabbit.com&quot;&gt;talentacquisition@taskrabbit.com&lt;/a&gt;, and your application will be reviewed manually with no impact on your candidacy.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 299617,
+     "name": "Data",
+     "child_ids": [],
+     "parent_id": 299615
+    }
+   ],
+   "offices": [
+    {
+     "id": 202219,
+     "name": "San Francisco, California, United States",
+     "location": "San Francisco, California, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/taskrabbit/jobs/8106057",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3511612,
+   "location": {
+    "name": "Madrid, Spain"
+   },
+   "metadata": null,
+   "id": 8106057,
+   "updated_at": "2026-09-24T16:09:43-04:00",
+   "requisition_id": "402",
+   "title": "Country Manager, Iberia",
+   "company_name": "Taskrabbit",
+   "first_published": "2026-08-10T14:40:05-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;About Taskrabbit:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;Taskrabbit is a marketplace platform that conveniently connects people with Taskers to handle everyday home to-do’s, such as furniture assembly, handyman work, moving help, and much more.&lt;/p&gt;\n&lt;p&gt;At Taskrabbit, we want to transform lives one task at a time. As a company we celebrate innovation, inclusion and hard work. Our culture is collaborative, pragmatic, and fast-paced. We’re looking for talented, entrepreneurially minded and data-driven people who also have a passion for helping people do what they love.&amp;nbsp;Together with IKEA, we’re creating more opportunities for people to earn a consistent, meaningful income on their own terms by building lasting relationships with clients in communities around the world.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is a hybrid company with employees distributed across the US and EU and a Built In — Best Places to Work (2022, 2023, 2024, 2025) continually ranked across multiple national and regional categories. Join us at Taskrabbit, where your work will be meaningful, your ideas valued, and your potential unleashed!&lt;/p&gt;&lt;/div&gt;&lt;h2&gt;&lt;strong&gt;About the Role&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;As a Country Manager, you will be responsible for delivering the country plan for Iberia and help drive the market to sustainable growth. You will report directly to the GM, Europe based in London where our European strategy is developed, and lead a small but mighty local team. This is a general management role spanning demand and supply management, working closely with the team to test and scale commercial and operational growth initiatives while ensuring we meet our budget and financial objectives.&amp;nbsp; You’ll also work closely with cross functional teams to achieve our ambitious commercial goals.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Join us in transforming lives, one task at a time.&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;What You’ll Work On&lt;/strong&gt;&lt;/h2&gt;\n&lt;h3&gt;Delivering our country plan for Spain and Portugal:&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;Across both sides of the marketplace, demand generation and supply balance.&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Localising the market strategy to deliver core commercial goals including revenue and contribution margin.&lt;/li&gt;\n&lt;li&gt;Champion Iberia&amp;nbsp; internally and collaborate with cross functional stakeholders to bring initiatives to life that drive market growth.&lt;/li&gt;\n&lt;li&gt;As a General Manager connect across all functions driving the Iberia business to identify opportunities for innovation, growth and efficiency.&lt;/li&gt;\n&lt;li&gt;Manage on-the-ground initiatives that optimise and improve local fulfillment, supply activation and client retention.&lt;/li&gt;\n&lt;li&gt;Identify and pursue potential external partners to help grow the Iberia business, in collaboration with the global partnerships team&lt;/li&gt;\n&lt;li&gt;Lead a small but mighty team comprised of Tasker Operations and Partner Management.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;Your Areas of Expertise&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Overall 8+ years of experience driving of experience in driving commercial growth of a business. Any experience in marketing, operations, business development, and/or P&amp;amp;L management is a plus&lt;/li&gt;\n&lt;li&gt;Demonstrated experience managing cross-functional teams, capable of overseeing multiple people across different functions and levels of seniority&lt;/li&gt;\n&lt;li&gt;Comfortable working heavily with data, and operating at a fast pace in an entrepreneurial environment. Experience working in a startup is a plus, especially a marketplace platform&lt;/li&gt;\n&lt;li&gt;Excellent communication and relationship building skills, and comfortable presenting to large groups regularly&lt;/li&gt;\n&lt;li&gt;An exceptional ability to balance creative thinking with strong business judgment and analytical skills&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Problem-solving abilities in both data-rich and data-poor environments; ability to both delve into the details and engage meaningfully on higher-level strategy&lt;/li&gt;\n&lt;li&gt;A natural inclination to take initiative and ownership, with the ability to independently navigate ambiguous situations and balance multiple priorities&lt;/li&gt;\n&lt;li&gt;Role includes some travel within Iberia and occasional travel to London and the US.&lt;/li&gt;\n&lt;li&gt;Fluent in Spanish and English&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Ideal (Nice to have skills)&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;An understanding of the dynamics underlying a two-sided or multi-sided marketplace&lt;/li&gt;\n&lt;li&gt;Experience working for a global brand&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;Compensation &amp;amp; Benefits:&amp;nbsp;&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;At Taskrabbit, our approach to compensation is designed to be competitive, transparent, and equitable. Total compensation consists of base pay + bonus + benefits + perks.&amp;nbsp;The base pay range for this position is &lt;span data-sheets-root=&quot;1&quot;&gt;€56,000-€80,000&lt;/span&gt;. This range is representative of base pay only, and does not include any other total cash compensation amounts, such as company bonus or benefits. Final offer amounts may vary from the amounts listed above and will be determined by factors including, but not limited to, relevant experience, qualifications, geography, and level.&lt;br&gt;&lt;br&gt;&lt;strong&gt;&lt;em&gt;Please note: The successful candidate will be employed via Rippling, acting as the Employer of Record (EOR), and will not be a direct employee of Taskrabbit.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;You’ll love working here because:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Taskrabbit is a Hybrid Company.&lt;/strong&gt; We value flexibility and choice but also stay committed to regular in-person connection.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The People.&lt;/strong&gt; You will be surrounded by some of the most talented, supportive, smart, and kind leaders and teams -- people you can be proud to work with!&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Diverse Culture.&lt;/strong&gt; We believe that we make better decisions when our workforce reflects the diversity of the communities in which we operate. Women make up half of our leadership team and our diversity representation is above that of the tech industry average.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Perks.&lt;/strong&gt; Taskrabbit offers our employees with employer-paid health insurance and a 401k match with immediate vesting for our US based employees. We offer all of our global employees generous and flexible time off with 2 company-wide closure weeks, Taskrabbit product stipends, wellness + productivity + education stipends, IKEA discounts, reproductive health support, and more. &lt;strong&gt;Benefits vary by country of employment.&amp;nbsp;&lt;/strong&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;Taskrabbit’s commitment to Diversity and Inclusion:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;An Active Commitment to Equity within our Company and Platform. We are an inclusive community where all who share our mission and values belong. Our diverse team represents the communities we serve, breaking down systemic barriers, and transforming lives- one action at a time.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is an equal opportunity employer and values diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, ancestry, citizenship, sex, gender, gender identity, sexual orientation, age, marital status, military/veteran status, or disability status. Taskrabbit is committed to working with and providing reasonable accommodation to applicants with physical and mental disabilities. Taskrabbit will consider for employment all qualified applicants with criminal histories in a manner consistent with applicable law.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt;&lt;strong&gt;AI-Assisted Prescreening Notice [US Based Candidates Only]&lt;/strong&gt;: As part of our hiring process, we may use artificial intelligence tools to assist with the initial prescreening of applications and responses. This tool does not make hiring decisions — every application and response is reviewed by a member of our recruiting team to determine fit for the role. If you would prefer not to have your application processed using this tool, you may opt out by selecting &#39;opt out&#39; in the application form or by emailing&amp;nbsp;&lt;a href=&quot;mailto:careers@taskrabbit.com&quot;&gt;talentacquisition@taskrabbit.com&lt;/a&gt;, and your application will be reviewed manually with no impact on your candidacy.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 299614,
+     "name": "Commercial",
+     "child_ids": [
+      2028,
+      299608,
+      299611,
+      83211,
+      299607,
+      83212,
+      135891,
+      135892,
+      83210,
+      299609,
+      299610,
+      135916,
+      299606,
+      86102
+     ],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 89958,
+     "name": "Remote Spain",
+     "location": "Madrid, Spain",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/taskrabbit/jobs/8196167",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3547121,
+   "location": {
+    "name": "London, England, United Kingdom"
+   },
+   "metadata": null,
+   "id": 8196167,
+   "updated_at": "2026-09-24T16:09:43-04:00",
+   "requisition_id": "414",
+   "title": "General Manager, UK",
+   "company_name": "Taskrabbit",
+   "first_published": "2026-09-23T12:26:49-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;About Taskrabbit:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;Taskrabbit is a marketplace platform that conveniently connects people with Taskers to handle everyday home to-do’s, such as furniture assembly, handyman work, moving help, and much more.&lt;/p&gt;\n&lt;p&gt;At Taskrabbit, we want to transform lives one task at a time. As a company we celebrate innovation, inclusion and hard work. Our culture is collaborative, pragmatic, and fast-paced. We’re looking for talented, entrepreneurially minded and data-driven people who also have a passion for helping people do what they love.&amp;nbsp;Together with IKEA, we’re creating more opportunities for people to earn a consistent, meaningful income on their own terms by building lasting relationships with clients in communities around the world.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is a hybrid company with employees distributed across the US and EU and a Built In — Best Places to Work (2022, 2023, 2024, 2025) continually ranked across multiple national and regional categories. Join us at Taskrabbit, where your work will be meaningful, your ideas valued, and your potential unleashed!&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Location: &lt;/strong&gt;London (hybrid working in office 2 days in central London)&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;About the Role:&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;As a General Manager, you will be responsible for leading the UK country team to grow the market, manage the country P&amp;amp;L, and hit targets for net revenue and contribution margin.&amp;nbsp;You will work closely with cross functional teams in setting a market strategy, alongside efficient tactical and operational plans to meet commercial goals, and produce strong propositions for both customers and taskers.&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;What You’ll Work On:&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;P&amp;amp;L responsibility for the UK business&lt;/li&gt;\n&lt;li&gt;Shape the UK strategy to deliver core commercial goals including revenue and contribution margin&lt;/li&gt;\n&lt;li&gt;Accountable for both sides of the marketplace: generating demand as well as ensuring strong supply health and task fulfilment&lt;/li&gt;\n&lt;li&gt;Responsible for value propositions on both sides of the marketplace&lt;/li&gt;\n&lt;li&gt;Directly manage the UK team that covers marketing, partnerships and tasker operations&lt;/li&gt;\n&lt;li&gt;Champion the UK business internally and as a general manager collaborate across functions to identify and bring to life opportunities that drive UK market growth.&lt;/li&gt;\n&lt;li&gt;Own local go-to-market strategy, including the development of city-specific GTM strategies and localisation of Taskrabbit’s offering as relevant&lt;/li&gt;\n&lt;li&gt;Drive local marketing ideas, initiatives, and channels to increase brand awareness, in partnership with the global marketing team&lt;/li&gt;\n&lt;li&gt;Identify and pursue potential external partners to help grow the UK business, in collaboration with the global partnerships team&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;8-10+ years of experience in driving commercial growth of a business. Any experience in marketing, business development, and/or P&amp;amp;L management is a plus&lt;/li&gt;\n&lt;li&gt;Demonstrated experience managing cross-functional teams, capable of overseeing multiple people across different functions and levels of seniority&lt;/li&gt;\n&lt;li&gt;Comfortable working heavily with data, and operating at a fast pace in an entrepreneurial environment. Experience working in a startup is a plus, especially a marketplace platform&lt;/li&gt;\n&lt;li&gt;Excellent communication and relationship building skills, and comfortable presenting to large groups regularly&lt;/li&gt;\n&lt;li&gt;An exceptional ability to balance creative thinking with strong business judgment and analytical skills&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Problem-solving abilities in both data-rich and data-poor environments; ability to both delve into the details and engage meaningfully on higher-level strategy&lt;/li&gt;\n&lt;li&gt;A natural inclination to take initiative and ownership, with the ability to independently navigate ambiguous situations and balance multiple priorities&lt;/li&gt;\n&lt;li&gt;Role includes some travel within the UK and occasional travel to the US.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Ideal (Nice to have skills)&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;An understanding of the dynamics underlying a two-sided marketplace&lt;/li&gt;\n&lt;li&gt;Experience working for a global brand&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;Compensation &amp;amp; Benefits:&amp;nbsp;&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;At Taskrabbit, our approach to compensation is designed to be competitive, transparent, and equitable. Total compensation consists of base pay + bonus + benefits + perks. The base pay range for this position is&amp;nbsp;£89,000-£115,000.&amp;nbsp;This range is representative of base pay only, and does not include any other total cash compensation amounts, such as company bonus or benefits. Final offer amounts may vary from the amounts listed above and will be determined by factors including, but not limited to, relevant experience, qualifications, geography, and level.&lt;/p&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;You’ll love working here because:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Taskrabbit is a Hybrid Company.&lt;/strong&gt; We value flexibility and choice but also stay committed to regular in-person connection.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The People.&lt;/strong&gt; You will be surrounded by some of the most talented, supportive, smart, and kind leaders and teams -- people you can be proud to work with!&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Diverse Culture.&lt;/strong&gt; We believe that we make better decisions when our workforce reflects the diversity of the communities in which we operate. Women make up half of our leadership team and our diversity representation is above that of the tech industry average.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Perks.&lt;/strong&gt; Taskrabbit offers our employees with employer-paid health insurance and a 401k match with immediate vesting for our US based employees. We offer all of our global employees generous and flexible time off with 2 company-wide closure weeks, Taskrabbit product stipends, wellness + productivity + education stipends, IKEA discounts, reproductive health support, and more. &lt;strong&gt;Benefits vary by country of employment.&amp;nbsp;&lt;/strong&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;Taskrabbit’s commitment to Diversity and Inclusion:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;An Active Commitment to Equity within our Company and Platform. We are an inclusive community where all who share our mission and values belong. Our diverse team represents the communities we serve, breaking down systemic barriers, and transforming lives- one action at a time.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is an equal opportunity employer and values diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, ancestry, citizenship, sex, gender, gender identity, sexual orientation, age, marital status, military/veteran status, or disability status. Taskrabbit is committed to working with and providing reasonable accommodation to applicants with physical and mental disabilities. Taskrabbit will consider for employment all qualified applicants with criminal histories in a manner consistent with applicable law.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt;&lt;strong&gt;AI-Assisted Prescreening Notice [US Based Candidates Only]&lt;/strong&gt;: As part of our hiring process, we may use artificial intelligence tools to assist with the initial prescreening of applications and responses. This tool does not make hiring decisions — every application and response is reviewed by a member of our recruiting team to determine fit for the role. If you would prefer not to have your application processed using this tool, you may opt out by selecting &#39;opt out&#39; in the application form or by emailing&amp;nbsp;&lt;a href=&quot;mailto:careers@taskrabbit.com&quot;&gt;talentacquisition@taskrabbit.com&lt;/a&gt;, and your application will be reviewed manually with no impact on your candidacy.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 299614,
+     "name": "Commercial",
+     "child_ids": [
+      2028,
+      299608,
+      299611,
+      83211,
+      299607,
+      83212,
+      135891,
+      135892,
+      83210,
+      299609,
+      299610,
+      135916,
+      299606,
+      86102
+     ],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 202221,
+     "name": "London, England, United Kingdom",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/taskrabbit/jobs/7781795",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3405803,
+   "location": {
+    "name": "New York, New York, United States; San Francisco, California, United States"
+   },
+   "metadata": null,
+   "id": 7781795,
+   "updated_at": "2026-10-13T12:41:40-04:00",
+   "requisition_id": "365",
+   "title": "Manager, Security Engineering ",
+   "company_name": "Taskrabbit",
+   "first_published": "2026-07-20T11:55:05-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;About Taskrabbit:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;Taskrabbit is a marketplace platform that conveniently connects people with Taskers to handle everyday home to-do’s, such as furniture assembly, handyman work, moving help, and much more.&lt;/p&gt;\n&lt;p&gt;At Taskrabbit, we want to transform lives one task at a time. As a company we celebrate innovation, inclusion and hard work. Our culture is collaborative, pragmatic, and fast-paced. We’re looking for talented, entrepreneurially minded and data-driven people who also have a passion for helping people do what they love.&amp;nbsp;Together with IKEA, we’re creating more opportunities for people to earn a consistent, meaningful income on their own terms by building lasting relationships with clients in communities around the world.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is a hybrid company with employees distributed across the US and EU and a Built In — Best Places to Work (2022, 2023, 2024, 2025) continually ranked across multiple national and regional categories. Join us at Taskrabbit, where your work will be meaningful, your ideas valued, and your potential unleashed!&lt;/p&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;This role operates on a hybrid schedule requiring two days of in-office collaboration per week.&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;h2&gt;About the Role&lt;/h2&gt;\n&lt;p&gt;Reporting to the Infrastructure Director of Engineering, you are a pragmatic security leader who acts as a business enabler rather than a gatekeeper. You thrive in a high-velocity, non-regulated environment where you must define &quot;what good looks like&quot; from scratch and drive security progress with a blend of strong planning skills and strong cross-functional partnerships.&lt;/p&gt;\n&lt;p&gt;You are a technical player-coach who manages the &quot;how&quot; behind engineering initiatives, providing direct guidance to a lean team which needs to navigate trade-offs between quality, depth, and delivery volume. You are just as comfortable planning core initiatives as you are writing a proposal for security program improvements. You have a proven track record of seamlessly integrating security controls within the Software Development Life Cycle (SDLC). Above all, you are a data-oriented communicator who uses relationship building to hold our security bar to a high standard for our customers and partners.&lt;/p&gt;\n&lt;h2&gt;What You&#39;ll Work On:&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Lead and develop a team of security engineers&lt;/strong&gt;, acting as a technical player-coach to manage deliverables, mentorship, and continuous learning. Lead the team through prioritization and tradeoffs to determine which initiatives provide the most meaningful impact.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Integrate foundational security tooling and automation&lt;/strong&gt; across data, infrastructure, and application layers working closely with engineering teams, IT, corporate security, legal and compliance.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Develop data-driven security strategies&lt;/strong&gt;, including OKRs, KPIs, and roadmaps, using clear written communication to advocate for security priorities during cross-functional planning.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Achieve compliance with security frameworks&lt;/strong&gt; (e.g. CIS, SOC2, GDPR), designing sustainable controls in partnership with internal teams.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Lead pragmatic incident response efforts&lt;/strong&gt;, focusing on investigation and resolution while continuously maturing our response plans and threat modeling.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Develop and implement security-related AI and machine learning solutions&lt;/strong&gt;, ensuring safe adoption while mitigating associated risks.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Drive cultural change through education&lt;/strong&gt;, acting as a security evangelist to help cross-functional partners understand risk and own security within their respective domains.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Govern the Security Engineering Program&lt;/strong&gt;, developing high-quality proposals and recommendations that align security decisions with Taskrabbit’s innovative business goals.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;Your Areas Of Expertise:&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;5+ years of experience building and managing security teams&lt;/strong&gt; in an agile, high-growth environment.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Proven track record working within copliance frameworks&lt;/strong&gt; (e.g., developing secure software in a SOC2 or GDPR compliant environment).&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Experience implementing a security framework &lt;/strong&gt;from scratch is a plus.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Strong technical &quot;Player-Coach&quot; ability&lt;/strong&gt;, with the comfort level to dive into technical initiatives and provide direct guidance to security engineers.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Exceptional written and verbal communication skills&lt;/strong&gt;, with a knack for telling the &quot;story&quot; of security through formal proposals, strategies, and risk presentations.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Pragmatic Risk Management:&lt;/strong&gt; Ability to handle moderate risk tolerance by focusing on business impact and customer trust rather than theoretical perfection.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Analytical and data-oriented mindset&lt;/strong&gt;, with experience designing metrics and KPIs that demonstrate the business value of security initiatives.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Expertise in influence-based leadership&lt;/strong&gt;, showing a history of driving security maturity in non-regulated industries through relationship building and alignment.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Deep knowledge of modern AI-assisted secure software development and deployment practices&lt;/strong&gt;, including cloud security, data security, and integrating security controls within the SDLC with experience leading incident response.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Experience with security governance for AI/ML systems&lt;/strong&gt; and a proactive approach to managing the risks inherent in emerging technologies.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Experience with security tooling implementation&lt;/strong&gt;: Direct experience implementing or leading the implementation of comprehensive security tooling&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;Compensation &amp;amp; Benefits:&amp;nbsp;&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;At Taskrabbit, our approach to compensation is designed to be competitive, transparent, and equitable. Total compensation consists of base pay + bonus + benefits + perks.&amp;nbsp;The base pay range for this position is $155,000 - $207,000. This range is representative of base pay only, and does not include any other total cash compensation amounts, such as company bonus or benefits. Final offer amounts may vary from the amounts listed above and will be determined by factors including, but not limited to, relevant experience, qualifications, geography, and level.&lt;/p&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;You’ll love working here because:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Taskrabbit is a Hybrid Company.&lt;/strong&gt; We value flexibility and choice but also stay committed to regular in-person connection.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The People.&lt;/strong&gt; You will be surrounded by some of the most talented, supportive, smart, and kind leaders and teams -- people you can be proud to work with!&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Diverse Culture.&lt;/strong&gt; We believe that we make better decisions when our workforce reflects the diversity of the communities in which we operate. Women make up half of our leadership team and our diversity representation is above that of the tech industry average.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;The Perks.&lt;/strong&gt; Taskrabbit offers our employees with employer-paid health insurance and a 401k match with immediate vesting for our US based employees. We offer all of our global employees generous and flexible time off with 2 company-wide closure weeks, Taskrabbit product stipends, wellness + productivity + education stipends, IKEA discounts, reproductive health support, and more. &lt;strong&gt;Benefits vary by country of employment.&amp;nbsp;&lt;/strong&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;span style=&quot;font-size: 18pt;&quot;&gt;&lt;strong&gt;Taskrabbit’s commitment to Diversity and Inclusion:&lt;/strong&gt;&lt;/span&gt;&lt;/h2&gt;\n&lt;p&gt;An Active Commitment to Equity within our Company and Platform. We are an inclusive community where all who share our mission and values belong. Our diverse team represents the communities we serve, breaking down systemic barriers, and transforming lives- one action at a time.&lt;/p&gt;\n&lt;p&gt;Taskrabbit is an equal opportunity employer and values diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, ancestry, citizenship, sex, gender, gender identity, sexual orientation, age, marital status, military/veteran status, or disability status. Taskrabbit is committed to working with and providing reasonable accommodation to applicants with physical and mental disabilities. Taskrabbit will consider for employment all qualified applicants with criminal histories in a manner consistent with applicable law.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;span style=&quot;font-size: 10pt;&quot;&gt;&lt;strong&gt;AI-Assisted Prescreening Notice [US Based Candidates Only]&lt;/strong&gt;: As part of our hiring process, we may use artificial intelligence tools to assist with the initial prescreening of applications and responses. This tool does not make hiring decisions — every application and response is reviewed by a member of our recruiting team to determine fit for the role. If you would prefer not to have your application processed using this tool, you may opt out by selecting &#39;opt out&#39; in the application form or by emailing&amp;nbsp;&lt;a href=&quot;mailto:careers@taskrabbit.com&quot;&gt;talentacquisition@taskrabbit.com&lt;/a&gt;, and your application will be reviewed manually with no impact on your candidacy.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 1759,
+     "name": "Engineering",
+     "child_ids": [],
+     "parent_id": 299615
+    }
+   ],
+   "offices": [
+    {
+     "id": 202219,
+     "name": "San Francisco, California, United States",
+     "location": "San Francisco, California, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  }
+ ],
+ "meta": {
+  "total": 19
+ }
+}

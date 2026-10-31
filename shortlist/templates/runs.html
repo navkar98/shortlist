@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon %}
+{% block title %}Runs · Shortlist{% endblock %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <h1>Runs</h1>
+    <p class="lede">Each run discovers new careers pages, fetches new jobs, scores them, and sends the digest. Runs started here
+      and scheduled runs never overlap.</p>
+  </div>
+  <div class="actions">
+    <button class="btn" hx-post="/runs" hx-vals='{"kind": "discover"}' title="Turn new careers pages into job boards now">{{ icon("globe") }} Discover</button>
+    <button class="btn" hx-post="/runs" hx-vals='{"kind": "dry"}' title="Score new jobs and print the digest without sending it">{{ icon("eye") }} Dry run</button>
+    <button class="btn primary" hx-post="/runs" hx-vals='{"kind": "real"}' hx-confirm="Run now and send the digest of new matches?" data-confirm-ok="Run now">{{ icon("play") }} Run now</button>
+  </div>
+</header>
+
+{% include "_activity.html" %}
+
+{% if chart %}
+<section class="card section-gap">
+  <div class="card-head"><h2>New jobs per run</h2><span class="hint">last {{ chart | length }} runs · darker: scored</span></div>
+  <div class="run-chart">
+    {% set peak = [chart | map(attribute="first_seen") | map("default", 0, true) | max, 1] | max %}
+    {% set step = 1000 / (chart | length) %}
+    <svg class="chart" viewBox="0 0 1000 91" preserveAspectRatio="none" role="img" aria-label="New and scored jobs in each recent run">
+      {% for r in chart %}{% set new = r.first_seen or 0 %}{% set scored = [r.scored or 0, new] | min %}
+      {% set h = (new / peak * 86) | round(1) %}{% set hs = (scored / peak * 86) | round(1) %}
+      <rect x="{{ loop.index0 * step + step * 0.18 }}" y="{{ 90 - h }}" width="{{ step * 0.64 }}" height="{{ [h, 1.5] | max }}"><title>{{ r.started_at | fromiso }}: {{ new }} new, {{ r.scored or 0 }} scored</title></rect>
+      {% if hs %}<rect class="hi" x="{{ loop.index0 * step + step * 0.18 }}" y="{{ 90 - hs }}" width="{{ step * 0.64 }}" height="{{ hs }}"/>{% endif %}
+      {% endfor %}
+      <line x1="0" y1="90.5" x2="1000" y2="90.5"/>
+    </svg>
+    <div class="axis"><span>{{ chart[0].started_at | ago }}</span><span>latest</span></div>
+  </div>
+</section>
+{% endif %}
+
+<section class="card table-wrap section-gap">
+<table class="table">
+  <thead><tr><th>Started</th><th>Kind</th><th class="r">Minutes</th><th class="r">Jobs checked</th><th class="r">New</th>
+    <th class="r">Scored</th><th class="r">Matches</th><th class="r">Sent</th><th>Result</th></tr></thead>
+  <tbody>
+    {% for r in runs %}
+    <tr>
+      <td class="nowrap" title="{{ r.started_at | fromiso }}">{{ r.started_at | ago }}</td>
+      <td>{{ "dry run" if r.dry_run else "run" }}</td>
+      <td class="r">{{ r.minutes if r.minutes is not none else "" }}</td>
+      <td class="r">{{ "{:,}".format(r.jobs_fetched) }}</td>
+      <td class="r">{{ r.first_seen if r.first_seen is not none else "" }}</td>
+      <td class="r">{{ r.scored if r.scored is not none else "" }}</td>
+      <td class="r">{{ r.matches if r.matches is not none else "" }}</td>
+      <td class="r">{{ r.sent if r.sent is not none else "" }}</td>
+      <td>{% if r.exit_code == 0 %}<span class="status ok">ok</span>{% else %}<span class="status bad">exit {{ r.exit_code }}</span>{% endif %}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="9" class="muted">No runs recorded yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</section>
+{% endblock %}

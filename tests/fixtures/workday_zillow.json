@@ -1,0 +1,799 @@
+{
+ "total": 168,
+ "jobPostings": [
+  {
+   "title": "Software Development Engineer - Intern",
+   "externalPath": "/job/Seattle-WA-2nd-Ave/Software-Development-Engineer---Intern_P751630",
+   "locationsText": "Seattle-WA-2nd Ave",
+   "postedOn": "Posted Today",
+   "bulletFields": [
+    "P751630"
+   ]
+  },
+  {
+   "title": "Senior Program Manager, People Data Access & Governance",
+   "externalPath": "/job/Remote-USA/Senior-Program-Manager--People-Data-Access---Governance_P751027-1",
+   "locationsText": "Remote-USA",
+   "postedOn": "Posted Today",
+   "bulletFields": [
+    "P751027"
+   ]
+  },
+  {
+   "title": "Senior Executive Assistant",
+   "externalPath": "/job/Remote-USA/Senior-Executive-Assistant_P751550",
+   "locationsText": "Remote-USA",
+   "postedOn": "Posted Today",
+   "bulletFields": [
+    "P751550"
+   ]
+  },
+  {
+   "title": "Applied Research Scientist, World Model",
+   "externalPath": "/job/Remote-USA/Applied-Research-Scientist--World-Model_P751552-1",
+   "locationsText": "Remote-USA",
+   "postedOn": "Posted Yesterday",
+   "bulletFields": [
+    "P751552"
+   ]
+  },
+  {
+   "title": "Principal Applied Scientist, Generative AI",
+   "externalPath": "/job/Remote-USA/Principal-Applied-Scientist--Agentic-AI_P747465",
+   "locationsText": "Remote-USA",
+   "postedOn": "Posted Yesterday",
+   "bulletFields": [
+    "P747465"
+   ]
+  }
+ ],
+ "facets": [
+  {
+   "facetParameter": "workerSubType",
+   "descriptor": "Job Type",
+   "values": [
+    {
+     "descriptor": "Regular",
+     "id": "156fb9a2f01c10bed80e140d011a9559",
+     "count": 165
+    },
+    {
+     "descriptor": "Intern (Trainee)",
+     "id": "156fb9a2f01c10bed80e178a5482955b",
+     "count": 3
+    }
+   ]
+  },
+  {
+   "facetParameter": "timeType",
+   "descriptor": "Time Type",
+   "values": [
+    {
+     "descriptor": "Full time",
+     "id": "156fb9a2f01c10be203b6e91581a01d1",
+     "count": 168
+    }
+   ]
+  },
+  {
+   "facetParameter": "jobFamilyGroup",
+   "descriptor": "Job Family Group",
+   "values": [
+    {
+     "descriptor": "Software Development",
+     "id": "4b6600ad1be61000704d2b8e410a0000",
+     "count": 40
+    },
+    {
+     "descriptor": "Mortgage And Real Estate Operations",
+     "id": "7814f9d175151000704b797e7cfe0000",
+     "count": 28
+    },
+    {
+     "descriptor": "Data Analytics And Insights",
+     "id": "bf82250bfd3b1000704ee8ed7c160000",
+     "count": 23
+    },
+    {
+     "descriptor": "Product Development And Design",
+     "id": "7814f9d175151000704b814ee07c0000",
+     "count": 21
+    },
+    {
+     "descriptor": "Marketing And Corporate Affairs",
+     "id": "4b6600ad1be61000704d138b411e0000",
+     "count": 14
+    },
+    {
+     "descriptor": "Systems And Network Operations",
+     "id": "274d1dd8b4cf1000704d748ea4200000",
+     "count": 13
+    },
+    {
+     "descriptor": "Business Operations",
+     "id": "7814f9d175151000704b27ce63b70000",
+     "count": 12
+    },
+    {
+     "descriptor": "Human Resources",
+     "id": "7814f9d175151000704b60d909650000",
+     "count": 5
+    },
+    {
+     "descriptor": "Interns",
+     "id": "7814f9d175151000704ba25abdbe0000",
+     "count": 3
+    },
+    {
+     "descriptor": "Demand And Acquisition Sales",
+     "id": "bf82250bfd3b1000704ef338609c0000",
+     "count": 3
+    },
+    {
+     "descriptor": "Customer And Client Service",
+     "id": "3f54b940644d10006ffae60b91e00000",
+     "count": 3
+    },
+    {
+     "descriptor": "Legal And Compliance",
+     "id": "4b6600ad1be61000704d0b21db4c0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Accounting And Finance",
+     "id": "bf82250bfd3b1000704ecabd213a0000",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "facetParameter": "jobFamily",
+   "descriptor": "Job Family",
+   "values": [
+    {
+     "descriptor": "Software Engineering",
+     "id": "3f54b940644d10006fb13bab77c90000",
+     "count": 30
+    },
+    {
+     "descriptor": "Mortgage Sales",
+     "id": "7814f9d1751510007001405b1e4d0000",
+     "count": 20
+    },
+    {
+     "descriptor": "Product Management",
+     "id": "7814f9d175151000700157d24ad40000",
+     "count": 12
+    },
+    {
+     "descriptor": "Applied Science",
+     "id": "3f54b940644d10006faf1c8f6d400000",
+     "count": 9
+    },
+    {
+     "descriptor": "Data Science",
+     "id": "274d1dd8b4cf10007001651c25b40000",
+     "count": 9
+    },
+    {
+     "descriptor": "Technical Program Management",
+     "id": "3f54b940644d10006fb1140366810000",
+     "count": 8
+    },
+    {
+     "descriptor": "Mobile Engineering",
+     "id": "3f54b940644d10006fb133db6c920000",
+     "count": 6
+    },
+    {
+     "descriptor": "Digital Marketing",
+     "id": "274d1dd8b4cf10007002c69c76ac0000",
+     "count": 6
+    },
+    {
+     "descriptor": "Frontline Support",
+     "id": "4b6600ad1be61000700097c064e10000",
+     "count": 6
+    },
+    {
+     "descriptor": "Information Systems",
+     "id": "bf82250bfd3b100070054c78731d0000",
+     "count": 5
+    },
+    {
+     "descriptor": "Marketing Operations",
+     "id": "4b6600ad1be6100070029f5244260000",
+     "count": 5
+    },
+    {
+     "descriptor": "Machine Learning Engineering",
+     "id": "4b6600ad1be610007003197423860000",
+     "count": 4
+    },
+    {
+     "descriptor": "Account and Relationship Management",
+     "id": "3f54b940644d10006faedcc49c780000",
+     "count": 3
+    },
+    {
+     "descriptor": "Information Security",
+     "id": "3f54b940644d10006fb14c8061ed0000",
+     "count": 3
+    },
+    {
+     "descriptor": "Intern",
+     "id": "7814f9d1751510007001c689fcf40000",
+     "count": 3
+    },
+    {
+     "descriptor": "Mortgage Operations",
+     "id": "7814f9d17515100070012e4eac150000",
+     "count": 3
+    },
+    {
+     "descriptor": "Mortgage Underwriting",
+     "id": "3f54b940644d10006fb0fc93a0b50000",
+     "count": 3
+    },
+    {
+     "descriptor": "Business Intelligence",
+     "id": "3f54b940644d10006faf24fa55f90000",
+     "count": 2
+    },
+    {
+     "descriptor": "Data Visualization",
+     "id": "7814f9d1751510006fff8aeaa35b0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Project/Program Management",
+     "id": "3f54b940644d10006faebbb369370000",
+     "count": 2
+    },
+    {
+     "descriptor": "Mortgages (Inactive)",
+     "id": "e3e2d3ad89cc010e522f0c317e19d832",
+     "count": 2
+    },
+    {
+     "descriptor": "Creative Services",
+     "id": "bf82250bfd3b1000700484eb72f00000",
+     "count": 2
+    },
+    {
+     "descriptor": "Talent Rewards",
+     "id": "4b6600ad1be61000700235f027c60000",
+     "count": 2
+    },
+    {
+     "descriptor": "Desktop Systems",
+     "id": "274d1dd8b4cf1000700372bc0f1c0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Talent Acquisition",
+     "id": "274d1dd8b4cf1000700265bb2c100000",
+     "count": 2
+    },
+    {
+     "descriptor": "Platform Sales",
+     "id": "3f54b940644d10006faf8b5080cc0000",
+     "count": 1
+    },
+    {
+     "descriptor": "HR Operations and Shared Services",
+     "id": "7814f9d17515100070006e549bf30000",
+     "count": 1
+    },
+    {
+     "descriptor": "Data Engineering",
+     "id": "4b6600ad1be6100070011a6aacbb0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Workforce Management",
+     "id": "4b6600ad1be610007000c1e8387c0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Enterprise Sales",
+     "id": "274d1dd8b4cf10007001966c54410000",
+     "count": 1
+    },
+    {
+     "descriptor": "Acquisition Sales",
+     "id": "274d1dd8b4cf100070018b98aeb30000",
+     "count": 1
+    },
+    {
+     "descriptor": "Administrative Services",
+     "id": "274d1dd8b4cf10007000b6c8d7ad0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Data Management",
+     "id": "bf82250bfd3b100070029a0d07b50000",
+     "count": 1
+    },
+    {
+     "descriptor": "Business Analysis",
+     "id": "bf82250bfd3b10007002889244500000",
+     "count": 1
+    },
+    {
+     "descriptor": "Accounting",
+     "id": "bf82250bfd3b10007002286b46d10000",
+     "count": 1
+    },
+    {
+     "descriptor": "Network Engineering",
+     "id": "3f54b940644d10006fb15c1ceed20000",
+     "count": 1
+    },
+    {
+     "descriptor": "Systems Programming",
+     "id": "bf82250bfd3b100070055c245de40000",
+     "count": 1
+    },
+    {
+     "descriptor": "UX Research",
+     "id": "bf82250bfd3b100070051c4242440000",
+     "count": 1
+    },
+    {
+     "descriptor": "Corporate and Stakeholder Engagement",
+     "id": "bf82250bfd3b100070047d138eb50000",
+     "count": 1
+    },
+    {
+     "descriptor": "Systems Project Management",
+     "id": "274d1dd8b4cf100070039b2022a70000",
+     "count": 1
+    },
+    {
+     "descriptor": "Legal Counsel",
+     "id": "274d1dd8b4cf10007002a14e95570000",
+     "count": 1
+    },
+    {
+     "descriptor": "Corporate and Regulatory Compliance",
+     "id": "3f54b940644d10006fb057321f6c0000",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "facetParameter": "Skills",
+   "descriptor": "Skills",
+   "values": [
+    {
+     "descriptor": "Collaboration & Influence",
+     "id": "25cc9e4c69b11001c026e2b9c1f80000",
+     "count": 13
+    },
+    {
+     "descriptor": "Communication & Active Listening",
+     "id": "25cc9e4c69b11001c026dcb7cd020000",
+     "count": 13
+    },
+    {
+     "descriptor": "AI & Data Literacy",
+     "id": "25cc9e4c69b11001c026ae6d9f0a0000",
+     "count": 13
+    },
+    {
+     "descriptor": "Curiosity & Lifelong Learning",
+     "id": "25cc9e4c69b11001c026a26553180000",
+     "count": 13
+    },
+    {
+     "descriptor": "Analytical Thinking & Problem-Solving",
+     "id": "25cc9e4c69b11001c026965cee3b0000",
+     "count": 13
+    },
+    {
+     "descriptor": "Empathy & Interpersonal Skills",
+     "id": "25cc9e4c69b11001c02690f144ef0000",
+     "count": 13
+    },
+    {
+     "descriptor": "Adaptability & Resilience",
+     "id": "25cc9e4c69b11001c0268a51af6b0000",
+     "count": 13
+    },
+    {
+     "descriptor": "Coaching & Development",
+     "id": "78059266d1c71001bfdc39075a010000",
+     "count": 4
+    },
+    {
+     "descriptor": "Cross-Functional Leadership",
+     "id": "bac81a75526f100164c4be5066d40000",
+     "count": 4
+    },
+    {
+     "descriptor": "Data Analysis",
+     "id": "bac81a75526f1001611843e150ac0000",
+     "count": 3
+    },
+    {
+     "descriptor": "Process Improvements",
+     "id": "bac81a75526f100161b3b7a599020000",
+     "count": 3
+    },
+    {
+     "descriptor": "Strategic Thinking",
+     "id": "bac81a75526f1001617867eed81e0000",
+     "count": 3
+    },
+    {
+     "descriptor": "Executive Stakeholder Influence",
+     "id": "ece41d214f961001c01f7bbd5e990000",
+     "count": 3
+    },
+    {
+     "descriptor": "Communication",
+     "id": "bac81a75526f100161520d60ce240000",
+     "count": 3
+    },
+    {
+     "descriptor": "Product Strategies",
+     "id": "bac81a75526f10016151f5d588e80000",
+     "count": 3
+    },
+    {
+     "descriptor": "Product Performance and Evaluation",
+     "id": "f0acd966e19c1001c1aeae72299f0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Feature/Product Specification",
+     "id": "f0acd966e19c1001c1a607c8dac60000",
+     "count": 2
+    },
+    {
+     "descriptor": "Managing Up and Across",
+     "id": "f0acd966e19c1001c19e2d5f5b4e0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Stakeholder and Dependency Management",
+     "id": "f0acd966e19c1001c19222ec8b4d0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Domain Expertise",
+     "id": "f0acd966e19c1001c18d2e26c4780000",
+     "count": 2
+    },
+    {
+     "descriptor": "User-Centered and Design Thinking",
+     "id": "f0acd966e19c1001c17dd5e27b620000",
+     "count": 2
+    },
+    {
+     "descriptor": "Fluency with Data",
+     "id": "f0acd966e19c1001c1759f9ca1840000",
+     "count": 2
+    },
+    {
+     "descriptor": "A/B Testing & Experimentation",
+     "id": "ce6cb4e5aebd1001c0422c4cc0990000",
+     "count": 2
+    },
+    {
+     "descriptor": "Data-Informed Decision-Making",
+     "id": "78059266d1c71001bfea1169e3730000",
+     "count": 2
+    },
+    {
+     "descriptor": "Voice of the Customer (VOC)",
+     "id": "310d169a83ba1001beaf18a990520000",
+     "count": 2
+    },
+    {
+     "descriptor": "Product Delivery",
+     "id": "bac81a75526f1001a8ee19c320690000",
+     "count": 2
+    },
+    {
+     "descriptor": "Content Development",
+     "id": "b8587374d99c100162fd9c56a19e0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Machine Learning (ML)",
+     "id": "e49930308985100171214891df4e0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Computer Coding",
+     "id": "bac81a75526f100162109fe9535b0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Leadership",
+     "id": "bac81a75526f10016114255dd7ae0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Stakeholder Management",
+     "id": "bac81a75526f1001620e9ce7b8e70000",
+     "count": 2
+    },
+    {
+     "descriptor": "Software Development",
+     "id": "bac81a75526f100161eeac93d1f20000",
+     "count": 2
+    },
+    {
+     "descriptor": "Data Science",
+     "id": "bac81a75526f1001610bdf3d5fa80000",
+     "count": 2
+    },
+    {
+     "descriptor": "Product Roadmapping",
+     "id": "bac81a75526f100163e5a492154c0000",
+     "count": 2
+    },
+    {
+     "descriptor": "Customer Engagement",
+     "id": "bac81a75526f1001617632962ab00000",
+     "count": 2
+    },
+    {
+     "descriptor": "Computer Architecture",
+     "id": "b8587374d99c100162fe9951ba990000",
+     "count": 2
+    },
+    {
+     "descriptor": "Statistical Analysis",
+     "id": "bac81a75526f10016180b30971f60000",
+     "count": 1
+    },
+    {
+     "descriptor": "Machine Learning Operations",
+     "id": "bac81a75526f100163f0994a931b0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Product Vision",
+     "id": "bac81a75526f100163e58240c4e20000",
+     "count": 1
+    },
+    {
+     "descriptor": "Social Listening",
+     "id": "b8587374d99c100163ca6a5a8c900000",
+     "count": 1
+    },
+    {
+     "descriptor": "Microservices Architecture",
+     "id": "bac81a75526f100163c6cc247ea50000",
+     "count": 1
+    },
+    {
+     "descriptor": "A/B Testing",
+     "id": "bac81a75526f100160e797b1a7e70000",
+     "count": 1
+    },
+    {
+     "descriptor": "Portfolio Management",
+     "id": "b8587374d99c100163ad9a8c79a80000",
+     "count": 1
+    },
+    {
+     "descriptor": "Quantitative Research",
+     "id": "b8587374d99c100163acbc77232a0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Research Ethics",
+     "id": "310d169a83ba10021da12ad4f60a0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Data Auditing",
+     "id": "b8587374d99c10021713c7a8d40c0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Prototyping",
+     "id": "b8587374d99c100163a2ebde78840000",
+     "count": 1
+    },
+    {
+     "descriptor": "CI/CD",
+     "id": "b8587374d99c100163987fa255bd0000",
+     "count": 1
+    },
+    {
+     "descriptor": "Customer Success",
+     "id": "b8587374d99c1001638f175d58040000",
+     "count": 1
+    },
+    {
+     "descriptor": "Computer Vision",
+     "id": "b8587374d99c10016380ea121d370000",
+     "count": 1
+    },
+    {
+     "descriptor": "Contact Center Operations",
+     "id": "2dfd16269aad1001efc9b49993c90000",
+     "count": 1
+    },
+    {
+     "descriptor": "Code Reviews",
+     "id": "bac81a75526f100163281046ad000000",
+     "count": 1
+    },
+    {
+     "descriptor": "Architectural Patterns",
+     "id": "310d169a83ba1001dff562dd71600001",
+     "count": 1
+    },
+    {
+     "descriptor": "Demand Forecasting",
+     "id": "bac81a75526f10016311280d15190000",
+     "count": 1
+    },
+    {
+     "descriptor": "Change Leadership",
+     "id": "310d169a83ba1001d5999997a5140000",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "facetParameter": "locationMainGroup",
+   "values": [
+    {
+     "facetParameter": "locations",
+     "descriptor": "Locations",
+     "values": [
+      {
+       "descriptor": "Atlanta-GA-Howell Mill Road",
+       "id": "344d14f4b8ae10011d6f569d77740000",
+       "count": 1
+      },
+      {
+       "descriptor": "Bengaluru",
+       "id": "9b18774ec0121001a5c9e2d47b3e0000",
+       "count": 43
+      },
+      {
+       "descriptor": "Chicago-IL-W Adams Street",
+       "id": "9b18774ec0121000b9fc2d7b3c930000",
+       "count": 1
+      },
+      {
+       "descriptor": "Irvine-CA-Michelson Dr",
+       "id": "76d84517207210c0ae042ac5d382e5f4",
+       "count": 1
+      },
+      {
+       "descriptor": "Mexico City",
+       "id": "12c6dfd7a5af100200864b2989040000",
+       "count": 30
+      },
+      {
+       "descriptor": "Philadelphia-PA-Market Street",
+       "id": "1b0638d8543a1000b99810895bc10000",
+       "count": 1
+      },
+      {
+       "descriptor": "Plano-TX-Legacy Dr.-ZHL",
+       "id": "f73933013bca1000cae95714cc960000",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-CA",
+       "id": "76d84517207210c0ae042f9587eae5fe",
+       "count": 2
+      },
+      {
+       "descriptor": "Remote-CO",
+       "id": "76d84517207210c0ae0442a9de8ae626",
+       "count": 2
+      },
+      {
+       "descriptor": "Remote-GA",
+       "id": "76d84517207210c0ae04474eae7ae630",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-Germany",
+       "id": "4b497acbd2771001f7a08fefca090000",
+       "count": 2
+      },
+      {
+       "descriptor": "Remote-HI",
+       "id": "1a0314c8d541102f4595291463afdf33",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-IL",
+       "id": "76d84517207210c0ae042d33d9cae5f9",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-IN",
+       "id": "0b71ea84e32410496457f7e3fa9302ac",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-KY",
+       "id": "f40b9d6c2e7e106cff91c34c402b0827",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-MD",
+       "id": "c8e2d13628e71058190200d0f7253703",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-MI",
+       "id": "76d84517207210c0ae04344cb6fae608",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-NM",
+       "id": "0b71ea84e324104963971e7add77027e",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-NV",
+       "id": "0b71ea84e3241049635ce99359620277",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-OR",
+       "id": "76d84517207210c0ae043e019fb2e61c",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-PA",
+       "id": "76d84517207210c0ae0449a1ba82e635",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-TX",
+       "id": "76d84517207210c0ae044056e60ae621",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-USA",
+       "id": "bf3166a9227a01f8b514f0b00b147bc9",
+       "count": 63
+      },
+      {
+       "descriptor": "Remote-VA",
+       "id": "0b71ea84e324104964deb3b4954702cf",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-VT",
+       "id": "6790e5159ef9012076d96fd1751d792f",
+       "count": 1
+      },
+      {
+       "descriptor": "Remote-WA",
+       "id": "76d84517207210c0ae04392fff1ae612",
+       "count": 1
+      },
+      {
+       "descriptor": "Seattle-WA-2nd Ave",
+       "id": "76d84517207210c0ae0423975342e5e5",
+       "count": 5
+      },
+      {
+       "descriptor": "Washington, DC-DC-Massachusetts Ave NW",
+       "id": "344d14f4b8ae10011db31aba5eee0000",
+       "count": 1
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "userAuthenticated": false
+}

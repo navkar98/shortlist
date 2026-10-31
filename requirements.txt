@@ -1,0 +1,10 @@
+beautifulsoup4==4.15.0
+fastapi==0.159.1
+httpx==0.28.1
+jinja2==3.1.6
+playwright==1.64.0  # optional: renders JavaScript-only pages; also run `python -m playwright install chromium`
+pydantic==2.14.1
+PyYAML==6.0.3
+python-dotenv==1.2.4
+python-multipart==0.0.32
+uvicorn==0.54.0

@@ -1,0 +1,15 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.db
+*.db-journal
+*.log
+scorer_workdir/*
+!scorer_workdir/.gitkeep
+config.yaml
+resume.md
+*.lock
+config.yaml.bak
+logs/
+CLAUDE.local.md

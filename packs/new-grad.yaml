@@ -1,0 +1,11 @@
+description: >-
+  The SimplifyJobs New-Grad-Positions list on GitHub: entry-level roles across many companies. Listings
+  have no description, so Shortlist fetches one for each new listing that passes your filters.
+
+# To keep only some categories, degrees, or sponsorship statuses, copy this entry into the
+# `github_listings` section of your config.yaml and add keep_categories, keep_degrees, or drop_sponsorship
+# (README: GitHub job lists). An entry in your config replaces the pack's entry with the same url.
+github_listings:
+  - name: SimplifyJobs new-grad
+    url: https://raw.githubusercontent.com/SimplifyJobs/New-Grad-Positions/dev/.github/scripts/listings.json
+    max_age_days: 120

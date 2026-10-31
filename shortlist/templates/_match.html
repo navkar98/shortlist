@@ -1,0 +1,25 @@
+{% from "_ui.html" import icon, ring, mono, track_button, feedback_button %}
+<article class="match" data-id="{{ r.id }}">
+  {{ ring(r.score) }}
+  {{ mono(r.company) }}
+  <div class="match-body">
+    <a href="{{ r.url }}" class="match-title" hx-get="/jobs/{{ r.id }}" hx-target="#drawer" data-action="open">{{ r.title }}</a>
+    <div class="meta">
+      <span class="company">{{ r.company }}</span>
+      {% if r.location %}<span class="loc" title="{{ r.location }}">{{ icon("map-pin") }}{{ r.location | truncate(70, true, "…") }}</span>{% endif %}
+      <span title="First seen {{ r.first_seen | fromiso }}">{{ r.first_seen | ago }}</span>
+      {% if since and r.first_seen >= since %}<span class="pill new">New</span>{% endif %}
+      {% if r.closed %}<span class="pill closed" title="Its board no longer lists it; last seen {{ r.last_seen | ago }}">Closed</span>{% endif %}
+      {% if r.stage != "new" %}<span class="pill stage-{{ r.stage }}">{{ stage_labels[r.stage] }}</span>{% endif %}
+      <span class="src">{{ r.ats }}</span>
+    </div>
+    {% if r.result.one_line_reason %}<p class="reason">{{ r.result.one_line_reason }}</p>{% endif %}
+  </div>
+  <div class="actions">
+    {{ track_button(r, "save", "saved", "Save for later (S)", "bookmark", r.stage == "saved") }}
+    {{ track_button(r, "apply", "applied", "Mark as applied (A)", "send", r.stage == "applied") }}
+    {{ feedback_button(r, "good", 1, "Good fit (G)", "thumbs-up") }}
+    {{ feedback_button(r, "bad", -1, "Poor fit (B)", "thumbs-down") }}
+    {{ track_button(r, "hide", "not_interested", "Not interested (X)", "eye-off", r.stage == "not_interested") }}
+  </div>
+</article>

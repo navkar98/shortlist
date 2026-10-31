@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon %}
+{% block title %}Matches · Shortlist{% endblock %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <h1>Matches</h1>
+    <p class="lede">{{ "{:,}".format(stats.scored or 0) }} jobs scored · {{ stats.strong or 0 }} open at {{ min_score }}+{% if stats.since_run %}
+      · <span class="accent">{{ stats.since_run }} new since the last run</span>{% endif %}</p>
+  </div>
+  <div class="head-links">
+    <a href="/filtered">{{ icon("filter") }} {{ "{:,}".format(dropped) }} filtered out in the last run</a>
+    <button class="btn ghost sm" type="button" data-shortcuts>{{ icon("command") }} Shortcuts</button>
+  </div>
+</header>
+
+<form id="filters" class="toolbar" hx-get="/matches/rows" hx-target="#rows" hx-trigger="input changed delay:250ms, change"
+      onsubmit="return false">
+  <label class="search">{{ icon("search") }}
+    <input type="search" name="q" placeholder="Search roles, companies, places, reasons" aria-label="Search" data-search autocomplete="off">
+    <kbd>/</kbd></label>
+  <div class="seg" role="radiogroup" aria-label="Stage">
+    {% for value, label in [("active", "Active"), ("new", "New"), ("saved", "Saved"), ("applied", "Applied"), ("all", "All")] %}
+    <label><input type="radio" name="stage" value="{{ value }}" {{ "checked" if loop.first }}><span>{{ label }}</span></label>
+    {% endfor %}
+  </div>
+  <span class="break"></span>
+  <label class="range" title="Minimum score">Score ≥ <output>{{ min_score }}</output>
+    <input type="range" name="min_score" min="0" max="100" step="5" value="{{ min_score }}" aria-label="Minimum score"
+           oninput="this.previousElementSibling.value = this.value"></label>
+  <select name="days" aria-label="First seen">
+    <option value="0">Any time</option><option value="1">Last 24 hours</option>
+    <option value="7">Last 7 days</option><option value="30">Last 30 days</option>
+  </select>
+  <select name="source" aria-label="Source">
+    <option value="">All sources</option>
+    {% for s in sources %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+  </select>
+  <select name="sort" aria-label="Sort">
+    <option value="score">Best score first</option><option value="newest">Newest first</option>
+  </select>
+  <label class="switch"><input type="checkbox" name="remote" value="1"> Remote</label>
+  <label class="switch" title="Postings their board no longer lists"><input type="checkbox" name="closed" value="1"> Show closed
+    {% if stats.closed %}<span class="hint">({{ stats.closed }})</span>{% endif %}</label>
+</form>
+
+<div id="rows" hx-get="/matches/rows" hx-include="#filters" hx-trigger="load, jobChanged from:body">
+  <div class="list">{% for _ in range(6) %}<div class="skeleton"></div>{% endfor %}</div>
+</div>
+
+<section id="shortcuts" class="card shortcuts" hidden>
+  <h2>Keyboard shortcuts</h2>
+  <dl>
+    <dt><kbd>J</kbd> <kbd>K</kbd></dt><dd>Next, previous job</dd>
+    <dt><kbd>O</kbd></dt><dd>Open the details</dd>
+    <dt><kbd>S</kbd></dt><dd>Save for later</dd>
+    <dt><kbd>A</kbd></dt><dd>Mark as applied</dd>
+    <dt><kbd>G</kbd> <kbd>B</kbd></dt><dd>Good fit, poor fit</dd>
+    <dt><kbd>X</kbd></dt><dd>Not interested</dd>
+    <dt><kbd>/</kbd></dt><dd>Search</dd>
+    <dt><kbd>Esc</kbd></dt><dd>Close the details</dd>
+  </dl>
+</section>
+{% endblock %}

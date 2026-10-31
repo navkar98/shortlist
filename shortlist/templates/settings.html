@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, tag_field %}
+{% block title %}Settings · Shortlist{% endblock %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <h1>Settings</h1>
+    <p class="lede">What to look for, how to judge it, and where to send it. Saved to <code>config.yaml</code>; only the sections you change are rewritten.</p>
+  </div>
+</header>
+{% if saved %}<p class="notice">{{ icon("check") }} Saved your {{ saved }}.</p>{% endif %}
+{% if count %}<p class="notice quiet">{{ icon("refresh") }} <span>{{ count }} open job{{ "" if count == 1 else "s" }} scoring
+  {{ from_score }}+ {{ "was" if count == 1 else "were" }} scored with an earlier resume, preferences, or prompt.
+  <a href="#rescore">Re-score them</a></span></p>{% endif %}
+
+<div class="settings-layout">
+  <nav class="toc" aria-label="Settings sections">
+    <a href="#matching">{{ icon("target") }} Matching</a>
+    <a href="#filters">{{ icon("filter") }} Filters</a>
+    <a href="#scoring">{{ icon("cpu") }} Scoring model</a>
+    <a href="#prompt">{{ icon("edit") }} Scoring prompt</a>
+    <a href="#rescore">{{ icon("refresh") }} Re-score</a>
+    <a href="#notify">{{ icon("bell") }} Notifications</a>
+    <a href="#packs">{{ icon("package") }} Company packs</a>
+    <a href="#schedule">{{ icon("calendar") }} Schedule</a>
+    <a href="#resume">{{ icon("file") }} Resume</a>
+  </nav>
+
+  <div>
+    <form hx-post="/settings">
+      <section class="card settings-section" id="matching">
+        <h2>{{ icon("target") }} Matching</h2>
+        <p class="hint">The scorer reads your preferences together with your resume.</p>
+        <div class="field">
+          <label for="min_score">Notify me about jobs scoring at least <span class="help">85+ apply now · 70–84 strong fit · 40–69 partial</span></label>
+          <div class="range"><input id="min_score_range" type="range" min="0" max="100" step="5" value="{{ config.min_score }}" aria-hidden="true" tabindex="-1"
+                 oninput="this.nextElementSibling.value = this.value" style="flex: 1 1 120px; max-width: 260px; min-width: 0">
+            <input id="min_score" type="number" name="min_score" min="0" max="100" value="{{ config.min_score }}" required
+                   oninput="this.previousElementSibling.value = this.value"></div>
+        </div>
+        <div class="field">
+          <label for="preferences">Preferences <span class="help">roles, seniority, domains, places, and dealbreakers such as visa sponsorship</span></label>
+          <textarea id="preferences" name="preferences" rows="12">{{ config.preferences }}</textarea>
+        </div>
+      </section>
+
+      <section class="card settings-section" id="filters">
+        <h2>{{ icon("filter") }} Filters</h2>
+        <p class="hint">Applied before any model call, so they decide most of the cost. Whole words or phrases, any case.
+          <a href="/filtered">See what they dropped in the last run →</a></p>
+        {{ tag_field("title_include", "Titles must contain one of", config.filters.title_include, "empty: every title") }}
+        {{ tag_field("title_exclude", "Titles must not contain", config.filters.title_exclude, "") }}
+        {{ tag_field("locations", "Locations", config.filters.locations, "empty: anywhere") }}
+        <div class="field">
+          <label class="switch"><input type="checkbox" name="allow_remote" value="1" {{ "checked" if config.filters.allow_remote }}>
+            Keep remote jobs that don't name a place</label>
+        </div>
+      </section>
+
+      <section class="card settings-section" id="scoring">
+        <h2>{{ icon("cpu") }} Scoring model</h2>
+        <p class="hint">CLI backends use your subscription or login; API backends bill per call. Switching backend resets the model to its default.</p>
+        <div class="inline-fields">
+          <div class="field"><label for="backend">Backend</label>
+            <select id="backend" name="backend">
+              {% for b in backends %}<option value="{{ b }}" {{ "selected" if b == config.scoring.backend }}>{{ b }}</option>{% endfor %}
+            </select></div>
+          <div class="field"><label for="model">Model</label>
+            <input id="model" name="model" value="{{ config.scoring.model }}" size="26" placeholder="the backend's default"></div>
+        </div>
+        <div class="field"><div class="label"><span>Your ratings</span></div>
+          {% if rated %}
+          <p>Scores agree with your judgment on <b>{{ agree }} of {{ rated }}</b> jobs you rated (a good fit scored
+            {{ config.min_score }}+, a poor fit below it). Up to {{ config.scoring.feedback_examples }} of them, disagreements
+            first, are shown to the scorer as examples.</p>
+          {% else %}
+          <p class="muted">Rate matches with {{ icon("thumbs-up") }} / {{ icon("thumbs-down") }} on the Matches page (or press
+            <kbd>G</kbd> / <kbd>B</kbd>). Jobs you rate, apply to, or mark not interested are shown to the scorer as examples
+            of what you want.</p>
+          {% endif %}
+        </div>
+        {% if secrets %}
+        <div class="field"><div class="label"><span>Secrets read from <code>.env</code></span> <span class="help">values are never shown here</span></div>
+          <div>{% for name, present in secrets.items() %}<span class="secret {{ 'ok' if present else 'bad' }}">{{ icon("check" if present else "alert") }}{{ name }}: {{ "set" if present else "missing" }}</span>{% endfor %}</div></div>
+        {% endif %}
+      </section>
+
+      <section class="card settings-section" id="notify">
+        <h2>{{ icon("bell") }} Notifications</h2>
+        <p class="hint">Where new matches are sent. With none, they wait here in the app.</p>
+        <div class="option-list">
+          {% for c in channels %}
+          <label class="option"><input type="checkbox" name="notify" value="{{ c }}" {{ "checked" if c in config.notify }}>
+            <span><b>{{ c | capitalize }}</b><span class="help">{{ {"telegram": "Messages from your own bot"}[c] }}</span></span></label>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="card settings-section" id="packs">
+        <h2>{{ icon("package") }} Company packs</h2>
+        <p class="hint">Ready-made lists of companies to follow, on top of your own entries in config.yaml.</p>
+        <div class="option-list">
+          {% for name, pack in packs.items() %}
+          <label class="option"><input type="checkbox" name="packs" value="{{ name }}" {{ "checked" if name in config.packs }}>
+            <span><b>{{ name }}</b><span class="help">{{ pack.description }}</span></span></label>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="card settings-section" id="schedule">
+        <h2>{{ icon("calendar") }} Schedule</h2>
+        <p class="hint">Limits for scheduled runs (the Windows task or cron job). Runs you start yourself are not limited.</p>
+        <div class="inline-fields">
+          <div class="field"><label for="max_runs_per_day">Runs a day, at most</label>
+            <input id="max_runs_per_day" type="number" name="max_runs_per_day" min="1" value="{{ config.schedule.max_runs_per_day }}" required></div>
+          <div class="field"><label for="min_hours_between_runs">Hours apart, at least</label>
+            <input id="min_hours_between_runs" type="number" name="min_hours_between_runs" min="0" step="0.5" value="{{ config.schedule.min_hours_between_runs }}" required></div>
+        </div>
+      </section>
+
+      <div class="savebar"><span class="hint">The previous config is kept as <code>config.yaml.bak</code>.</span>
+        <button class="btn primary" type="submit">{{ icon("check") }} Save settings</button></div>
+    </form>
+
+    <form hx-post="/settings/prompt" class="section-gap">
+      <section class="card settings-section" id="prompt">
+        <h2>{{ icon("edit") }} Scoring prompt</h2>
+        <p class="hint">What the model is told before it reads your resume, your preferences, the jobs you rated, and the
+          jobs to score. The answer's shape (score, skills, dealbreakers, reason) is fixed by a schema, so wording here
+          changes how jobs are judged, not what comes back.
+          {% if custom_prompt %}<b>Your own version</b>; the built-in one is kept for when you restore it.{% else %}This is the built-in version.{% endif %}</p>
+        <textarea class="resume prompt" name="instructions" rows="16" aria-label="Scoring prompt" spellcheck="false">{{ instructions }}</textarea>
+        <details class="prompt-preview">
+          <summary>The whole prompt for one job <span class="help">{{ "{:,}".format(full_prompt | length) }} characters</span></summary>
+          <pre>{{ full_prompt }}</pre>
+        </details>
+        <div class="actions" style="margin-top: 12px; justify-content: flex-end">
+          {% if custom_prompt %}<button class="btn ghost" type="button" hx-post="/settings/prompt" hx-vals='{"restore": "1"}'
+            hx-confirm="Go back to the built-in prompt? Your version is replaced." data-confirm-ok="Restore">Restore the built-in prompt</button>{% endif %}
+          <button class="btn primary" type="submit">{{ icon("check") }} Save prompt</button></div>
+      </section>
+    </form>
+
+    <form id="rescore-form" class="section-gap" hx-get="/rescore/count" hx-target="#rescore-count"
+          hx-trigger="change, input delay:400ms, submit">
+      <section class="card settings-section" id="rescore">
+        <h2>{{ icon("refresh") }} Re-score</h2>
+        <p class="hint">Each score remembers the resume, preferences, and prompt it was made with. After you change one,
+          score the open jobs again, each on its own, with what you have now and the jobs you rated. It runs in the
+          background; follow it on the Runs page.</p>
+        <div class="inline-fields">
+          <div class="field"><label for="from_score">Jobs scoring at least</label>
+            <input id="from_score" type="number" name="from_score" min="0" max="100" value="{{ from_score }}" required></div>
+          <div class="field"><div class="label"><span>Which</span></div>
+            <div class="seg" role="radiogroup" aria-label="Which jobs">
+              {% for value, label in [("outdated", "Scored with an earlier version"), ("all", "All of them")] %}
+              <label><input type="radio" name="scope" value="{{ value }}" {{ "checked" if scope == value }}><span>{{ label }}</span></label>
+              {% endfor %}
+            </div></div>
+        </div>
+        <div id="rescore-count">{% include "_rescore_count.html" %}</div>
+      </section>
+    </form>
+
+    <form hx-post="/settings/resume" class="section-gap">
+      <section class="card settings-section" id="resume">
+        <h2>{{ icon("file") }} Resume</h2>
+        <p class="hint">Plain text or Markdown. Every job is scored against it, so keep it current.</p>
+        <textarea class="resume" name="resume" rows="24" aria-label="Resume">{{ resume }}</textarea>
+        <div class="actions" style="margin-top: 12px; justify-content: flex-end"><button class="btn primary" type="submit">{{ icon("check") }} Save resume</button></div>
+      </section>
+    </form>
+  </div>
+</div>
+{% endblock %}

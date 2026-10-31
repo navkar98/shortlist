@@ -1,0 +1,146 @@
+description: >-
+  About 100 AI labs and AI-first companies (careers pages, turned into job boards by discovery), plus
+  machine-learning searches on NVIDIA, Hugging Face, Mila, Amazon, Meta, and Snap. Checked 2026-10-21.
+
+companies:
+  - workday:nvidia.wd5/NVIDIAExternalCareerSite   # NVIDIA
+  - workable:huggingface                          # Hugging Face
+  - workable:mila-2                               # Mila (Quebec AI Institute)
+  - amazon:machine learning                       # Amazon: newest 500 matches per search
+  - amazon:applied scientist
+  - amazon:research scientist
+
+# Careers pages without a known job board, read with CSS selectors. `render: true` loads the page in a browser.
+html_boards:
+  - {name: Snap, url: "https://careers.snap.com/jobs", jobs: "tbody tr", link: 'a[href*="/job?id="]',
+     title: 'a[href*="/job?id="]', location: "td:last-child"}
+  # Meta: one rendered page per search (robots.txt disallows its "cursor" pagination); same name = one identity
+  - {name: Meta, url: "https://www.metacareers.com/jobs?q=machine%20learning", jobs: 'a[href*="/profile/job_details/"]',
+     title: h3, render: true, max_pages: 1}
+  - {name: Meta, url: "https://www.metacareers.com/jobs?q=research%20scientist", jobs: 'a[href*="/profile/job_details/"]',
+     title: h3, render: true, max_pages: 1}
+
+# Each run turns new careers pages into job boards (see README: discovery); results are kept in the database.
+career_pages:
+  - {name: "Google DeepMind", url: "https://deepmind.google/about/careers/"}
+  - {name: "Meta", url: "https://www.metacareers.com/jobs"}
+  - {name: "Microsoft", url: "https://careers.microsoft.com/"}
+  - {name: "Apple", url: "https://jobs.apple.com/en-us/search"}
+  # - {name: "Amazon", url: "https://www.amazon.jobs/en/"}  # covered by the amazon: searches in companies
+  - {name: "NVIDIA", url: "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite"}
+  - {name: "IBM", url: "https://www.ibm.com/careers/search"}
+  - {name: "Adobe", url: "https://careers.adobe.com/us/en"}
+  - {name: "Salesforce", url: "https://careers.salesforce.com/en/jobs/"}
+  - {name: "Oracle", url: "https://careers.oracle.com/jobs/"}
+  - {name: "Intel", url: "https://jobs.intel.com/"}
+  - {name: "AMD", url: "https://careers.amd.com/careers-home/jobs"}
+  - {name: "LinkedIn", url: "https://careers.linkedin.com/"}
+  - {name: "Snap", url: "https://careers.snap.com/jobs"}
+  - {name: "ByteDance", url: "https://jobs.bytedance.com/en/position"}
+  - {name: "TikTok", url: "https://lifeattiktok.com/search"}
+  - {name: "Samsung Research America", url: "https://sra.samsung.com/careers/"}
+  - {name: "Sony AI", url: "https://ai.sony/joinus/"}
+  - {name: "Bloomberg", url: "https://www.bloomberg.com/company/what-we-do/careers/"}
+  - {name: "Workday", url: "https://workday.wd5.myworkdayjobs.com/Workday"}
+  - {name: "Intuit", url: "https://jobs.intuit.com/"}
+  - {name: "Visa", url: "https://corporate.visa.com/en/jobs/"}
+  - {name: "Capital One", url: "https://www.capitalonecareers.com/"}
+  - {name: "Cisco", url: "https://jobs.cisco.com/"}
+  - {name: "Anthropic", url: "https://www.anthropic.com/careers"}
+  - {name: "Mistral AI", url: "https://mistral.ai/careers"}
+  - {name: "Scale AI", url: "https://scale.com/careers"}
+  - {name: "Hugging Face", url: "https://apply.workable.com/huggingface/"}
+  - {name: "Stability AI", url: "https://stability.ai/careers"}
+  - {name: "Runway", url: "https://runwayml.com/careers"}
+  - {name: "Reka AI", url: "https://reka.ai/careers"}
+  - {name: "Sakana AI", url: "https://sakana.ai/careers/"}
+  - {name: "Allen Institute for AI", url: "https://allenai.org/careers"}
+  - {name: "Together AI", url: "https://www.together.ai/careers"}
+  - {name: "Fireworks AI", url: "https://fireworks.ai/careers"}
+  - {name: "Anyscale", url: "https://www.anyscale.com/careers"}
+  - {name: "Modal", url: "https://modal.com/careers"}
+  - {name: "Baseten", url: "https://www.baseten.co/careers/"}
+  - {name: "CoreWeave", url: "https://www.coreweave.com/careers"}
+  - {name: "Lambda", url: "https://lambda.ai/careers"}
+  - {name: "Cerebras", url: "https://www.cerebras.ai/careers"}
+  - {name: "Groq", url: "https://groq.com/careers/"}
+  - {name: "SambaNova", url: "https://sambanova.ai/careers"}
+  - {name: "Tenstorrent", url: "https://tenstorrent.com/careers"}
+  - {name: "Etched", url: "https://www.etched.com/careers"}
+  - {name: "Cognition", url: "https://cognition.ai/careers"}
+  - {name: "Cursor", url: "https://cursor.com/careers"}
+  - {name: "Replit", url: "https://replit.com/careers"}
+  - {name: "Harvey", url: "https://www.harvey.ai/careers"}
+  - {name: "Hebbia", url: "https://www.hebbia.com/careers"}
+  - {name: "Writer", url: "https://writer.com/company/careers/"}
+  - {name: "Jasper", url: "https://www.jasper.ai/careers"}
+  - {name: "ElevenLabs", url: "https://elevenlabs.io/careers"}
+  - {name: "Synthesia", url: "https://www.synthesia.io/careers"}
+  - {name: "HeyGen", url: "https://www.heygen.com/careers"}
+  - {name: "Luma AI", url: "https://lumalabs.ai/join"}
+  - {name: "Pika", url: "https://pika.art/careers"}
+  - {name: "Black Forest Labs", url: "https://bfl.ai/careers"}
+  - {name: "Figure AI", url: "https://www.figure.ai/careers"}
+  - {name: "1X Technologies", url: "https://www.1x.tech/careers"}
+  - {name: "Physical Intelligence", url: "https://www.physicalintelligence.company/join-us"}
+  - {name: "Waymo", url: "https://careers.withwaymo.com/jobs"}
+  - {name: "Aurora", url: "https://aurora.tech/careers"}
+  - {name: "Zoox", url: "https://zoox.com/careers"}
+  - {name: "Nuro", url: "https://www.nuro.ai/careers"}
+  - {name: "Wayve", url: "https://wayve.ai/careers/"}
+  - {name: "Applied Intuition", url: "https://www.appliedintuition.com/careers"}
+  - {name: "Anduril", url: "https://www.anduril.com/careers"}
+  - {name: "Recursion", url: "https://www.recursion.com/careers"}
+  - {name: "Isomorphic Labs", url: "https://www.isomorphiclabs.com/careers"}
+  - {name: "Abridge", url: "https://www.abridge.com/careers"}
+  - {name: "C3 AI", url: "https://c3.ai/careers/"}
+  - {name: "H2O.ai", url: "https://h2o.ai/company/careers/"}
+  - {name: "Dataiku", url: "https://www.dataiku.com/careers/"}
+  - {name: "UiPath", url: "https://www.uipath.com/company/careers"}
+  - {name: "Moveworks", url: "https://www.moveworks.com/careers"}
+  - {name: "Sierra", url: "https://sierra.ai/careers"}
+  - {name: "Decagon", url: "https://decagon.ai/careers"}
+  - {name: "Poolside", url: "https://poolside.ai/careers"}
+  - {name: "Magic", url: "https://magic.dev/careers"}
+  - {name: "Inflection AI", url: "https://inflection.ai/careers"}
+  - {name: "Snorkel AI", url: "https://snorkel.ai/careers/"}
+  - {name: "Labelbox", url: "https://labelbox.com/company/careers/"}
+  - {name: "Vector Institute", url: "https://vectorinstitute.ai/careers/"}
+  - {name: "Chan Zuckerberg Initiative", url: "https://chanzuckerberg.com/careers/"}
+  - {name: "Simons Foundation (Flatiron Institute)", url: "https://www.simonsfoundation.org/careers/"}
+  - {name: "Grammarly", url: "https://www.grammarly.com/jobs"}
+  - {name: "Sarvam AI", url: "https://www.sarvam.ai/careers"}
+  - {name: "Flipkart", url: "https://www.flipkartcareers.com/"}
+  - {name: "Grab", url: "https://grab.careers/"}
+  - {name: "Preferred Networks", url: "https://www.preferred.jp/en/careers/"}
+  - {name: "Etsy", url: "https://careers.etsy.com/"}
+  - {name: "Wayfair", url: "https://www.wayfair.com/careers"}
+  - {name: "Yelp", url: "https://www.yelp.careers/us/en"}
+  - {name: "Zillow", url: "https://zillow.wd5.myworkdayjobs.com/Zillow_Group_External"}
+  - {name: "eBay", url: "https://jobs.ebayinc.com/"}
+  - {name: "Walmart Global Tech", url: "https://careers.walmart.com/technology"}
+  - {name: "Booking.com", url: "https://jobs.booking.com/booking/jobs"}
+  - {name: "Shopify", url: "https://www.shopify.com/careers"}
+  - {name: "Yahoo", url: "https://ouryahoo.wd5.myworkdayjobs.com/careers"}
+  # Not reachable for Shortlist when checked; discovery can still try their job boards directly:
+  # - {name: "Google", url: "https://www.google.com/about/careers/applications/jobs/results"}  # robots.txt disallows the page
+  # - {name: "Qualcomm", url: "https://careers.qualcomm.com/careers"}  # robots.txt disallows the page
+  # - {name: "Netflix", url: "https://explore.jobs.netflix.net/careers"}  # robots.txt disallows the page
+  # - {name: "Uber", url: "https://www.uber.com/us/en/careers/list/"}  # 406 (refuses non-browser requests)
+  # - {name: "ServiceNow", url: "https://careers.servicenow.com/jobs/"}  # 403 (bot protection)
+  # - {name: "PayPal", url: "https://careers.pypl.com/"}  # 403 (bot protection)
+  # - {name: "xAI", url: "https://x.ai/careers"}  # 403 (bot protection)
+  # - {name: "Midjourney", url: "https://www.midjourney.com/careers"}  # 403 (bot protection)
+  # - {name: "AI21 Labs", url: "https://www.ai21.com/careers/"}  # 403 (bot protection)
+  # - {name: "Ideogram", url: "https://ideogram.ai/careers"}  # 403 (bot protection)
+  # - {name: "Skild AI", url: "https://www.skild.ai/careers"}  # 404 (URL needs fixing)
+  # - {name: "Shield AI", url: "https://shield.ai/careers/"}  # 403 (bot protection)
+  # - {name: "Helsing", url: "https://helsing.ai/jobs"}  # 429 (rate limited when checked)
+  # - {name: "Tempus", url: "https://www.tempus.com/careers/"}  # 429 (rate limited when checked)
+  # - {name: "Insitro", url: "https://www.insitro.com/careers/"}  # 403 (bot protection)
+  # - {name: "DataRobot", url: "https://www.datarobot.com/careers/"}  # 403 (bot protection)
+  # - {name: "Adept", url: "https://www.adept.ai/careers"}  # 403 (bot protection)
+  # - {name: "Hippocratic AI", url: "https://www.hippocraticai.com/careers"}  # 403 (bot protection)
+  # - {name: "Mila", url: "https://mila.quebec/en/careers"}  # 404 (URL needs fixing)
+  # - {name: "Canva", url: "https://www.lifeatcanva.com/en/jobs/"}  # 403 (bot protection)
+  # - {name: "Expedia Group", url: "https://careers.expediagroup.com/"}  # 403 (bot protection)

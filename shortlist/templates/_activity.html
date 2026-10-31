@@ -1,0 +1,15 @@
+{% from "_ui.html" import icon %}
+<div id="activity" hx-get="/activity" hx-swap="outerHTML" {% if activity.running %}hx-trigger="every 2s"{% endif %}>
+  {% if activity.label %}
+  <section class="console {{ 'live' if activity.running }}">
+    <header><span class="lights"><i></i><i></i><i></i></span><span>{{ activity.label | capitalize }}</span>
+      <span class="state">{% if activity.running %}<span class="pulse"></span> running{% else %}finished{% endif %}</span></header>
+    <pre>{{ activity.tail() or "(no output yet)" }}</pre>
+  </section>
+  {% else %}
+  <div class="card intro">{{ icon("terminal", "big") }}
+    <div><b>Nothing started from here yet.</b>
+      <p class="muted">Start a run above to watch it live. Scheduled runs write to <code>shortlist.log</code> next to your config.</p></div>
+  </div>
+  {% endif %}
+</div>

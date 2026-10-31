@@ -1,0 +1,94 @@
+# Shortlist settings. `python -m shortlist init` writes your config.yaml from this file by asking a few questions;
+# you can also copy it by hand. Change anything later here or in the web app (python -m shortlist web, Settings).
+
+# Ready-made lists of companies from the packs/ folder (README: Company packs): ai-labs, consumer-tech, new-grad.
+# Your own entries below are added to them.
+packs: [ai-labs]
+
+# Your own company job boards, one "ats:slug" each (README: Sources explains how to find the slug), for example:
+#   companies:
+#     - greenhouse:airbnb        # from https://boards.greenhouse.io/airbnb
+#     - lever:spotify            # from https://jobs.lever.co/spotify
+#     - ashby:openai             # from https://jobs.ashbyhq.com/openai
+#     - workday:nvidia.wd5/NVIDIAExternalCareerSite
+companies: []
+
+# Careers pages of companies whose job board you don't know. Each run works out how to read new ones (README:
+# Discovery). You can also add them on the web app's Sources page. For example:
+#   career_pages:
+#     - {name: "Acme AI", url: "https://acme.ai/careers"}
+career_pages: []
+
+# Careers pages read with CSS selectors you write yourself (README: HTML boards). Rarely needed: discovery writes
+# these for you.
+html_boards: []
+
+# Job lists kept on GitHub in the SimplifyJobs listings.json format (the new-grad pack adds one).
+github_listings: []
+
+# Cheap rules that drop jobs before any model call. Case-insensitive, whole words or phrases ("ml" matches "AI/ML"
+# but not "HTML"). An empty title_include scores every title, which can mean thousands of model calls.
+# locations: a job must mention one of these places, unless allow_remote is on and its location names no place
+# ("Remote", "Anywhere").
+filters:
+  title_include: [software engineer, machine learning, ml engineer, data scientist, research scientist,
+    applied scientist, research engineer, ai engineer]
+  title_exclude: [intern, internship, staff, principal, director, manager, head, vp, sales, recruiter, marketing,
+    account executive]
+  locations: [united states, usa, us, canada, united kingdom, uk, remote]
+  allow_remote: true
+
+# Free text the scorer reads with your resume (resume.md). Say what you want and what rules a job out: the more
+# specific, the better the scores. Replace the parts in parentheses.
+preferences: |
+  Target roles: (for example: machine learning engineer or research scientist, mid-level)
+  Strong fit: (the domains and skills you want most)
+  Not a fit: (seniority levels, role types, or domains to avoid)
+  Locations: (where you can work, and whether remote is fine)
+  Dealbreakers: (for example: the role cannot sponsor a visa, or requires a security clearance)
+
+# Which model scores jobs (README: Scoring backends):
+#   claude_cli         Claude Code CLI with your Claude subscription. model: sonnet | opus | haiku
+#   codex_cli          OpenAI Codex CLI with your ChatGPT/Codex login. model: empty = your Codex config's model
+#   anthropic_api      Anthropic API, key in ANTHROPIC_API_KEY. model: claude-opus-5-5 (default), claude-sonnet-5-5,
+#                      claude-haiku-5-5 (cheapest); `effort: low` lowers cost further
+#   openai_api         OpenAI API, key in OPENAI_API_KEY. `model` is required, e.g. gpt-5.4-mini.
+# max_jobs_per_run caps the jobs scored per run (0: no cap); worth setting with pay-per-use APIs.
+# recheck_alone scores again on their own the jobs within 15 points of min_score or above (scores in a batch shift
+# with the other jobs in it); feedback_examples is how many jobs you rated the scorer sees as examples.
+# instructions replaces the built-in scoring prompt (easiest to edit on the web app's Settings page); leave it out
+# to keep the built-in one.
+# claude_path, codex_path, and workdir are for the CLI backends. workdir is an empty folder outside this repo (the
+# CLIs read CLAUDE.md / AGENTS.md instruction files from their working folder, and claude from every folder above).
+scoring:
+  backend: claude_cli
+  model: sonnet
+  batch_size: 12
+  timeout_seconds: 300
+  max_jobs_per_run: 0
+  recheck_alone: true
+  feedback_examples: 20
+  claude_path: claude
+  workdir: ~/.shortlist/scorer_workdir
+
+# Where new matches are sent: [telegram], or [] to use the web app only. Telegram's secrets go in .env (see
+# .env.example).
+notify: []
+
+# Careers pages -> boards, during every run. Results are kept in the database (`python -m shortlist sites`), so a
+# site costs agent calls only when new, or when its board returned no jobs for `rediscover_after_empty_runs` runs.
+discovery:
+  model: ""                       # agent model; empty: same as scoring.model
+  max_agent_calls_per_site: 5     # measured: every site the agent solved needed <= 5 calls (see README)
+  max_agent_calls_per_run: 40     # sites left over are discovered in later runs
+  rediscover_after_empty_runs: 2
+
+# Limits for scheduled runs (`run --if-due`, which the scheduled task or cron job calls). Manual runs are not limited.
+schedule:
+  max_runs_per_day: 2
+  min_hours_between_runs: 6
+
+# Notify about jobs scoring at least this (0-100): 85+ apply now, 70-84 strong fit, 40-69 partial fit.
+min_score: 70
+db_path: shortlist.db
+resume_path: resume.md

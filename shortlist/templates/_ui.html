@@ -1,0 +1,31 @@
+{# Small building blocks shared by every page. #}
+{% macro icon(name, cls="") %}<svg class="i {{ cls }}" aria-hidden="true"><use href="#i-{{ name }}"/></svg>{% endmacro %}
+
+{% macro ring(score, size="") %}<span class="ring {{ size }} band-{{ score | band }}" title="Score {{ score if score is not none else 'not available' }}">
+  <svg viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15.5"/>
+    <circle class="value" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="{{ score or 0 }} 100"/></svg>
+  <b>{{ score if score is not none else "–" }}</b></span>{% endmacro %}
+
+{% macro mono(company, size="") %}<span class="mono {{ size }}" style="--h: {{ company | hue }}" aria-hidden="true">{{ company | initials }}</span>{% endmacro %}
+
+{% macro track_button(job, action, stage, label, glyph, on) %}
+<button class="icon-btn {{ 'on' if on }}" type="button" title="{{ label }}" aria-label="{{ label }}" aria-pressed="{{ 'true' if on else 'false' }}"
+        data-action="{{ action }}" hx-post="/jobs/{{ job.id }}/track" hx-vals='{"stage": "{{ 'new' if on else stage }}"}' hx-swap="none">{{ icon(glyph) }}</button>
+{% endmacro %}
+
+{% macro feedback_button(job, action, value, label, glyph) %}{% set on = job.feedback == value %}
+<button class="icon-btn {{ 'on' if on }} {{ 'bad' if value < 0 }}" type="button" title="{{ label }}" aria-label="{{ label }}"
+        aria-pressed="{{ 'true' if on else 'false' }}" data-action="{{ action }}" hx-post="/jobs/{{ job.id }}/track"
+        hx-vals='{"feedback": {{ 0 if on else value }}}' hx-swap="none">{{ icon(glyph) }}</button>
+{% endmacro %}
+
+{% macro tag_field(name, label, values, help) %}
+<div class="field">
+  <div class="label"><span>{{ label }} <span class="help">{{ help }}</span></span><span class="help" data-count></span></div>
+  <div class="tags" data-tags>
+    <span class="tag-list"></span>
+    <input type="text" placeholder="Type and press Enter" aria-label="Add to {{ label | lower }}">
+    <textarea name="{{ name }}" aria-hidden="true" tabindex="-1">{{ values | join(", ") }}</textarea>
+  </div>
+</div>
+{% endmacro %}

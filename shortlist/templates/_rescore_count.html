@@ -1,0 +1,9 @@
+{% from "_ui.html" import icon %}
+{% set jobs = "{:,} job{}".format(count, "" if count == 1 else "s") %}
+<p class="field">{% if count %}<span><b>{{ "{:,}".format(count) }}</b> open job{{ "" if count == 1 else "s" }} scoring {{ from_score }}+{%
+  if scope == "outdated" %}, scored with an earlier resume, preferences, or prompt{% endif %}: one model call
+  each.</span>{% else %}<span class="muted">No open job scoring {{ from_score }}+{% if scope == "outdated" %} was scored
+  with an earlier resume, preferences, or prompt{% endif %}.</span>{% endif %}</p>
+<div class="actions" style="margin-top: 12px; justify-content: flex-end">
+  <button class="btn primary" type="button" hx-post="/rescore" hx-swap="none" {{ "disabled" if not count }}
+          hx-confirm="Re-score {{ jobs }} now? Each one is a model call." data-confirm-ok="Re-score">{{ icon("refresh") }} Re-score {{ jobs if count }}</button></div>

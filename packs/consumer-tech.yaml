@@ -1,0 +1,136 @@
+description: >-
+  About 100 consumer-tech, marketplace, media, and ad-tech companies with recommendation, ranking, search,
+  and ads teams (Greenhouse, Lever, Ashby, and Workday boards), checked 2026-10-20.
+
+companies:
+  # Open recommendation / ranking / search / personalization roles as of 2026-10-20
+  - greenhouse:elastic              # Elastic
+  - greenhouse:hellofresh           # HelloFresh
+  - greenhouse:pinterest            # Pinterest
+  - greenhouse:reddit               # Reddit
+  - greenhouse:bloomreach           # Bloomreach
+  - greenhouse:coupang              # Coupang
+  - ashby:perplexity                # Perplexity
+  - greenhouse:attentive            # Attentive
+  - greenhouse:faire                # Faire
+  - greenhouse:roblox               # Roblox
+  - ashby:openai                    # OpenAI
+  - lever:spotify                   # Spotify
+  - greenhouse:databricks           # Databricks
+  - greenhouse:taboola              # Taboola
+  - greenhouse:doordashusa          # DoorDash
+  - greenhouse:braze                # Braze
+  - greenhouse:newsbreak            # NewsBreak
+  - greenhouse:affirm               # Affirm
+  - greenhouse:lyft                 # Lyft
+  - ashby:nubank                    # Nubank
+  - greenhouse:airbnb               # Airbnb
+  - greenhouse:klaviyo              # Klaviyo
+  - greenhouse:instacart            # Instacart
+  - greenhouse:tripadvisor          # Tripadvisor
+  - greenhouse:glance               # Glance
+  - ashby:constructor               # Constructor
+  - greenhouse:algolia              # Algolia
+  - greenhouse:deliveroo            # Deliveroo
+  - greenhouse:getyourguide         # GetYourGuide
+  - lever:matchgroup                # Match Group
+  - greenhouse:tubitv               # Tubi
+  - ashby:iterable                  # Iterable
+  - greenhouse:riotgames            # Riot Games
+  - greenhouse:fanduel              # FanDuel
+  - greenhouse:inmobi               # InMobi
+  - greenhouse:gleanwork            # Glean
+  - greenhouse:roku                 # Roku
+  - greenhouse:zetaglobal           # Zeta Global
+  - ashby:handshake                 # Handshake
+  - greenhouse:pubmatic             # PubMatic
+  - lever:meesho                    # Meesho
+  - greenhouse:ziprecruiter         # ZipRecruiter
+  - ashby:strava                    # Strava
+  - greenhouse:taskrabbit           # Taskrabbit
+  - ashby:quora                     # Quora
+  - ashby:pinecone                  # Pinecone
+  - greenhouse:thetradedesk         # The Trade Desk
+  - ashby:suno                      # Suno
+  - greenhouse:duolingo             # Duolingo
+  - greenhouse:smartlyio            # Smartly
+  - greenhouse:zocdoc               # Zocdoc
+  - greenhouse:discord              # Discord
+  - greenhouse:applovin             # AppLovin
+  - greenhouse:stockx               # StockX
+  - ashby:poshmark                  # Poshmark
+  - greenhouse:nextdoor             # Nextdoor
+  - greenhouse:stitchfix            # Stitch Fix
+  - lever:gopuff                    # Gopuff
+  - greenhouse:opentable            # OpenTable
+  - greenhouse:crunchyroll          # Crunchyroll
+  - lever:trendyol                  # Trendyol
+  - greenhouse:cargurus             # CarGurus
+  - lever:rover                     # Rover
+  - greenhouse:renttherunway        # Rent the Runway
+  - lever:wattpad                   # Wattpad
+  - ashby:character                 # Character.AI
+  - ashby:krea                      # Krea
+  - greenhouse:youcom               # You.com
+  - greenhouse:fubotv               # Fubo
+  - lever:lucidworks                # Lucidworks
+  # Recsys-heavy products; no matching opening on 2026-10-20
+  - ashby:cohere                    # Cohere
+  - greenhouse:moloco               # Moloco
+  - greenhouse:twitch               # Twitch
+  - ashby:thumbtack                 # Thumbtack
+  - ashby:exa                       # Exa
+  - greenhouse:wolt                 # Wolt
+  - greenhouse:peloton              # Peloton
+  - lever:farfetch                  # Farfetch
+  - ashby:substack                  # Substack
+  - ashby:patreon                   # Patreon
+  - greenhouse:seatgeek             # SeatGeek
+  - greenhouse:coursera             # Coursera
+  - greenhouse:upwork               # Upwork
+  - greenhouse:thenewyorktimes      # New York Times
+  - greenhouse:liftoff              # Liftoff
+  - greenhouse:stackadapt           # StackAdapt
+  - ashby:quantcast                 # Quantcast
+  - greenhouse:triplelift           # TripleLift
+  - greenhouse:gumgum               # GumGum
+  - ashby:weaviate                  # Weaviate
+  - lever:zilliz                    # Zilliz
+  - greenhouse:vectara              # Vectara
+  - ashby:lancedb                   # LanceDB
+  - greenhouse:brave                # Brave
+  - greenhouse:instawork            # Instawork
+  - ashby:hopper                    # Hopper
+  - ashby:angi                      # Angi
+  - greenhouse:udemy                # Udemy
+  - ashby:amplitude                 # Amplitude
+  - greenhouse:goatgroup            # GOAT
+  - workday:zillow.wd5/Zillow_Group_External      # Zillow
+  # Verified alternates (uncomment to add)
+  # - greenhouse:anthropic          # Anthropic
+  # - ashby:snowflake               # Snowflake
+  # - greenhouse:figma              # Figma
+  # - ashby:bereal                  # BeReal
+  # - greenhouse:fetch              # Fetch
+  # - ashby:ibotta                  # Ibotta
+  # - greenhouse:bolcom             # Bol.com
+  # - ashby:prosus                  # Prosus
+  # - greenhouse:jumia              # Jumia
+  # - greenhouse:rumble             # Rumble
+  # - greenhouse:offerup            # OfferUp
+  # - lever:houzz                   # Houzz
+  # - greenhouse:nextroll           # AdRoll
+  # - lever:gettyimages             # Getty Images
+  # - ashby:hightouch               # Hightouch
+  # - ashby:rebuy                   # Rebuy
+  # - greenhouse:medium             # Medium
+  # - ashby:mubi                    # Mubi
+  # - greenhouse:splice             # Splice
+  # - greenhouse:kargo              # Kargo
+  # - ashby:groundnews              # Ground News
+  # - ashby:trychroma               # Chroma
+
+html_boards:
+  # Meta: one rendered page per search (robots.txt disallows its "cursor" pagination); same name = one identity
+  - {name: Meta, url: "https://www.metacareers.com/jobs?q=recommendation", jobs: 'a[href*="/profile/job_details/"]',
+     title: h3, render: true, max_pages: 1}

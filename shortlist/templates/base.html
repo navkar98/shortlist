@@ -1,0 +1,51 @@
+{% from "_ui.html" import icon %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Shortlist{% endblock %}</title>
+  <script>try { const theme = localStorage.getItem("shortlist-theme"); if (theme) document.documentElement.dataset.theme = theme; } catch (e) {}</script>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/htmx.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body hx-headers='{"X-Shortlist-Token": "{{ token }}"}' hx-indicator="#progress">
+  {% include "_icons.html" %}
+  <div id="progress" class="progress"></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="/"><svg aria-hidden="true"><use href="#logo"/></svg><span>Shortlist</span></a>
+      <nav class="nav" aria-label="Main">
+        {% for key, label, glyph, href in [("overview", "Overview", "grid", "/"), ("matches", "Matches", "target", "/matches"),
+                                           ("filtered", "Filtered out", "filter", "/filtered"),
+                                           ("tracker", "Applications", "columns", "/tracker"), ("sources", "Sources", "globe", "/sources"),
+                                           ("runs", "Runs", "activity", "/runs"), ("settings", "Settings", "sliders", "/settings")] %}
+        <a href="{{ href }}" class="{{ 'active' if nav == key }}" {{ 'aria-current="page"' | safe if nav == key }}>
+          {{ icon(glyph) }}<span class="label">{{ label }}</span>
+          {% if counts and counts.get(key) %}<span class="count" title="{{ 'Strong matches nobody has acted on' if key == 'matches' else 'Applications in play' }}">{{ counts[key] }}</span>{% endif %}
+        </a>
+        {% endfor %}
+      </nav>
+      <div class="sidebar-foot">
+        {% if activity.running %}<a class="live" href="/runs"><span class="pulse"></span><span>{{ activity.label | capitalize }} running</span></a>{% endif %}
+        <div class="foot-row">
+          <span class="muted">Local · only on this computer</span>
+          <button class="icon-btn" type="button" data-theme-toggle title="Light or dark" aria-label="Switch between light and dark">{{ icon("moon", "moon") }}{{ icon("sun", "sun") }}</button>
+        </div>
+      </div>
+    </aside>
+    <main id="main">{% block main %}{% endblock %}</main>
+  </div>
+  <div id="backdrop" class="backdrop"></div>
+  <aside id="drawer" class="drawer" aria-label="Job details"></aside>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="confirm-text">
+    <form method="dialog">
+      <p id="confirm-text"></p>
+      <div class="actions"><button class="btn" value="cancel">Cancel</button>
+        <button class="btn primary" value="ok" id="confirm-ok" autofocus>Continue</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
