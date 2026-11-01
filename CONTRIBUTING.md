@@ -3,11 +3,42 @@
 Thanks for helping. Shortlist is small on purpose: a handful of flat modules, a few dependencies, and tests built on
 real responses. The rules below keep it that way and keep it polite to the sites it reads.
 
+## How to contribute
+
+Every change reaches `main` through a pull request that passes CI. Nobody pushes to `main` directly, maintainers
+included.
+
+1. **Talk first about big changes.** For a new platform, a new feature, or a new dependency, open an issue so we can
+   agree on the approach before you write code. Adding companies or fixing a bug needs no issue.
+2. **Fork and clone.** Fork the repository on GitHub, then:
+
+   ```bash
+   git clone https://github.com/<your-username>/shortlist.git
+   cd shortlist
+   git remote add upstream https://github.com/navkar98/shortlist.git
+   ```
+
+3. **Branch from the latest `main`**, one branch per topic:
+
+   ```bash
+   git fetch upstream
+   git switch -c add-acme-boards upstream/main
+   ```
+
+4. **Set up and test** (see [Setup](#setup)), make your change with tests, and commit with a message that says what
+   changed and why.
+5. **Push the branch to your fork and open a pull request** against `main` of `navkar98/shortlist`. The template
+   asks what you changed and what you checked for real.
+6. **CI runs the tests** on Windows, macOS, and Linux (for a first-time contributor, after a maintainer approves the
+   run). A maintainer reviews, and the pull request is squash-merged into one commit on `main`.
+7. **If `main` moves on** while you wait, update your branch: `git fetch upstream`, `git rebase upstream/main`, then
+   `git push --force-with-lease`.
+
+Found a security problem? Don't open an issue; see [SECURITY.md](SECURITY.md).
+
 ## Setup
 
 ```bash
-git clone https://github.com/navkar98/shortlist.git
-cd shortlist
 python -m venv .venv
 .venv/bin/pip install -r requirements-dev.txt        # Windows: .venv\Scripts\pip install -r requirements-dev.txt
 .venv/bin/python -m pytest -q
@@ -84,3 +115,5 @@ showing that errors never contain the secret.
 - One topic per pull request, with tests. Run `python -m pytest -q` before pushing.
 - Describe what you verified for real (which endpoint, which page, which version) and what you could not verify.
 - Match the surrounding code: names, comment density, and line length (about 120).
+- Keep personal files out of the diff: `config.yaml`, `resume.md`, `.env`, and `shortlist.db` are in `.gitignore` for
+  that reason.

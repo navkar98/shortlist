@@ -488,8 +488,10 @@ Check the terms of any site you add yourself. You are responsible for how you us
 
 ## Contributing
 
-Bug reports, company packs, new job board adapters, and backends are welcome. [CONTRIBUTING.md](CONTRIBUTING.md)
-explains the setup, the tests, and the few rules that keep Shortlist reliable and polite.
+Bug reports, company packs, new job board adapters, and backends are welcome: fork the repository, make your
+change on a branch, and open a pull request. [CONTRIBUTING.md](CONTRIBUTING.md) walks through it and explains the
+setup, the tests, and the few rules that keep Shortlist reliable and polite. Report security problems privately, as
+[SECURITY.md](SECURITY.md) describes.
 
 ## Credits
 
