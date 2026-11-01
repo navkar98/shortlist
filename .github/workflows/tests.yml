@@ -2,7 +2,15 @@ name: tests
 
 on:
   push:
+    branches: [main]
   pull_request:
+
+permissions:
+  contents: read
+
+concurrency:  # a new push to a pull request cancels the run it replaces
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
