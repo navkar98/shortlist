@@ -6,6 +6,7 @@ import hashlib
 import html
 import logging
 import re
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 
 import httpx
@@ -214,12 +215,23 @@ def fetch_company(polite: Polite, company: str, known: set[str] | None = None) -
     return jobs
 
 
+def host_group(company: str) -> str:
+    """Boards read from the same paced host: one API per ATS, and one data center per Workday `<tenant>.<wdN>`."""
+    ats, _, slug = company.partition(":")
+    return f"workday:{slug.split('/')[0].rsplit('.', 1)[-1].lower()}" if ats == "workday" else ats
+
+
 def fetch_all(companies: list[str], *, known: set[str] | None = None, full_scan: set[str] = frozenset(),
-              max_workers: int = 5, timeout: float = 20.0, transport: httpx.BaseTransport | None = None) -> list[Job]:
-    """Jobs from every board. With `known`, paged boards stop at a page with nothing new, except boards in
-    `full_scan`, which are read to the end."""
+              max_workers: int = 16, timeout: float = 20.0, transport: httpx.BaseTransport | None = None) -> list[Job]:
+    """Jobs from every board, in the order given. With `known`, paged boards stop at a page with nothing new, except
+    boards in `full_scan`, which are read to the end. Boards on the same host are read one after another (that host
+    gets one request a second anyway) and different hosts in parallel, so a run takes as long as its busiest host."""
+    groups = defaultdict(list)
+    for company in companies:
+        groups[host_group(company)].append(company)
     with httpx.Client(timeout=timeout, transport=transport, headers={"User-Agent": USER_AGENT}) as client, \
-            ThreadPoolExecutor(max_workers) as pool:
+            ThreadPoolExecutor(max(1, min(max_workers, len(groups)))) as pool:
         polite = Polite(client)
-        return [job for jobs in pool.map(lambda c: fetch_company(polite, c, None if c in full_scan else known), companies)
-                for job in jobs]
+        read = lambda group: {c: fetch_company(polite, c, None if c in full_scan else known) for c in group}
+        found = {c: jobs for result in pool.map(read, groups.values()) for c, jobs in result.items()}
+    return [job for company in companies for job in found[company]]

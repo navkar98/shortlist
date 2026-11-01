@@ -1,12 +1,16 @@
 import json
 import logging
+import threading
+import time
+from collections import Counter
 from pathlib import Path
 
 import httpx
 import pytest
 
-from shortlist.fetchers import (AMAZON_MAX_RESULTS, MAX_DESCRIPTION_CHARS, fetch_all, html_to_text, parse_amazon,
-                                parse_ashby, parse_greenhouse, parse_lever, parse_workable, parse_workday)
+from shortlist.fetchers import (AMAZON_MAX_RESULTS, MAX_DESCRIPTION_CHARS, fetch_all, host_group, html_to_text,
+                                parse_amazon, parse_ashby, parse_greenhouse, parse_lever, parse_workable, parse_workday)
+from shortlist.polite import pace_key
 
 FIXTURES = Path(__file__).parent / "fixtures"
 PARSERS = {"greenhouse": parse_greenhouse, "lever": parse_lever, "ashby": parse_ashby, "workday": parse_workday,
@@ -153,6 +157,38 @@ def test_fetch_all_skips_failing_companies(caplog):
     assert any(m.startswith("ashby:garbage: skipped (JSONDecodeError") for m in messages)
     assert "ashby:wrongshape: skipped (KeyError: 'jobs')" in messages
     assert "smartrecruiters:acme: skipped (ValueError: unknown ATS 'smartrecruiters')" in messages
+
+
+def test_fetch_all_keeps_the_order_and_reads_each_host_one_board_at_a_time():
+    active, most = Counter(), Counter()
+    lock = threading.Lock()
+
+    def handler(request):
+        if request.url.path == "/robots.txt":
+            return httpx.Response(404)
+        host = request.url.host
+        with lock:
+            active[host] += 1
+            most[host] = max(most[host], active[host])
+        time.sleep(0.02)
+        with lock:
+            active[host] -= 1
+        slug = request.url.path.rsplit("/", 1)[-1]
+        return httpx.Response(200, json={"jobs": [{"id": slug, "title": f"ML Engineer {slug}", "location": {"name": ""},
+                                                   "absolute_url": f"https://x.example/{slug}"}]})
+
+    companies = ["greenhouse:a", "greenhouse:b", "greenhouse:c"]
+    jobs = fetch_all(companies, transport=httpx.MockTransport(handler), max_workers=8)
+    assert [j.slug for j in jobs] == ["a", "b", "c"]
+    assert most["boards-api.greenhouse.io"] == 1  # the shared host never sees two requests at once
+    assert host_group("workday:acme.wd5/External") == host_group("workday:other.wd5/Careers") == "workday:wd5"
+    assert host_group("workday:acme.wd1/External") != host_group("workday:acme.wd5/External")
+
+
+def test_workday_tenants_share_one_pace_per_data_center():
+    assert pace_key("acme.wd1.myworkdayjobs.com") == pace_key("other.wd1.myworkdayjobs.com") == "wd1.myworkdayjobs.com"
+    assert pace_key("acme.wd5.myworkdayjobs.com") != pace_key("acme.wd1.myworkdayjobs.com")
+    assert pace_key("boards-api.greenhouse.io") == "boards-api.greenhouse.io"
 
 
 def posting(n):

@@ -1,0 +1,324 @@
+description: >-
+  317 companies that posted quantitative finance roles for new grads or interns on the SimplifyJobs lists, on boards
+  Shortlist reads (177 workday, 90 greenhouse, 19 ashby, 17 workable, 14 lever); each board listed open jobs when
+  checked 2026-11-01. A run reads every board, about 2 minutes; the first run, which reads each Workday board to the
+  end, about 17 minutes.
+
+companies:
+  - greenhouse:3redpartners                                       # 3RedPartners
+  - workday:transamerica.wd5/AUK_JobSite                          # Aegon Asset Management
+  - ashby:agentis-capital-advisors                                # Agentis Capital
+  - greenhouse:aircapture                                         # AirCapture
+  - greenhouse:akunacapitaloci                                    # Akuna Capital
+  - workday:aimco.wd10/AIMCoCareers                               # Alberta Investment Management Corporation
+  - workday:abglobal.wd1/alliancebernsteincareers                 # AllianceBernstein
+  - greenhouse:alpaca                                             # Alpaca
+  - greenhouse:alphataraxia                                       # Alphataraxia
+  - workday:albertamotorassociation.wd3/ama                       # AMA
+  - workday:aba.wd1/aba                                           # American Bankers Association
+  - workday:americancentury.wd5/AmericanCenturyInvestments        # American Century Investments
+  - greenhouse:americaninstitutesforresearch                      # American Institutes for Research
+  - workday:american.wd1/au                                       # American University
+  - workday:ameriprise.wd5/Ameriprise                             # Ameriprise Financial
+  - ashby:anthelioncap                                            # Anthelion Capital
+  - workday:athene.wd5/Apollo_Careers                             # Apollo Global
+  - workday:amat.wd1/External                                     # Applied Materials
+  - greenhouse:aquaticcapitalmanagement                           # Aquatic Capital Management
+  - greenhouse:arenaclub                                          # Arena Club
+  - workable:arena-investors-lp                                   # Arena Investors I Quaestor Advisors
+  - workday:aresmgmt.wd1/External                                 # Ares Management
+  - workday:arrowstreetcapital.wd5/Campus_Careers                 # Arrowstreet Capital
+  - workday:asda.wd103/AsdaJobs                                   # ASDA
+  - workday:athene.wd5/athene_careers                             # Athene
+  - workday:aviva.wd1/External                                    # Aviva
+  - workday:aviva.wd1/Aviva_Investors_External                    # Aviva Investors
+  - greenhouse:axq                                                # AXQ Capital
+  - workday:baird.wd1/careers                                     # Baird
+  - workday:bbva.wd3/BBVA                                         # Banco Bilbao Vizcaya Argentaria
+  - workday:ghr.wd1/lateral-emea                                  # Bank of America
+  - workday:bmo.wd3/Campus                                        # Bank of Montreal
+  - workday:bmo.wd3/External                                      # Bank of Montreal
+  - workday:bmo.wd3/Privileged                                    # Bank of Montreal
+  - workday:barclays.wd3/External_Career_Site_Barclays            # Barclays
+  - ashby:base-power                                              # Base Power
+  - lever:belvederetrading                                        # Belvedere Trading
+  - workable:bestex-research                                      # BestEx Research
+  - greenhouse:blackedgecapital                                   # BlackEdge Capital
+  - workday:blackrock.wd1/BlackRock_Professional                  # BlackRock
+  - workday:blackstone.wd1/Blackstone_Campus_Careers              # Blackstone
+  - workday:blackstone.wd1/bx_external_site                       # Blackstone
+  - greenhouse:blockchain                                         # Blockchain.com
+  - workday:bpinternational.wd3/bpEarlyCareers                    # BP
+  - workday:bpinternational.wd3/bpPrivateExternalCareersSite      # BP
+  - greenhouse:bridgewater89                                      # Bridgewater Associates
+  - greenhouse:bwaltpostings                                      # Bridgewater Associates
+  - workday:bci.wd10/BCI_Careers                                  # British Columbia Investment
+  - workday:brookfield.wd5/brookfield                             # Brookfield
+  - workday:bbh.wd5/BBH                                           # Brown Brothers Harriman
+  - workday:busey.wd503/busey                                     # Busey Bank
+  - workday:cambridgeassociates.wd5/Cambridge_Associates          # Cambridge Associates
+  - workday:cambridgeassociates.wd5/Handshake                     # Cambridge Associates
+  - greenhouse:capco                                              # Capco
+  - greenhouse:capstoneinvestmentadvisors                         # Capstone Investment Advisors
+  - workable:capula-investment-management-ltd                     # Capula
+  - lever:cascademgt                                              # Cascade Asset Management Company
+  - workable:castle-trust                                         # Castle Trust Bank
+  - workday:cboe.wd1/External_Career_CBOE                         # Cboe
+  - workday:cenovus.wd3/careers                                   # Cenovus Energy
+  - greenhouse:centerforstrategicandinternationalstudiesinc       # Center for Strategic and International Studies
+  - workday:centrica.wd3/Centrica                                 # Centrica
+  - workday:ceritypartners.wd12/ceritypartnerscareers             # Cerity Partners
+  - workday:chevron.wd5/University                                # Chevron Corporation
+  - greenhouse:chicagotrading                                     # Chicago Trading Company
+  - greenhouse:chicagotradingcampus                               # Chicago Trading Company
+  - greenhouse:ctccampusboard                                     # Chicago Trading Company
+  - workday:cibc.wd3/campus                                       # CIBC
+  - workday:cibc.wd3/search                                       # CIBC
+  - workday:cigna.wd5/cignacareers                                # Cigna Group
+  - workday:citi.wd5/2                                            # Citi
+  - workday:clearwateranalytics.wd1/Clearwater_Analytics_Careers  # Clearwater Analytics
+  - greenhouse:clearwayjobs                                       # Clearway Energy
+  - workday:cmcmarkets.wd3/CMC_Markets_Careers                    # CMC Markets
+  - workday:cmegroup.wd1/cme_careers                              # CME Group
+  - workday:collectorsuniverse.wd1/collectors                     # Collectors
+  - workday:conning.wd503/conningcareers                          # Conning
+  - workday:conocophillips.wd1/External                           # ConocoPhillips
+  - greenhouse:cortland                                           # Cortland
+  - workday:costar.wd1/Costar_Campus                              # CoStar Group
+  - workday:cw.wd1/external                                       # Cushman & Wakefield
+  - greenhouse:davinciderivatives                                 # Da Vinci
+  - greenhouse:detroitlions                                       # Detroit Lions
+  - workday:db.wd3/DBWebsite                                      # Deutsche Bank
+  - workday:dimensional.wd5/dfa_careers                           # Dimensional Fund Advisors
+  - workday:dowjones.wd1/Dow_Jones_Career                         # Dow Jones
+  - greenhouse:drweng                                             # DRW
+  - greenhouse:drwuniversityjobs                                  # DRW
+  - greenhouse:dvtrading                                          # DV Trading
+  - workable:eagle-seven                                          # Eagle Seven
+  - workday:edftrading.wd1/EDFTrading                             # EDFT
+  - ashby:ellipsislabs                                            # Ellipsis Labs
+  - workday:gnw.wd1/enact_mi                                      # Enact Mortgage Insurance
+  - greenhouse:engineersgate                                      # Engineers Gate
+  - workday:equinor.wd3/EQNR                                      # Equinor
+  - lever:eqbank                                                  # Equitable Bank
+  - workday:hrhub.wd3/Euronext_Career_Page                        # Euronext
+  - workday:everestre.wd5/careers                                 # Everest
+  - greenhouse:exoduspoint                                        # ExodusPoint
+  - greenhouse:fanaticsfbg                                        # Fanatics
+  - workday:fanniemae.wd1/FannieMaeCareers                        # Fannie Mae
+  - workable:fasanara                                             # Fasanara
+  - workday:fhlbi.wd1/FHLBI_Careers                               # Federal Home Loan Bank of Indianapolis
+  - workday:ferrovial.wd3/ferrovial_career_site                   # Ferrovial
+  - workday:fhlbc.wd1/search                                      # FHLBank Chicago
+  - workday:fhlbtopeka.wd1/FHLBT                                  # FHLBank Topeka
+  - workday:fmr.wd1/fidelitycareers                               # Fidelity Investments
+  - workday:fmr.wd1/targeted                                      # Fidelity Investments
+  - workday:fifththird.wd5/53careers                              # Fifth Third Bank
+  - greenhouse:figure                                             # Figure
+  - workday:fnbcorp.wd501/FNBCORP                                 # First National Bank
+  - workday:firstquantum.wd3/First_Quantum_Careers                # First Quantum Minerals
+  - greenhouse:fiveringsllc                                       # Five Rings Capital
+  - greenhouse:flowtraders                                        # Flow Traders
+  - greenhouse:ftsp27co-ops                                       # Flow Traders
+  - workday:flutterbe.wd3/FlutterUKI_External                     # Flutter
+  - greenhouse:focusfinancialpartners                             # Focus Financial Partners
+  - workday:fourseasons.wd3/search                                # Four Seasons
+  - workday:franklintempleton.wd5/invitation-only                 # Franklin Templeton
+  - workday:freddiemac.wd5/External                               # Freddie Mac
+  - workday:frostbank.wd5/External                                # Frost
+  - workable:g-20-advisors-ag                                     # G-20 Group
+  - workday:gresearch.wd103/G-Research                            # G-Research
+  - greenhouse:galaxydigitalservices                              # Galaxy
+  - workday:gapinc.wd1/GAPINC                                     # GAP
+  - greenhouse:gardacp                                            # Garda Capital Partners
+  - workday:geaerospace.wd5/ge_externalsite                       # GE Aerospace
+  - greenhouse:gelbergroup                                        # Gelber Group
+  - greenhouse:generalatlantic                                    # General Atlantic
+  - greenhouse:genevatrading                                      # Geneva Trading
+  - workday:gnw.wd1/GNW                                           # Genworth Financial
+  - greenhouse:glencoreuk                                         # Glencore
+  - lever:gmo                                                     # GMO
+  - greenhouse:grahamcapitalmanagement                            # Graham Capital Management
+  - greenhouse:gravitonresearchcapital                            # Graviton
+  - workday:greystar.wd1/International_Career_Site                # Greystar Worldwide
+  - workday:group1001wd.wd5/careers                               # Group 1001
+  - workday:gunvor.wd3/Gunvor_Careers                             # Gunvor
+  - workday:hcsc.wd1/HCSC_External                                # HCSC
+  - workday:hkex.wd3/HKEXCareerPage                               # Hong Kong Exchanges
+  - workday:hl.wd1/Campus                                         # Houlihan Lokey
+  - greenhouse:hpsinterns                                         # HPS Investment Partners
+  - greenhouse:icapitalnetwork                                    # iCapital Network
+  - greenhouse:imc                                                # IMC Trading
+  - workday:intactfc.wd3/intactfc                                 # Intact
+  - greenhouse:integrainterns                                     # Integra FEC
+  - workday:imh.wd108/IntermountainCareers                        # Intermountain Healthcare
+  - workday:theirc.wd1/External_Careers                           # International Rescue Committee (IRC)
+  - lever:intropic                                                # Intropic
+  - workday:invesco.wd1/IVZ                                       # Invesco
+  - workday:invesco.wd1/IVZearlycareers                           # Invesco
+  - greenhouse:isam                                               # iSAM
+  - workday:issgovernance.wd1/isscareers                          # ISS | Institutional Shareholder Services
+  - workday:jainglobal.wd5/ExternalSite                           # Jain Global
+  - greenhouse:janestreet                                         # Jane Street
+  - workday:jeffersonhealth.wd5/ThomasJeffersonExternal           # Jefferson Health
+  - lever:jupiterintel                                            # Jupiter Intelligence
+  - workday:kemper.wd5/kemper_careers                             # Kemper
+  - workday:keybank.wd5/External_Career_Site                      # KeyBank
+  - ashby:keyrock                                                 # Keyrock
+  - ashby:kirin                                                   # Kirin
+  - greenhouse:krollbondratingagency                              # Kroll Bond Rating Agency
+  - ashby:lendable                                                # Lendable
+  - lever:leversys                                                # Leversys
+  - workday:lnw.wd5/lightwonderexternalcareers                    # Light & Wonder
+  - workday:linklogistics.wd5/Link                                # Link Logistics
+  - workday:lbg.wd3/LBG_Careers                                   # Lloyds Bank
+  - workday:lseg.wd3/Careers                                      # LSEG
+  - workday:lseg.wd3/Graduate_Careers                             # LSEG
+  - workday:mtb.wd5/MTB                                           # M&T Bank
+  - greenhouse:philliesbaseballoperations                         # Major League Baseball
+  - greenhouse:mangroup                                           # Man Group
+  - workday:manulife.wd3/MFCJH_Jobs                               # Manulife Financial
+  - workday:manulife.wd3/MFCJH_adminJobs                          # Manulife Financial
+  - workday:mpc.wd1/MPCCareers                                    # Marathon Petroleum
+  - workday:mmc.wd1/mmc                                           # Marsh
+  - greenhouse:mw-tech-grad                                       # Marshall Wace
+  - greenhouse:mwinternshipprogram                                # Marshall Wace
+  - workday:massmutual.wd1/MMAscendCareers                        # MassMutual Ascend
+  - workday:massmutual.wd1/MMCareers                              # MassMutual Ascend
+  - greenhouse:mavensecuritiesholdingltd                          # Maven Securities
+  - greenhouse:merqube                                            # MerQube
+  - workday:mfs.wd1/MFS-Careers                                   # MFS
+  - greenhouse:miopartners                                        # MIO Partners
+  - workday:miqdigital.wd3/MiQ_Careers                            # MiQ
+  - workday:mizuho.wd1/mizuhoamericas                             # Mizuho Securities USA
+  - greenhouse:monzo                                              # Monzo
+  - lever:moo                                                     # moo
+  - workday:ms.wd5/External                                       # Morgan Stanley
+  - workday:ms.wd5/private                                        # Morgan Stanley
+  - workday:morningstar.wd5/Americas                              # Morningstar
+  - workday:morningstar.wd5/Morningstar                           # Morningstar
+  - workday:mufgub.wd3/mufg-careers                               # MUFG
+  - workday:mufgub.wd3/mufg-earlycareers                          # MUFG
+  - workable:mustard-systems                                      # Mustard Systems
+  - workday:nasdaq.wd1/Global_External_Site                       # Nasdaq
+  - workday:nationwide.wd1/Nationwide_Career                      # Nationwide
+  - workday:rbs.wd3/rbs                                           # NatWest Group
+  - workday:nb.wd1/NBCareers                                      # Neuberger Berman
+  - greenhouse:nyisointernships                                   # New York ISO
+  - greenhouse:ninjatrader                                        # NinjaTrader
+  - workday:northwest.wd1/Northwest_Careers                       # Northwest Bank
+  - workday:northwesternmutual.wd5/corporate-careers              # Northwestern Mutual
+  - ashby:numerixs-quant                                          # NumerixS Quant
+  - workday:theocc.wd5/careers                                    # OCC
+  - ashby:old-mission-capital                                     # Old Mission
+  - workday:omers.wd3/omers_external                              # OMERS
+  - workday:interpublic.wd5/omc                                   # Omnicom Group
+  - workday:otppb.wd3/OntarioTeachers_Careers                     # Ontario Teachers' Pension Plan
+  - workable:onyx-capital-group                                   # Onyx Capital Group
+  - lever:optionmetrics                                           # OptionMetrics
+  - greenhouse:optiverprivate                                     # Optiver
+  - workday:orionadvisor.wd1/Orion_Careers                        # Orion
+  - workday:empower.wd12/PanAgora                                 # PanAgora
+  - ashby:paradigm                                                # Paradigm
+  - greenhouse:pdtpartners                                        # PDT Partners
+  - workday:peak6group.wd1/CapMan                                 # PEAK6
+  - greenhouse:penninteractive                                    # Penn Interactive
+  - workday:talentmanagementsolution.wd3/perseus-careers          # Perseus Group
+  - workday:pru.wd5/pgim_careers                                  # PGIM
+  - greenhouse:pharomanagement                                    # Pharo Management
+  - workday:pimco.wd1/pimco-careers                               # PIMCO
+  - workday:pnc.wd5/External                                      # PNC Financial Services
+  - greenhouse:point72                                            # Point72
+  - workday:jackson.wd1/ppma_careers                              # PPM America
+  - workday:pra.wd1/PRA_Careers                                   # PRA Group
+  - workable:premium-merchant-funding-3                           # Premium Merchant Funding
+  - greenhouse:pretiuminternships2027                             # Pretium
+  - workday:pg.wd5/1000                                           # Procter & Gamble
+  - workday:pru.wd5/Careers                                       # Prudential Financial
+  - workday:investpsp.wd3/psp_careers                             # PSP Investments
+  - workday:qtsdatacenters.wd5/qts                                # QTS
+  - greenhouse:quberesearchandtechnologies                        # Qube Research & Technologies
+  - workable:queueco                                              # Queueco
+  - greenhouse:racapitalmanagementllc                             # RA Capital Management
+  - greenhouse:radixuniversity                                    # Radix Trading
+  - ashby:ramielcapital                                           # Ramiel Capital
+  - workday:raymondjames.wd1/RaymondJamesCareers                  # Raymond James Financial
+  - workday:raymondjames.wd1/RaymondJamesEarlyCareers             # Raymond James Financial
+  - greenhouse:readystate                                         # Readystate Asset Management
+  - workday:repsol.wd3/Repsol                                     # Repsol
+  - workday:revantage.wd1/Revantage                               # Revantage Corporate Services
+  - ashby:rho                                                     # Rho
+  - greenhouse:rothesaygraduates                                  # Rothesay
+  - workday:rbc.wd3/ExternalPrivatePostingStudents                # Royal Bank of Canada
+  - workday:rbc.wd3/RBCEARLYTALENT1                               # Royal Bank of Canada
+  - workday:rbc.wd3/rbcglobal1                                    # Royal Bank of Canada
+  - workday:spgi.wd5/SPGI_Careers                                 # S&P Global
+  - greenhouse:schonfeld                                          # Schonfeld
+  - greenhouse:scmaea                                             # SCM
+  - workday:seic.wd1/SEI_Global_Services                          # SEI
+  - ashby:sentilink                                               # SentiLink
+  - greenhouse:sesco                                              # SESCO
+  - greenhouse:sevenresearch                                      # Seven Research
+  - workday:shell.wd3/ShellCareers                                # Shell
+  - workday:situsamc.wd1/SitusAMC                                 # SitusAMC
+  - workday:southstatebank.wd5/external                           # SouthState Bank
+  - workday:ssctech.wd1/ssctechnologies                           # SS&C
+  - lever:standtogether                                           # Stand Together
+  - workable:starling-bank                                        # Starling Bank
+  - workday:ncsecu.wd1/secu                                       # State Employees' Credit Union
+  - workday:swib.wd12/ext                                         # State of Wisconsin Investment Board
+  - workday:statestreet.wd1/Global                                # State Street
+  - workday:statestreet.wd1/equest                                # State Street
+  - workable:synthesisim                                          # Synthesis
+  - workday:troweprice.wd5/TRowePrice                             # T. Rowe Price
+  - ashby:talos-trading                                           # Talos
+  - workday:td.wd3/TD_Bank_Careers                                # TD Bank
+  - workday:lifeworks.wd3/External                                # TELUS
+  - workday:tencent.wd1/Tencent_Careers                           # Tencent
+  - workday:texascapitalbank.wd12/Careers                         # Texas Capital Bank
+  - workday:texaspsf.wd501/TexasPSFCareers                        # Texas Permanent School Fund Corporation
+  - ashby:teza-technologies                                       # Teza Technologies
+  - workday:rb.wd5/FRS                                            # The Federal Reserve System
+  - greenhouse:thetradedesk                                       # The Trade Desk
+  - ashby:voleon                                                  # The Voleon Group
+  - workday:thyssenkruppmaterialsna.wd12/1                        # thyssenkrupp
+  - workday:tmx.wd3/TMX_Careers                                   # TMX Group
+  - ashby:trading212                                              # Trading212
+  - greenhouse:transmarketgroup                                   # TransMarket Group
+  - workday:travelers.wd5/External                                # Travelers
+  - workable:trexquant                                            # Trexquant
+  - greenhouse:trinityparktalent                                  # Trinity Park Talent
+  - ashby:triumph-arcade                                          # Triumph
+  - workday:truist.wd1/Careers                                    # Truist Bank
+  - greenhouse:trumid                                             # Trumid
+  - ashby:turn-river                                              # Turn/River Capital
+  - workday:usbank.wd1/US_Bank_Careers                            # U.S. Bank
+  - workday:uchicago.wd5/External                                 # University of Chicago
+  - workday:upenn.wd1/careers-at-penn                             # University of Pennsylvania
+  - workday:usc.wd5/ExternalUSCCareers                            # University of Southern California
+  - greenhouse:uvimco                                             # University of Virginia Investment Management Company (UVIMCO)
+  - workday:usaa.wd1/USAAJOBSWD                                   # USAA
+  - workable:validus-risk-management                              # Validus Risk Management
+  - lever:valkyrietrading                                         # Valkyrie Trading
+  - workday:vanguard.wd5/vanguard_external                        # Vanguard
+  - workable:viewline-ventures                                    # Viewline Ventures
+  - greenhouse:vikingglobalinvestors                              # Viking Global
+  - greenhouse:virtu                                              # Virtu Financial
+  - greenhouse:voloridgeinvestmentmanagement                      # Voloridge
+  - lever:voltus                                                  # Voltus
+  - workday:godirect.wd5/voya_jobs                                # Voya Financial
+  - greenhouse:walleyecapital-external-fulltime                   # Walleye Capital
+  - greenhouse:walleyecapital-external-students                   # Walleye Capital
+  - workable:wallstreetquants                                     # WallStreetQuants
+  - greenhouse:weissassetmanagement                               # Weiss Asset Management
+  - workday:wellington.wd5/external                               # Wellington Management
+  - greenhouse:whitewatermidstream                                # WhiteWater Midstream
+  - workday:mtb.wd5/wtexternal                                    # Wilmington Trust
+  - lever:wintermute-trading                                      # Wintermute
+  - greenhouse:winton                                             # Winton
+  - lever:wisdomtree                                              # WisdomTree
+  - workday:wwwinc.wd1/WWW                                        # Wolverine World Wide
+  - workday:wfscorp.wd5/wfscareers                                # World Kinect
+  - greenhouse:worldquant                                         # WorldQuant
+  - greenhouse:wppmedia                                           # WPP Media
+  - greenhouse:xantium                                            # Xantium

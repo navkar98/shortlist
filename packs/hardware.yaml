@@ -1,0 +1,695 @@
+description: >-
+  688 companies that posted hardware engineering roles for new grads or interns on the SimplifyJobs lists, on boards
+  Shortlist reads (356 workday, 149 greenhouse, 94 ashby, 48 lever, 41 workable); each board listed open jobs when
+  checked 2026-11-01. A run reads every board, about 5 minutes; the first run, which reads each Workday board to the
+  end, about 56 minutes.
+
+companies:
+  - greenhouse:10beauty                                                        # 10Beauty
+  - ashby:1x                                                                   # 1X
+  - workday:2020companies.wd1/external_careers                                 # 2020 Companies
+  - workday:3m.wd1/Search                                                      # 3M
+  - greenhouse:atek                                                            # A-TEK
+  - workday:abb.wd3/external_career_page                                       # ABB
+  - workday:abbott.wd5/abbottcareers                                           # Abbott
+  - workday:abbott.wd5/abbottcareers2                                          # Abbott
+  - workday:accuray.wd5/external                                               # Accuray
+  - greenhouse:accuweather                                                     # AccuWeather
+  - lever:acronaviation                                                        # Acron Aviation
+  - workday:adtran.wd3/adtran                                                  # Adtran
+  - greenhouse:advancedtechnologyservices                                      # Advanced Technology Services
+  - workday:avav.wd1/avav                                                      # AeroVironment
+  - ashby:aescape                                                              # Aescape
+  - workable:aetos-systems-inc                                                 # Aetos Systems
+  - greenhouse:aevexaerospace                                                  # Aevex Aerospace
+  - workable:ageo                                                              # AGEO Autonomy
+  - workday:agilent.wd5/Agilent_Careers                                        # Agilent Technologies
+  - workday:agilent.wd5/Agilent_Student_Careers                                # Agilent Technologies
+  - workday:agiliti.wd5/careers                                                # Agiliti
+  - lever:thinkahead                                                           # AHEAD
+  - workday:ag.wd3/Airbus                                                      # Airbus
+  - greenhouse:aircapture                                                      # AirCapture
+  - greenhouse:alarmcom                                                        # Alarm.com
+  - greenhouse:albedo                                                          # Albedo
+  - workday:allegion.wd5/careers                                               # Allegion
+  - workday:allegromicro.wd5/allegrocareers                                    # Allegro MicroSystems
+  - ashby:allen-control-systems                                                # Allen Control Systems
+  - workday:allisontransmission.wd1/ATI-External                               # Allison Transmission
+  - ashby:ridealso                                                             # ALSO
+  - greenhouse:altentechnologyusa                                              # ALTEN Technology
+  - workday:altera.wd1/altera                                                  # Altera
+  - greenhouse:amarok                                                          # AMAROK Security
+  - workable:amax-1                                                            # AMAX
+  - workday:ambarella.wd108/ambarella                                          # Ambarella
+  - greenhouse:amca                                                            # AMCA
+  - workday:aep.wd1/AEPCareerSite                                              # American Electric Power
+  - workday:american.wd1/au                                                    # American University
+  - workday:amgen.wd1/careers                                                  # Amgen
+  - greenhouse:amperesand                                                      # Amperesand
+  - workday:analogdevices.wd1/External                                         # Analog Devices
+  - workday:amainc.wd12/ama_careers                                            # Analytical Mechanics Associates
+  - greenhouse:andurilindustries                                               # Anduril
+  - ashby:antares                                                              # Antares Nuclear
+  - greenhouse:apcon                                                           # APCON
+  - ashby:apex-technology-inc                                                  # Apex
+  - workday:applied.wd501/applied                                              # Applied Fluid Power
+  - ashby:applied                                                              # Applied Intuition
+  - workday:amat.wd1/External                                                  # Applied Materials
+  - greenhouse:apptronik                                                       # Apptronik
+  - workday:aptiv.wd5/aptiv_careers                                            # Aptiv
+  - greenhouse:arcboatcompany                                                  # Arc
+  - workday:argonne.wd1/Argonne_Careers                                        # Argonne National Laboratory
+  - workday:aristocrat.wd3/aristocratexternalcareerssite                       # Aristocrat Leisure
+  - workday:arlo.wd12/External_Careers                                         # Arlo Technologies
+  - workday:asml.wd3/asmlext1                                                  # ASML
+  - workday:astemo.wd102/Global_Career_Site                                    # Astemo
+  - greenhouse:asteraearlycareer2026                                           # Astera Labs
+  - greenhouse:asteraearlycareer2027                                           # Astera Labs
+  - greenhouse:asteralabs                                                      # Astera Labs
+  - greenhouse:astranis                                                        # Astranis
+  - workday:astreya.wd5/life-at-astreya-opportunities                          # Astreya
+  - greenhouse:astronicscorporation                                            # Astronics
+  - workday:asurion.wd5/asurioncareers_us                                      # Asurion
+  - workday:att.wd1/ATTGeneral                                                 # AT&T
+  - workday:slihrms.wd3/careers                                                # AtkinsRéalis
+  - lever:atomcomputing                                                        # Atom Computing
+  - greenhouse:atomicmachines                                                  # Atomic Machines
+  - greenhouse:atoms                                                           # Atoms
+  - greenhouse:cssmerge                                                        # Atoms
+  - workday:atriumhospitality.wd5/atriumhospitality                            # Atrium Hospitality
+  - greenhouse:attotude                                                        # AttoTude
+  - ashby:aureliussystems                                                      # Aurelius Systems
+  - ashby:aurora-operations-inc                                                # Aurora Innovation
+  - workday:austalusa.wd1/austal                                               # Austal USA
+  - workday:autostore.wd3/autostore                                            # Autostore
+  - workable:avk-seg-uk-ltd                                                    # AVK
+  - workday:avnet.wd1/external                                                 # Avnet
+  - greenhouse:avride                                                          # Avride
+  - workday:axcelis.wd1/axcelis                                                # Axcelis Technologies
+  - greenhouse:axon                                                            # Axon
+  - greenhouse:axontalentcommunity                                             # Axon
+  - workday:badgermeter.wd5/US_CareerSite                                      # Badger Meter
+  - workday:bakerhughes.wd5/BakerHughes                                        # Baker Hughes
+  - workday:barrywehmiller.wd1/BWCareers                                       # Barry-Wehmiller
+  - ashby:base-power                                                           # Base Power
+  - workday:baxter.wd1/baxter                                                  # Baxter International
+  - workday:bdo.wd3/BDO                                                        # BDO Canada
+  - workday:bdx.wd1/EXTERNAL_CAREER_SITE_USA                                   # Becton Dickinson
+  - workday:bdx.wd1/US_EARLY_TALENT_SITE                                       # Becton Dickinson
+  - ashby:bedrock-robotics                                                     # Bedrock Robotics
+  - workday:bestbuycanada.wd3/BestBuyCA_Career                                 # Best Buy
+  - workday:biamp.wd12/Biamp                                                   # Biamp
+  - workday:biotechne.wd5/Biotechne                                            # Bio-Techne
+  - workday:bb.wd3/QNX                                                         # Blackberry
+  - workday:bb.wd3/blackberry                                                  # Blackberry
+  - workable:blacklinesafety                                                   # Blackline Safety
+  - ashby:blissway                                                             # Blissway
+  - workday:bloomenergy.wd1/bloomenergycareers                                 # Bloom Energy
+  - workday:blueorigin.wd5/blueorigin                                          # Blue Origin
+  - greenhouse:bpcs                                                            # Blueprint Technologies
+  - greenhouse:notexternal                                                     # Blueprint Technologies
+  - lever:bluesight                                                            # Bluesight
+  - workday:bah.wd1/Confidential                                               # Booz Allen
+  - workday:bah.wd1/bah_jobs                                                   # Booz Allen
+  - workday:borgwarner.wd5/BorgWarner_Careers                                  # BorgWarner
+  - workday:boseallaboutme.wd503/Bose_Careers                                  # Bose
+  - workday:bostondynamics.wd1/Boston_Dynamics                                 # Boston Dynamics
+  - workday:boydcorp.wd12/Boyd_Careers                                         # Boyd
+  - workday:boystown.wd1/boystowncareers                                       # Boys Town
+  - ashby:bridgeneurotech                                                      # Bridge Neurotech
+  - workday:byu.wd1/byu-careers                                                # Brigham Young University
+  - ashby:brinc                                                                # BRINC Drones
+  - workday:brinks.wd5/brinkscareersus                                         # Brink
+  - workday:broadcom.wd1/external_career                                       # Broadcom
+  - workday:brocku.wd3/brocku_careers                                          # Brock University
+  - workday:bnl.wd1/externa                                                    # Brookhaven Lab
+  - workday:brunswick.wd1/search                                               # Brunswick
+  - workday:btisolutions.wd12/External                                         # BTI Solutions
+  - workday:cableone.wd1/Cable_One_External_Careers                            # Cable One
+  - workday:caci.wd1/external                                                  # CACI
+  - workday:cadence.wd1/External_Careers                                       # Cadence Design Systems
+  - workday:cadence.wd1/Univ_Careers                                           # Cadence Design Systems
+  - workday:cadence.wd1/University_CST                                         # Cadence Design Systems
+  - workday:cadence.wd1/University_Talent                                      # Cadence Design Systems
+  - workday:cadence.wd1/University_Talent_Intern                               # Cadence Design Systems
+  - greenhouse:cadwell                                                         # Cadwell
+  - workday:cae.wd3/career                                                     # CAE
+  - workday:cai.wd5/computer_aid                                               # CAI
+  - workday:tcbrands.wd1/callaway-careers                                      # Callaway Golf
+  - greenhouse:cambridgeconsultantslimited                                     # Cambridge Consultants
+  - workday:carrier.wd5/jobs                                                   # Carrier Global
+  - greenhouse:castelioncorporation                                            # Castelion
+  - greenhouse:catapultsports                                                  # Catapult
+  - workday:cat.wd5/CaterpillarCareers                                         # Caterpillar Inc.
+  - workday:myhrabc.wd5/Global                                                 # Cencora
+  - ashby:cerebras                                                             # Cerebras
+  - workday:chamberlain.wd1/Chamberlain_Group                                  # Chamberlain Group
+  - workday:championx.wd1/championx_external                                   # ChampionX
+  - greenhouse:chaosindustries                                                 # CHAOS Industries
+  - workday:cni.wd503/CNI                                                      # Chickasaw Nation Industries
+  - greenhouse:chowbus                                                         # ChowBus
+  - workable:christie-lites-3                                                  # Christie
+  - workday:cecentertainment.wd5/CEC_Careers                                   # Chuck E. Cheese
+  - workday:ciena.wd5/Careers                                                  # Ciena
+  - workday:cincinnatichildrens.wd5/careersatcincinnatichildrens               # Cincinnati Children’s Hospital and Medical Center
+  - workday:circlek.wd3/circlekstorejobs                                       # Circle K
+  - workday:cisco.wd5/cisco_careers                                            # Cisco
+  - workday:cognex.wd1/External_Career_Site                                    # Cognex
+  - greenhouse:comstock                                                        # Comstock Companies
+  - workable:continuum-resource-network                                        # Continuum Resource Network
+  - workday:copeland.wd5/copeland_external_careers_page                        # Copeland
+  - ashby:corvus-robotics                                                      # Corvus Robotics
+  - workday:costar.wd1/CoStarCareers                                           # CoStar Group
+  - workday:costar.wd1/Costar_Campus                                           # CoStar Group
+  - workday:covestro.wd3/cov_external                                          # Covestro
+  - greenhouse:cpisecurity                                                     # CPI Security
+  - workday:cranecompany.wd5/Careers                                           # Crane Co.
+  - workable:cornerstone-research-group-inc                                    # CRG Defense
+  - workday:crowdstrike.wd5/crowdstrikecareers                                 # Crowdstrike
+  - ashby:crusoe                                                               # Crusoe
+  - workday:csagroup.wd3/csagroup                                              # CSA Group
+  - workday:cubic.wd1/cubic_USA_careers                                        # Cubic
+  - workday:cubic.wd1/cubic_global_careers                                     # Cubic
+  - workday:curtisswright.wd1/cw_external_career_site                          # Curtiss-Wright Corporation
+  - lever:cx2                                                                  # CX2
+  - ashby:cyvl                                                                 # Cyvl
+  - ashby:d-matrix                                                             # d-Matrix
+  - workday:daikinapplied.wd1/Daikin-Careers                                   # Daikin Applied
+  - workday:dtna.wd5/dtna_affiliate                                            # Daimler Truck
+  - workday:danaher.wd1/danaherjobs                                            # Danaher
+  - workday:daveandbusters.wd1/dave_and_busters_careers                        # Dave & Busters
+  - ashby:deft-ai                                                              # Deft AI
+  - workday:masco.wd1/deltafaucet                                              # Delta Faucet
+  - workday:bydeluxe.wd5/Deluxe_External                                       # Deluxe Media
+  - workday:dealertire.wd5/4710                                                # Dent Wizard
+  - workday:dexcom.wd1/Dexcom                                                  # Dexcom
+  - greenhouse:didi                                                            # DiDi Global
+  - lever:diversified-automation                                               # Diversified Automation
+  - greenhouse:doordashusa                                                     # DoorDash
+  - workday:draper.wd5/Draper_Careers                                          # Draper
+  - ashby:droyd                                                                # Droyd Robotics
+  - greenhouse:drweng                                                          # DRW
+  - workday:dukeenergy.wd1/search                                              # Duke Energy
+  - workday:dyson.wd3/dyson_careers                                            # Dyson
+  - lever:espace                                                               # E-Space
+  - workday:ebay.wd5/apply                                                     # eBay
+  - workday:edwards.wd5/edwardscareers                                         # Edwards Lifesciences
+  - greenhouse:efficientcomputer                                               # Efficient Computer
+  - ashby:eightsleep                                                           # Eight Sleep
+  - workday:elekta.wd3/Elekta_Careers                                          # Elekta
+  - workable:elevate-semiconductor                                             # Elevate Semiconductor
+  - lever:eliyan                                                               # Eliyan
+  - ashby:elveo                                                                # Elveo
+  - workday:embryriddle.wd1/External                                           # Embry-Riddle Aeronautical University
+  - workable:employee-owned-holdings-inc                                       # Employee Owned Holdings
+  - workday:enovis.wd5/enovis                                                  # ENOVIS
+  - workday:ebi.wd5/ebadcareers                                                # Ensign-Bickford Aerospace & Defense Company
+  - workday:ebi.wd5/ebicareers                                                 # Ensign-Bickford Industries
+  - workday:entegris.wd1/entegriscareers                                       # Entegris
+  - workday:entrust.wd1/entrustcareers                                         # Entrust
+  - workday:envista.wd1/envistacareers                                         # Envista
+  - workday:eosenergystorage.wd1/eos                                           # Eos Energy Storage
+  - ashby:epianeuro                                                            # Epia Neuro
+  - workday:esab.wd5/esabcareers                                               # ESAB Corporation
+  - ashby:etched                                                               # Etched
+  - workday:evergreenix.wd1/external-careers2                                  # Everfox
+  - workday:eversource.wd1/ExternalSite                                        # Eversource Energy
+  - workday:evolito.wd3/Evolito_Career_Site                                    # Evolito
+  - lever:extremenetworks                                                      # Extreme Networks
+  - ashby:fab2                                                                 # Fab2
+  - workday:fermilab.wd5/FermilabCareers                                       # Fermilab
+  - workday:ferrovial.wd3/ferrovial_career_site                                # Ferrovial
+  - lever:field-ai                                                             # Field AI
+  - greenhouse:figureai                                                        # Figure
+  - workday:flextronics.wd1/Careers                                            # Flextronics International
+  - ashby:flock%20safety                                                       # Flock Safety
+  - workday:floridatech.wd5/FloridaTechCareers                                 # Florida Institute of Technology
+  - ashby:fluidstack                                                           # FluidStack
+  - lever:fluxergy-2                                                           # Fluxergy
+  - ashby:focal                                                                # Focal
+  - ashby:focused                                                              # Focused
+  - workday:formulaone.wd3/F1                                                  # Formula 1
+  - ashby:fortell                                                              # Fortell
+  - workday:mhs.wd1/careers                                                    # FORTNA
+  - workday:fox.wd1/Domestic                                                   # FOX
+  - ashby:foxglove                                                             # Foxglove
+  - ashby:fractile                                                             # Fractile
+  - workday:kbr.wd5/Frazer_Nash_Careers                                        # Frazer-Nash Consultancy
+  - greenhouse:freedomconsulting                                               # Freedom Technology Solutions Group
+  - greenhouse:freeformfuturecorp                                              # Freeform
+  - workday:freseniusglobal.wd3/FK_Careers                                     # Fresenius Kabi
+  - workday:freseniusmedicalcare.wd3/fme                                       # Fresenius Medical Care
+  - workday:freudenberg.wd3/freudenberg-group                                  # Freudenberg Group
+  - workable:fuse-integration                                                  # Fuse Integration
+  - workday:geaerospace.wd5/ge_externalsite                                    # GE Aerospace
+  - workday:haier.wd3/ge_appliances                                            # GE Appliances
+  - workday:gehc.wd5/GEHC_ExternalSite                                         # GE Healthcare
+  - ashby:gecko-robotics                                                       # Gecko Robotics
+  - workday:generac.wd5/external                                               # Generac
+  - workday:gdit.wd5/external_career_site                                      # General Dynamics Information Technology
+  - greenhouse:generalmatter                                                   # General Matter
+  - workday:generalmotors.wd5/Careers_GM                                       # General Motors
+  - ashby:generalist                                                           # Generalist
+  - workable:genetec-inc                                                       # Genetec
+  - workday:gentex.wd5/Gentex                                                  # Gentex Corporation
+  - workday:genpt.wd1/Careers                                                  # Genuine Parts Company
+  - greenhouse:geotab                                                          # Geotab
+  - greenhouse:internshiplist2000                                              # Geotab
+  - ashby:gimlet                                                               # Gimlet Labs
+  - greenhouse:gitai                                                           # GITAI
+  - workday:globalfoundries.wd1/External                                       # GlobalFoundries
+  - workday:globusmedical.wd5/GMED_Careers                                     # Globus Medical
+  - greenhouse:glydways                                                        # Glydways
+  - workday:graco.wd501/Graco_Careers                                          # Graco
+  - ashby:gradientrobotics                                                     # Gradient Robotics
+  - greenhouse:graphcore                                                       # Graphcore
+  - greenhouse:graphcore-early-careers                                         # Graphcore
+  - workday:greenheckgroup.wd5/external                                        # Greenheck Group
+  - ashby:h3x-technologies                                                     # H3X Technologies
+  - workday:halma.wd3/Halma                                                    # Halma
+  - ashby:handshake                                                            # Handshake
+  - greenhouse:harbingermotors                                                 # Harbinger Motors
+  - greenhouse:hasbro                                                          # Hasbro
+  - ashby:havocai                                                              # HavocAI
+  - ashby:hawkeyeinnovations                                                   # Hawk-Eye Innovations
+  - workday:helenoftroy.wd503/Main_HoT                                         # Helen of Troy
+  - greenhouse:hellbenderinc                                                   # HELLBENDER
+  - workday:hendrick.wd5/HMSCareers                                            # Hendrick Motorsports
+  - workday:henryschein.wd1/External_Careers                                   # Henry Schein
+  - lever:hermeus                                                              # Hermeus
+  - ashby:heron-power                                                          # Heron Power
+  - workday:hp.wd5/EXTEU-AC-CareerSite                                         # Hewlett Packard (HP)
+  - workday:hp.wd5/externalcareersite                                          # Hewlett Packard (HP)
+  - workday:hpe.wd5/acjobsite                                                  # Hewlett Packard Enterprise
+  - workday:hpe.wd5/jobsathpe                                                  # Hewlett Packard Enterprise
+  - workday:hindscc.wd1/HCCExternalCareersSite                                 # Hinds Community College
+  - workday:hitachi.wd1/hitachi                                                # Hitachi
+  - greenhouse:horizonsurgicalsystems                                          # Horizon Surgical Systems
+  - workday:spectris.wd3/HBK_Careers                                           # Hottinger Brüel & Kjaer (HBK)
+  - workday:hcpss.wd1/hcpss                                                    # Howard County Public School System
+  - greenhouse:hpiq                                                            # HP IQ
+  - greenhouse:hyannisportresearch                                             # HPR (Hyannis Port Research)
+  - lever:dodmg                                                                # HRL Laboratories
+  - greenhouse:hudl                                                            # Hudl
+  - ashby:human-computer-lab                                                   # Human Computer Lab
+  - lever:humble-robotics                                                      # Humble Robotics
+  - workday:hyvee.wd1/HyVeeCareers                                             # Hy-Vee
+  - workable:hyperlight                                                        # HyperLight
+  - workday:hysteryale.wd1/hyster-yalecareers                                  # Hyster-Yale Materials Handling
+  - workday:synnex.wd5/hyvecareers                                             # Hyve Solutions
+  - ashby:icon                                                                 # Icon
+  - workday:idexcorp.wd5/idex_careers                                          # IDEX
+  - workday:iheartmedia.wd5/External_iHM                                       # iHeartMedia
+  - workday:illumina.wd1/illumina-careers                                      # Illumina
+  - greenhouse:imc                                                             # IMC Trading
+  - lever:immiland-canada-inc                                                  # Immiland Canada
+  - greenhouse:infinitumelectric                                               # Infinitum
+  - lever:infraservices                                                        # InfraServices
+  - workday:ingrammicro.wd5/IngramMicro                                        # Ingram Micro
+  - workday:insulet.wd5/insuletcareers                                         # Insulet Corporation
+  - workday:integer.wd1/External                                               # Integer Holdings Corporation
+  - workday:intelcomgroup.wd3/Intelcom                                         # Intelcom | Dragonfly
+  - workday:interdigital.wd5/InterDigital_Intern                               # Interdigital
+  - workday:intuitive.wd1/irtc_careers                                         # Intuitive Research and Technology Corporation
+  - greenhouse:inversionspace                                                  # Inversion Space
+  - greenhouse:ionq                                                            # IonQ
+  - workday:iqvia.wd1/IQVIA                                                    # IQVIA
+  - workday:irhythmtech.wd5/irhythm                                            # iRhythm Technologies
+  - workday:ironmountain.wd5/iron-mountain-jobs                                # Iron Mountain
+  - workday:itron.wd5/Early_Careers                                            # Itron
+  - workday:itron.wd5/Itron                                                    # Itron
+  - ashby:ixianrobotics                                                        # Ixian Robotics
+  - workday:jabil.wd5/Jabil_Careers                                            # Jabil
+  - greenhouse:janestreet                                                      # Jane Street
+  - workable:jcc-greater-boston                                                # JCC Greater Boston
+  - workday:jcdecaux.wd3/ExternalSiteJCDUK                                     # JCDecaux
+  - workday:jj.wd5/JJ                                                          # Johnson & Johnson
+  - workday:jci.wd5/JCI_Confidential                                           # Johnson Controls
+  - workday:johnsonelectric.wd3/Career_JE                                      # Johnson Electric
+  - workday:jll.wd1/jllcareers                                                 # Jones Lang LaSalle (JLL)
+  - greenhouse:k2spacecorporation                                              # K2 Space
+  - greenhouse:kairospower                                                     # Kairos Power
+  - greenhouse:katalyst                                                        # Katalyst Space Technologies
+  - workday:kbr.wd5/KBR_Careers                                                # KBR
+  - workday:kencogroup.wd12/kenco                                              # Kenco Management Services
+  - lever:kepler                                                               # Kepler Communications
+  - workable:keycafe                                                           # Keycafe
+  - workable:kihomac                                                           # KIHOMAC
+  - workday:kiongroup.wd3/KION_SCS                                             # KION Group
+  - workday:kiongroup.wd3/kiongroup                                            # KION Group
+  - workday:kla.wd1/UR                                                         # KLA
+  - workday:kla.wd1/annarbor                                                   # KLA
+  - workday:kla.wd1/search                                                     # KLA Corporation
+  - greenhouse:kodiak                                                          # Kodiak Robotics
+  - workday:kyndryl.wd5/KyndrylProfessionalCareers                             # Kyndryl
+  - workday:labcorp.wd1/external                                               # LabCorp
+  - ashby:lambda                                                               # Lambda
+  - lever:runlaminar                                                           # Laminar
+  - greenhouse:latitude                                                        # Latitude AI
+  - workday:leidos.wd5/External                                                # Leidos
+  - workday:leonardocompany.wd3/LeonardoCareerSite                             # Leonardo
+  - lever:level99                                                              # Level99 Entertainment
+  - greenhouse:lexingtonmedical                                                # Lexington Medical
+  - greenhouse:lgelectronics                                                   # LG Electronics
+  - workday:lifefitness.wd1/searchLFN                                          # Life Fitness
+  - workday:lnw.wd5/lightwonderexternalcareers                                 # Light & Wonder
+  - greenhouse:lightmatter                                                     # Lightmatter
+  - lever:lightship                                                            # Lightship RV
+  - workday:likewize.wd1/External                                              # Likewize
+  - greenhouse:lilasciences                                                    # Lila Sciences
+  - workday:littelfuse.wd1/Littelfuse-Careers                                  # Littelfuse
+  - workday:livanova.wd5/search                                                # LivaNova
+  - ashby:liveview-technologies                                                # LiveView Technologies
+  - lever:loftorbital                                                          # Loft Orbital
+  - ashby:logiqal                                                              # Logiqal
+  - ashby:logos-space                                                          # Logos Space
+  - workday:lsu.wd1/lsuwaiver                                                  # Louisiana State University (LSU)
+  - greenhouse:lucidmotors                                                     # Lucid Motors
+  - workday:lumentum.wd5/LITE                                                  # Lumentum
+  - lever:lumotive                                                             # Lumotive
+  - greenhouse:lunarenergy                                                     # Lunar Energy
+  - workable:luxium-solutions-llc                                              # Luxium Solutions
+  - workday:lyten.wd503/Lyten_External_Career_Site                             # Lyten
+  - workday:lytx.wd1/Lytx                                                      # Lytx Careers
+  - greenhouse:machindustries                                                  # Mach Industries
+  - workday:magna.wd3/Magna                                                    # Magna International
+  - workday:spectris.wd3/Malvern_Panalytical_Careers                           # Malvern Panalytical
+  - workday:marmon.wd501/Marmon_Careers                                        # Marmon Holdings
+  - workday:marvell.wd1/MarvellCareers                                         # Marvell
+  - workday:marvell.wd1/MarvellCareers2                                        # Marvell
+  - workday:masco.wd1/Masco                                                    # Masco
+  - workday:massgeneralbrigham.wd1/mgbexternal                                 # Mass General Brigham
+  - ashby:maticrobots                                                          # Matic
+  - workable:matternet                                                         # Matternet
+  - ashby:matx                                                                 # MatX
+  - greenhouse:maymobility                                                     # May Mobility
+  - greenhouse:maybellquantum                                                  # Maybell Quantum Industries
+  - workday:mbda.wd3/MBDA-UK                                                   # MBDA
+  - ashby:medraai                                                              # Medra
+  - workday:medtronic.wd1/MedtronicCareers                                     # Medtronic
+  - workday:medtronic.wd1/redeploymentmedtroniccareers                         # Medtronic
+  - workday:megger.wd3/MeggerCareers                                           # Megger
+  - workday:menasha.wd12/menashacorp                                           # Menasha Corporation
+  - greenhouse:morsecorpcoop                                                   # Meridian Partners
+  - ashby:meter                                                                # Meter
+  - workday:miele.wd3/miele-jobs                                               # Miele
+  - greenhouse:mill                                                            # Mill
+  - workday:tti.wd1/Milwaukee                                                  # Milwaukee Tool
+  - ashby:mindrobotics                                                         # Mind Robotics
+  - workable:mistywest                                                         # MistyWest
+  - workday:mii.wd5/MiTek                                                      # MiTek
+  - workday:mksinst.wd1/MKSCareersUniversity                                   # MKS Instruments
+  - workday:mksinst.wd1/mkscareersamericas                                     # MKS Instruments
+  - greenhouse:momentenergy                                                    # Moment Energy
+  - greenhouse:momentus                                                        # Momentus Space
+  - workday:monolithicpower.wd12/MPS_Careers                                   # Monolithic Power Systems
+  - workday:moog.wd5/moog_external_career_site                                 # Moog
+  - greenhouse:morph                                                           # Morph Labs
+  - greenhouse:morsecorp                                                       # MORSE Corp
+  - ashby:morse-micro                                                          # Morse Micro
+  - workday:motorolasolutions.wd5/Careers                                      # Motorola
+  - workable:msr-fsr                                                           # MSR-FSR
+  - lever:multiplylabs                                                         # Multiply Labs
+  - workday:munters.wd3/external_careers                                       # Munters
+  - greenhouse:muonspace                                                       # Muon Space
+  - greenhouse:nanopathinc                                                     # Nanopath
+  - workday:nrel.wd5/NLR                                                       # National Laboratory of the Rockies
+  - workday:navcanada.wd10/NAV_Careers                                         # NAV CANADA
+  - ashby:navi                                                                 # Navi AI
+  - workday:ncr.wd1/ext_us                                                     # NCR Voyix
+  - workday:neogen.wd5/neogencareers                                           # Neogen
+  - greenhouse:nerostechnologies                                               # Neros Technologies
+  - greenhouse:neuralink                                                       # Neuralink
+  - workable:new-flyer                                                         # New Flyer
+  - workday:nexstar.wd5/nexstar                                                # Nexstar
+  - workday:nidec.wd1/nidec                                                    # Nidec
+  - workday:nwis.wd12/NW                                                       # Nightwing Intelligence Solutions
+  - greenhouse:nimblerobotics                                                  # Nimble Robotics
+  - workday:alliance.wd3/nissanjobs                                            # Nissan Global
+  - greenhouse:undercontrolroboticsinc                                         # Noble Machines
+  - workday:nordsonhcm.wd501/nordsoncareers                                    # Nordson
+  - ashby:normalcomputing                                                      # Normal Computing
+  - ashby:northwoodspace                                                       # Northwood Space
+  - ashby:nory-co                                                              # NORY
+  - workday:novanta.wd5/Novanta-Careers                                        # Novanta
+  - workable:nu-quantum                                                        # Nu Quantum
+  - lever:nuvacore                                                             # NUVACORE
+  - workday:nvent.wd5/nVent                                                    # nVent
+  - workday:nvidia.wd5/NVIDIAExternalCareerSite                                # NVIDIA
+  - workday:nxp.wd3/careers                                                    # NXP Semiconductors
+  - ashby:observable-space                                                     # Observable Space
+  - workable:oceancomm                                                         # OceanComm
+  - lever:octoenergy                                                           # Octopus Energy
+  - workday:osu.wd1/OSUCareers                                                 # Ohio State University
+  - lever:omnidesigntech                                                       # Omni Design Technologies
+  - workable:onlogic-inc                                                       # OnLogic
+  - workday:ontic.wd103/OnticCareers                                           # Ontic
+  - workday:onto.wd1/onto_careers                                              # Onto Innovation
+  - ashby:pocket                                                               # Open Vision Engineering
+  - ashby:openai                                                               # OpenAI
+  - greenhouse:optiverprivate                                                  # Optiver
+  - ashby:oratomic                                                             # Oratomic
+  - workday:orchidortho.wd5/careers                                            # Orchid Orthopedic Solutions
+  - workday:oshkoshcorporation.wd5/Oshkosh                                     # Oshkosh
+  - greenhouse:oura                                                            # Oura
+  - ashby:overviewenergy                                                       # Overview Energy
+  - workable:oxford-quantum-circuits-8                                         # Oxford Quantum Circuits
+  - ashby:par%20technology                                                     # PAR Tech
+  - greenhouse:parallel                                                        # Parallel Systems
+  - workday:parsons.wd5/search                                                 # Parsons
+  - workday:spectris.wd3/PMS_Careers                                           # Particle Measuring Systems
+  - greenhouse:pathrobotics                                                    # Path Robotics
+  - workable:paxton-access                                                     # Paxton Access
+  - workday:psu.wd1/PSU_Academic                                               # Pennsylvania State University
+  - workday:psu.wd1/PSU_Staff                                                  # Pennsylvania State University
+  - ashby:periodic-labs                                                        # Periodic Labs
+  - ashby:persona.ai                                                           # Persona AI
+  - workday:philips.wd3/jobs-and-careers                                       # Philips
+  - workday:phinia.wd5/PHINIA_Careers                                          # PHINIA
+  - greenhouse:phoenixcontact                                                  # Phoenix Contact
+  - ashby:physicalintelligence                                                 # Physical Intelligence
+  - workday:pitneybowes.wd1/pbcareers                                          # Pitney Bowes
+  - lever:pivotal                                                              # Pivotal Software
+  - greenhouse:planetlabs                                                      # Planet
+  - greenhouse:sonyinteractiveentertainmentglobal                              # PlayStation
+  - workday:plugpower.wd5/Plug_Power_Inc                                       # Plug Power
+  - lever:plus-2                                                               # PlusAI
+  - workday:polarsemi.wd501/Polar                                              # Polar Semiconductor
+  - workday:polaris.wd5/PolarisJobs                                            # Polaris
+  - greenhouse:proconex                                                        # Proconex
+  - workday:pg.wd5/1000                                                        # Procter & Gamble
+  - workable:prosync                                                           # Prosync
+  - workday:calibercollision.wd1/protech                                       # Protech Automotive Solutions
+  - workday:prysmiangroup.wd3/careers                                          # Prysmian Cables & Systems
+  - greenhouse:purestorage                                                     # Pure Storage
+  - lever:purvis                                                               # Purvis Systems
+  - lever:pyka                                                                 # Pyka
+  - workday:qtsdatacenters.wd5/qts                                             # QTS
+  - ashby:quadric                                                              # Quadric
+  - greenhouse:quantiq                                                         # Quantiq
+  - greenhouse:quberesearchandtechnologies                                     # Qube Research & Technologies
+  - greenhouse:queracomputinginc                                               # QuEra Computing
+  - greenhouse:quick-release                                                   # Quick Release
+  - workday:orthoclinical.wd1/Search                                           # QuidelOrtho
+  - greenhouse:rab                                                             # RAB Lighting
+  - greenhouse:radar                                                           # RADAR
+  - workday:radiancetech.wd12/Radiance_External                                # Radiance Technologies
+  - lever:make-rain                                                            # Rainmaker
+  - workable:raveaerospace                                                     # RAVE Aerospace
+  - workable:raydar                                                            # Raydar
+  - greenhouse:redwoodmaterials                                                # Redwood Materials
+  - ashby:reflect-orbital                                                      # Reflect Orbital
+  - ashby:reflexrobotics                                                       # Reflex Robotics
+  - workday:regalrexnord.wd1/careers                                           # Regal Rexnord
+  - workday:rehlko.wd12/Reh                                                    # Rehlko
+  - greenhouse:relativity                                                      # Relativity Space
+  - greenhouse:relaypro                                                        # Relay
+  - greenhouse:rendezvousrobotics                                              # Rendezvous Robotics
+  - workday:restauranttechnologies.wd5/RT                                      # Restaurant Technologies
+  - ashby:resurgent-industries                                                 # Resurgent Industries
+  - ashby:revel                                                                # Revel
+  - ashby:reviserobotics                                                       # Revise Robotics
+  - workday:revvity.wd103/External                                             # Revvity
+  - ashby:rhoda-ai                                                             # Rhoda AI
+  - lever:rigetti                                                              # Rigetti
+  - ashby:rivet                                                                # Rivet Industries
+  - ashby:rivianvw.tech                                                        # Rivian and Volkswagen Group Technologies
+  - workable:rmf-engineering-inc                                               # RMF Engineering
+  - greenhouse:roboforce                                                       # RoboForce
+  - greenhouse:rocketems                                                       # Rocket EMS
+  - greenhouse:rocketlab                                                       # Rocket Lab USA
+  - workday:rockwellautomation.wd1/External-Rockwell-Automation-Early-Careers  # Rockwell Automation
+  - workday:rockwellautomation.wd1/External_Rockwell_Automation                # Rockwell Automation
+  - workday:rollsroyce.wd3/Intern_Graduate                                     # Rolls-Royce
+  - workday:rollsroyce.wd3/professional                                        # Rolls-Royce
+  - lever:rosaiclabs                                                           # RosaicLabs
+  - workday:globalhr.wd5/Private_Posting_No_TMP                                # RTX
+  - greenhouse:ruggedrobotics                                                  # Rugged Robotics
+  - workday:saabusa.wd1/saab_careers                                           # Saab
+  - workable:saalex                                                            # Saalex
+  - greenhouse:samsungsemiconductor                                            # Samsung
+  - workday:sec.wd3/Samsung_Careers                                            # Samsung
+  - greenhouse:samsungresearchamericainternship                                # Samsung Research America
+  - workday:sandvik.wd3/sandvik-jobs                                           # Sandvik
+  - ashby:saronic                                                              # Saronic
+  - workday:selinc.wd1/SEL                                                     # Schweitzer Engineering Laboratories
+  - workday:sglottery.wd5/ScientificGamesExternalCareers                       # Scientific Games
+  - greenhouse:scotch                                                          # Scotch
+  - workday:seminolehardrock.wd503/seminolehardrockcareers                     # Seminole Hard Rock
+  - workday:semtech.wd1/SemtechCareers                                         # Semtech
+  - workday:semtech.wd1/SemtechJobs                                            # Semtech
+  - workday:sensata.wd1/Sensata-Careers                                        # Sensata
+  - ashby:serverobotics                                                        # Serve Robotics
+  - greenhouse:seurat                                                          # Seurat Technologies
+  - greenhouse:sharkninjaoperatingllc                                          # SharkNinja
+  - workday:shi.wd12/shicareers                                                # SHI International
+  - ashby:f7d8749a-72d6-407c-bf98-292ea630c73a                                 # Shield AI
+  - lever:shieldai                                                             # Shield AI
+  - workday:snc.wd1/snc_external_career_site                                   # Sierra Nevada Corporation
+  - workday:sierraspace.wd1/Sierra_Space_External_Career_Site                  # Sierra Space
+  - workday:sifive.wd1/sifivecareers                                           # SiFive
+  - workable:sigmadefense                                                      # Sigma Defense
+  - workday:lighting.wd3/jobs-and-careers                                      # Signify
+  - workday:silabs.wd1/SiliconlabsCareers                                      # Silicon Laboratories
+  - greenhouse:silvus                                                          # Silvus Technologies
+  - greenhouse:sitimecorporation                                               # SiTime
+  - greenhouse:skhynixamerica                                                  # SK hynix
+  - greenhouse:skhynixmemorysolutionsamericainc                                # SK hynix
+  - greenhouse:skildai-careers                                                 # Skild AI
+  - lever:skillcloudhcm                                                        # Skillcloud HCM Solutions
+  - ashby:skyband%20systems                                                    # Skyband Systems
+  - ashby:skydio                                                               # Skydio
+  - workday:recar.wd108/SLATEcareers                                           # Slate Auto
+  - workable:slip-robotics                                                     # Slip Robotics
+  - workable:smartflower-solar-llc                                             # SmartFlower Solar
+  - workday:smithnephew.wd5/External                                           # Smith+Nephew
+  - lever:solopulseco                                                          # SoloPulse
+  - workday:sonos.wd1/Sonos                                                    # Sonos
+  - workday:sonyglobal.wd1/SonyGlobalCareers                                   # Sony
+  - greenhouse:spacekinetic                                                    # Space Kinetic
+  - greenhouse:spaceium                                                        # Spaceium
+  - greenhouse:spacex                                                          # SpaceX
+  - workday:spectrumcontrol.wd1/spectrumcontrol                                # Spectrum Control
+  - workday:spellmanhv.wd1/SpellmanHVCareers                                   # Spellman High Voltage Electronics
+  - lever:sqaservices                                                          # SQA Services
+  - workday:sluhn.wd1/SLUHN                                                    # St. Luke's University Health Network
+  - ashby:standardsubsea                                                       # Standard Subsea
+  - workday:sbdinc.wd1/Stanley_Black_Decker_Career_Site                        # Stanley Black & Decker
+  - greenhouse:star-catcher                                                    # Star Catcher
+  - workday:nc.wd108/NC_Careers                                                # State of North Carolina
+  - workday:stoneridge.wd5/careers                                             # Stoneridge
+  - greenhouse:systemstechnologyresearch                                       # STR
+  - greenhouse:stratolaunch                                                    # Stratolaunch
+  - workday:stryker.wd1/StrykerCareers                                         # Stryker
+  - workday:suncor.wd1/Suncor_External                                         # Suncor
+  - lever:sunsrce                                                              # SunSource
+  - ashby:swarmaero                                                            # Swarm Aero
+  - workday:symbotic.wd504/Symbotic                                            # Symbotic
+  - workday:tdwilliamson.wd1/TDWCareers                                        # T.D. Williamson
+  - ashby:taaraconnect                                                         # Taara
+  - ashby:tacit                                                                # Tacit
+  - workday:tandemdiabetes.wd12/tandemdiabetes                                 # Tandem Diabetes Care
+  - lever:tangraminteriors                                                     # Tangram Interiors
+  - workday:synnex.wd5/tdsynnexcareers                                         # TD Synnex
+  - greenhouse:technergetics                                                   # Technergetics
+  - workday:tti.wd1/tti_pe                                                     # Techtronic Industries (TTI)
+  - workable:teguar-corporation                                                # Teguar
+  - workday:flir.wd1/flircareers                                               # Teledyne
+  - lever:teleo                                                                # Teleo
+  - lever:telesat                                                              # Telesat
+  - greenhouse:tenstorrentuniversity                                           # Tenstorrent
+  - workday:terex.wd1/terexcareers                                             # Terex
+  - greenhouse:terranorbitalcorporation                                        # Terran Orbital
+  - ashby:terranova                                                            # Terranova
+  - workday:tamus.wd1/System-wide_External                                     # Texas A&M University System
+  - workday:rangersmlb.wd5/Rangers                                             # Texas Rangers
+  - workday:thales.wd3/Careers                                                 # Thales
+  - workday:aero.wd5/external                                                  # The Aerospace Corporation
+  - workday:boeing.wd1/EXTERNAL_CAREERS                                        # The Boeing Company
+  - workday:boeing.wd1/INTERN                                                  # The Boeing Company
+  - workday:boeing.wd1/external_subsidiary                                     # The Boeing Company
+  - ashby:designrulesco                                                        # The Design Rules Company
+  - workable:focusrite                                                         # The Focusrite Group
+  - workday:homedepot.wd5/CareerDepotCanada                                    # The Home Depot
+  - workday:ttc.wd1/Toro_External_Careers                                      # The Toro Company
+  - workday:disney.wd5/disneycareer                                            # The Walt Disney Company
+  - workday:disney.wd5/disneycareerdc                                          # The Walt Disney Company
+  - lever:thea.energy                                                          # Thea Energy
+  - workable:thorlabs                                                          # Thorlabs
+  - workable:tmeic-corporation-americas                                        # TMEIC Corporation Americas
+  - workday:tel.wd3/tel-careers                                                # Tokyo Electron
+  - workday:topcon.wd1/TopconPositioningCareers                                # Topcon Positioning
+  - greenhouse:torcrobotics                                                    # Torc Robotics
+  - workday:starfish.wd501/Careers                                             # Torch Technologies
+  - greenhouse:toshibaglobalcommercesolutions                                  # Toshiba Global Commerce
+  - lever:tri                                                                  # Toyota Research Institute
+  - ashby:treeswift                                                            # Treeswift
+  - greenhouse:trelliswaretechnologies-newgrads                                # TrellisWare Technologies
+  - greenhouse:tpcengineeringholdingsllc                                       # Trexon
+  - workday:trimble.wd1/TrimbleCareers                                         # Trimble
+  - workday:trimedx.wd1/TMX                                                    # TRIMEDX
+  - greenhouse:trueanomalyinc                                                  # True Anomaly
+  - workday:trumpf.wd3/TRUMPF_Students                                         # TRUMPF
+  - workday:tsc.wd12/TSC-Careers                                               # TSC
+  - workday:tulsacounty.wd1/tc                                                 # Tulsa County
+  - greenhouse:twosixtechnologies                                              # Two Six Technologies
+  - workday:uhaul.wd1/UhaulJobs                                                # Uhaul
+  - greenhouse:ultimagenomics                                                  # Ultima Genomics
+  - workday:ultra.wd3/ultra-careers                                            # Ultra
+  - workday:ultra.wd3/uiccareers                                               # Ultra Intelligence and Communications
+  - workday:ucar.wd5/UCAR_Careers                                              # University Corporation for Atmospheric Research
+  - workday:uasys.wd5/UAF_External_Career_Site                                 # University of Arkansas
+  - workday:uasys.wd5/uasys                                                    # University of Arkansas
+  - workday:nshe.wd1/UNR-external                                              # University of Nevada, Reno
+  - workday:rochester.wd5/UR_Staff                                             # University of Rochester
+  - workday:usc.wd5/ExternalUSCCareers                                         # University of Southern California
+  - workday:utaustin.wd1/UTstaff                                               # University of Texas at Austin
+  - workday:utaustin.wd1/utstudent                                             # University of Texas at Austin
+  - workday:uva.wd1/uvastudentjobs                                             # University of Virginia
+  - workday:wisconsin.wd1/UW_Madison                                           # University of Wisconsin-Madison
+  - workday:usnh.wd5/Careers                                                   # University System of New Hampshire
+  - ashby:unlimitedindustries                                                  # Unlimited
+  - greenhouse:unlimitedtechnology                                             # Unlimited Technology
+  - lever:upscale-ai                                                           # Upscale AI
+  - workday:valeo.wd3/valeo_jobs                                               # Valeo
+  - workday:valmet.wd103/external                                              # Valmet
+  - workable:vanguard-ems-inc                                                  # Vanguard EMS
+  - greenhouse:vardaspace                                                      # Varda Space
+  - workday:vareximaging.wd103/External_Career_Site                            # Varex Imaging Corporation
+  - workday:onehealthineers.wd3/SHSJB                                          # Varian
+  - greenhouse:vast                                                            # VAST
+  - workable:vectoratomic                                                      # Vector Atomic
+  - workday:veralto.wd1/hachjobs                                               # Veralto
+  - greenhouse:verkada                                                         # Verkada
+  - workday:vermeer.wd5/externalcareersite                                     # Vermeer
+  - ashby:verne%20robotics                                                     # Verne Robotics
+  - workday:vrtx.wd501/vertex_careers                                          # Vertex Pharmaceuticals
+  - workday:viavisolutions.wd1/careers                                         # Viavi Solutions
+  - greenhouse:virtu                                                           # Virtu Financial
+  - workday:vishay.wd3/VishayCareers                                           # Vishay Intertechnology
+  - ashby:vital-lyfe                                                           # Vital Lyfe
+  - greenhouse:voyagertechnologiesinc                                          # Voyager Technologies
+  - ashby:voyant-photonics                                                     # Voyant Photonics
+  - greenhouse:vscfiresecurityinc                                              # VSC Fire & Security
+  - lever:wachter                                                              # Wachter
+  - workday:wustl.wd1/external                                                 # Wash U
+  - workday:wattswater.wd5/Intern-External                                     # Watts Water
+  - workday:wattswater.wd5/external                                            # Watts Water
+  - lever:westair                                                              # Western Aircraft
+  - ashby:windborne-systems                                                    # WindBorne Systems
+  - workday:woodmac.wd3/woodmaccareers                                         # Wood Mackenzie
+  - workday:woodward.wd5/woodward                                              # Woodward Governor
+  - greenhouse:workstream                                                      # Workstream
+  - lever:wyetechllc                                                           # Wyetech
+  - greenhouse:xpengmotors                                                     # XPENG Motors
+  - workday:xylem.wd5/xylem-careers                                            # Xylem
+  - workday:yai.wd5/careers                                                    # Yai
+  - workable:zaber                                                             # Zaber Technologies
+  - workday:zayo.wd1/zayo_careers                                              # Zayo
+  - workday:zebra.wd501/Zebra_careers                                          # Zebra Technologies
+  - workday:zeissgroup.wd3/External                                            # Zeiss
+  - workday:zoll.wd5/ZOLLMedicalCorp                                           # ZOLL Medical Corporation
+  - greenhouse:zone5technologies                                               # Zone 5 Technologies
+  - lever:zoox                                                                 # Zoox
+  - workday:connect.wd1/ztsystemscareers                                       # ZT Systems
+  - workday:elkay.wd1/Elkay_External                                           # Zurn Elkay Water Solutions

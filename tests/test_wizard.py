@@ -48,7 +48,7 @@ def test_init_by_answers(tmp_path, answers):
         "",                                 # excluded words: keep the starter's
         "berlin, remote",                   # places
         "n",                                # remote jobs without a place
-        "2,3",                              # packs: consumer-tech, new-grad (sorted by name)
+        "3,5",                              # packs: consumer-tech, new-grad (sorted by name)
         "Senior IC roles in ranking. Needs visa sponsorship.",
         "3",                                # backend: Anthropic API
         "claude-sonnet-5-5",                # model

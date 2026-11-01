@@ -1,5 +1,6 @@
 """How every request leaves Shortlist: robots.txt is respected (RFC 9309) and each host gets at most one request
 per second. Shared by worker threads."""
+import re
 import threading
 import time
 from urllib.parse import urlparse
@@ -20,6 +21,14 @@ class Blocked(Exception):
         self.reason = reason
 
 
+def pace_key(host: str) -> str:
+    """What one request per second applies to. Workday serves every company from a shared data center
+    (acme.wd1.myworkdayjobs.com, other.wd1...) and limits requests per data center: checking 1,500 boards, 84 of 86
+    HTTP 429s came from wd1. So its hosts share one pace per data center; any other host is paced on its own."""
+    m = re.fullmatch(r"[\w-]+\.(wd\d+)\.myworkdayjobs\.com", host)
+    return f"{m.group(1)}.myworkdayjobs.com" if m else host
+
+
 class Polite:
     def __init__(self, client: httpx.Client, interval: float = 1.0):
         self.client, self.interval, self.lock = client, interval, threading.Lock()
@@ -28,7 +37,7 @@ class Polite:
         self.next_slot: dict[str, float] = {}
 
     def _paced(self, method: str, url: str, **kwargs) -> httpx.Response:
-        host = urlparse(url).netloc
+        host = pace_key(urlparse(url).netloc.lower())
         with self.lock:
             slot = max(time.monotonic(), self.next_slot.get(host, 0.0))
             self.next_slot[host] = slot + self.interval

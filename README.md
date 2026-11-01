@@ -45,8 +45,9 @@ It only notifies. It never applies to anything.
 - **GitHub job lists.** Reads job lists kept on GitHub in the SimplifyJobs `listings.json` format, with filters for
   category, degree, sponsorship status, and age. Descriptions are fetched only for new listings that pass your
   filters.
-- **Company packs.** Ready-made source lists to start from: about 100 AI labs, about 100 consumer-tech companies
-  with ranking, search, and ads teams, and the SimplifyJobs new-grad list.
+- **Company packs.** Ready-made source lists to start from: about 3,500 companies in five packs by field (AI/ML and
+  data, software, hardware, product, quant), about 100 AI labs, about 100 consumer-tech companies with ranking,
+  search, and ads teams, and the SimplifyJobs new-grad list.
 - **Only new roles.** Newest-first boards are read until the first page with nothing new, with a full read once a
   week; Greenhouse lists are fetched without descriptions, which are then fetched for new candidates only.
 
@@ -208,6 +209,23 @@ entries come first; a board or URL that is already in your config is not added t
 | `ai-labs` | About 100 AI labs and AI-first companies (careers pages for discovery), plus machine-learning searches on NVIDIA, Hugging Face, Mila, Amazon, Meta, and Snap |
 | `consumer-tech` | About 100 consumer-tech, marketplace, media, and ad-tech companies with recommendation, ranking, search, and ads teams (Greenhouse, Lever, Ashby, Workday) |
 | `new-grad` | The SimplifyJobs New-Grad-Positions list on GitHub |
+| `ai-ml-data` | 2,124 companies that posted AI, machine learning, or data roles for new grads or interns |
+| `software` | 1,974 companies that posted software engineering roles |
+| `hardware` | 688 companies that posted hardware engineering roles |
+| `product` | 618 companies that posted product management roles |
+| `quant` | 317 companies that posted quantitative finance roles |
+
+The five field packs hold every company board linked from the SimplifyJobs new-grad and internship lists that
+Shortlist can read (Greenhouse, Lever, Ashby, Workday, Workable), grouped by the roles each company posted, and each
+board listed open jobs when the pack was built (2026-11-01). Workday boards with more than 2,000 open jobs (mostly
+store and retail jobs) are left out; add one to `companies` yourself if you want it. A pack's file says how long a
+run takes with it.
+
+**Big packs make runs longer.** Every Greenhouse board is read from one Greenhouse host, every Lever board from one
+Lever host, and so on, at about one request a second, so a run takes about as long as the busiest host: with
+`ai-ml-data`, about 16 minutes. The first run reads each Workday board to the end (about 2 hours for `ai-ml-data`),
+and each board is read to the end again once a week; runs in between read only the newest page. Scheduled runs
+happen in the background, but pick the packs of your field rather than all of them.
 
 A pack can also be a file of your own: `packs: [my-companies.yaml]` (relative to `config.yaml`, same format as the
 bundled ones). New packs are welcome as pull requests; see [CONTRIBUTING.md](CONTRIBUTING.md).
