@@ -26,7 +26,7 @@ It only notifies. It never applies to anything.
 - [The web app](#the-web-app)
 - [How it works](#how-it-works)
 - [Responsible scraping](#responsible-scraping) and [privacy](#privacy-and-your-data)
-- [Troubleshooting](#troubleshooting), [contributing](#contributing), [license](#license)
+- [Troubleshooting](#troubleshooting), [contributing](#contributing), [credits](#credits), [license](#license)
 
 ## Features
 
@@ -490,6 +490,17 @@ Check the terms of any site you add yourself. You are responsible for how you us
 
 Bug reports, company packs, new job board adapters, and backends are welcome. [CONTRIBUTING.md](CONTRIBUTING.md)
 explains the setup, the tests, and the few rules that keep Shortlist reliable and polite.
+
+## Credits
+
+Shortlist was vibe-coded with [Claude Code](https://claude.com/claude-code), Anthropic's coding agent. Claude wrote
+the code, tests, and docs in conversation; I decided what to build, tried each change on my own job search, and
+said what to fix. [CLAUDE.md](CLAUDE.md) is the brief it worked from: the project's rules and the facts it verified
+along the way (API responses, CLI flags, measurements). If you work on Shortlist with Claude Code, it reads that file
+too.
+
+Shortlist also ships [htmx](https://htmx.org) (Zero-Clause BSD) and icons adapted from
+[Feather](https://feathericons.com) (MIT).
 
 ## License
 
