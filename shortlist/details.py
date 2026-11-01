@@ -254,8 +254,8 @@ def _detail(job: Job, polite: Polite) -> tuple[str, str, str]:
             except httpx.HTTPStatusError:
                 pass  # not that board's job after all: read the page
         return _from_page(BeautifulSoup(response.text, "html.parser"), "page")
-    except Blocked:
-        return "", "blocked by robots.txt", ""
+    except Blocked as e:
+        return "", e.reason, ""
     except Exception as e:  # one page failing must never crash the run
         log.info("%s: no description (%s)", job.detail_url, describe_error(e))
         return "", "fetch error", ""

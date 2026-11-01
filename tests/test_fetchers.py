@@ -160,6 +160,16 @@ def posting(n):
             "postedOn": "Posted Today", "bulletFields": [f"R{n}"]}
 
 
+def test_without_a_network_boards_are_skipped_as_unreachable_not_disallowed(caplog):
+    def handler(request):
+        raise httpx.ConnectError("no network", request=request)
+
+    caplog.set_level("INFO", logger="shortlist")
+    assert fetch_all(["greenhouse:acme"], transport=httpx.MockTransport(handler)) == []
+    assert "greenhouse:acme: skipped (robots.txt unreachable: ConnectError)" in caplog.text
+    assert "blocked by robots.txt" not in caplog.text
+
+
 def test_workday_pages_until_the_first_pages_total():
     offsets = []
 

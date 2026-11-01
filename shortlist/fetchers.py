@@ -193,7 +193,7 @@ FETCHERS = {"greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch
 def describe_error(e: Exception) -> str:
     """One short line for a log message."""
     if isinstance(e, Blocked):
-        return "blocked by robots.txt"
+        return e.reason
     if isinstance(e, httpx.HTTPStatusError):
         return f"HTTP {e.response.status_code}"
     if isinstance(e, httpx.TimeoutException):

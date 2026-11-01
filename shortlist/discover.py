@@ -175,8 +175,8 @@ def load_page(url: str, polite: Polite, renderer: Renderer, *, render: bool = Fa
     Bot protection (403, empty 202) is reported, never worked around."""
     try:
         response = polite.get(url)
-    except Blocked:
-        return Page(url, problem="robots.txt disallows it")
+    except Blocked as e:
+        return Page(url, problem="robots.txt disallows it" if e.reason == "blocked by robots.txt" else e.reason)
     except Exception as e:
         return Page(url, problem=describe_error(e))
     if response.status_code != 200 or not response.text.strip():

@@ -12,13 +12,19 @@ USER_AGENT = "shortlist/0.1 (+https://github.com/navkar98/shortlist; personal jo
 
 
 class Blocked(Exception):
-    """robots.txt disallows the URL."""
+    """robots.txt disallows the URL, or could not be read, which puts the whole site off limits (RFC 9309). Without
+    a network every site is unreachable, so `reason` says which case it is."""
+
+    def __init__(self, url: str, reason: str = "blocked by robots.txt"):
+        super().__init__(url)
+        self.reason = reason
 
 
 class Polite:
     def __init__(self, client: httpx.Client, interval: float = 1.0):
         self.client, self.interval, self.lock = client, interval, threading.Lock()
         self.robots: dict[str, RobotFileParser] = {}
+        self.unreachable: dict[str, str] = {}  # site -> why its robots.txt could not be read
         self.next_slot: dict[str, float] = {}
 
     def _paced(self, method: str, url: str, **kwargs) -> httpx.Response:
@@ -42,8 +48,10 @@ class Polite:
                     rules.allow_all = True
                 else:  # RFC 9309 2.3.1.4: unreachable (5xx), assume complete disallow
                     rules.disallow_all = True
-            except httpx.HTTPError:
+                    self.unreachable[base] = f"robots.txt unreachable: HTTP {r.status_code}"
+            except httpx.HTTPError as e:
                 rules.disallow_all = True
+                self.unreachable[base] = f"robots.txt unreachable: {type(e).__name__}"
             self.robots[base] = rules
         return self.robots[base].can_fetch(USER_AGENT, url)
 
@@ -51,7 +59,8 @@ class Polite:
         """A paced request that raises Blocked when robots.txt disallows it and HTTPStatusError on 4xx/5xx.
         `respect_robots=False` only when the user set `ignore_robots` for that board."""
         if respect_robots and not self.allowed(url):
-            raise Blocked(url)
+            parsed = urlparse(url)
+            raise Blocked(url, self.unreachable.get(f"{parsed.scheme}://{parsed.netloc}", "blocked by robots.txt"))
         return self._paced(method, url, **kwargs).raise_for_status()
 
     def get(self, url: str, **kwargs) -> httpx.Response:
