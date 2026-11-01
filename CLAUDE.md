@@ -68,7 +68,11 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   `/<slug>/<id>`. Ashby `api.ashbyhq.com/posting-api/job-board/<slug>` (robots.txt answers 401 = allowed).
 - Workday: POST `https://<tenant>.wdN.myworkdayjobs.com/wday/cxs/<tenant>/<site>/jobs` with `{appliedFacets, limit:
   20, offset, searchText}`; `total` only on the first page; pages past `total` wrap to page 1; newest first; no
-  descriptions (each job page has schema.org JobPosting). Locations can read "2 Locations".
+  descriptions (each job page has schema.org JobPosting). Locations can read "2 Locations". Rate limits apply per
+  data center: checking 1,540 boards with 24 requests in flight, 84 of 86 HTTP 429s were on wd1 (710 boards); the
+  same 86 paced at one request a second per data center (`polite.pace_key`) got no 429 (81 with open jobs).
+- Field packs (2026-11-01): the SimplifyJobs new-grad and Summer2026 internship lists link to 3,828 boards Shortlist
+  can read; 3,508 listed open jobs. Grouped by each listing's `category`; Workday boards over 2,000 jobs left out.
 - Workable: GET `apply.workable.com/api/v1/widget/accounts/<account>?details=true` (descriptions included). Amazon:
   GET `amazon.jobs/en/search.json?base_query&result_limit=100&offset&sort=recent` (newest 500 per query).
 - SimplifyJobs listings.json fields: id, company_name, title, locations, url, active, is_visible, category, degrees,

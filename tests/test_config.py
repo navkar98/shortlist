@@ -42,7 +42,8 @@ def test_example_config_and_every_bundled_pack_load():
     assert cfg.packs == ["ai-labs"] and cfg.notify == [] and cfg.scoring.model == "sonnet"
     assert len(cfg.career_pages) == 99 and "workable:huggingface" in cfg.companies  # from the pack
     packs = available_packs()
-    assert {"ai-labs", "consumer-tech", "new-grad"} <= set(packs) and all(p.description for p in packs.values())
+    assert {"ai-labs", "consumer-tech", "new-grad", "ai-ml-data", "software", "hardware", "product", "quant"} <= set(packs)
+    assert all(p.description for p in packs.values())
     assert all(p.companies or p.career_pages or p.github_listings for p in packs.values())
 
 
