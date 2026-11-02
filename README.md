@@ -223,9 +223,14 @@ run takes with it.
 
 **Big packs make runs longer.** Every Greenhouse board is read from one Greenhouse host, every Lever board from one
 Lever host, and so on, at about one request a second, so a run takes about as long as the busiest host: with
-`ai-ml-data`, about 16 minutes. The first run reads each Workday board to the end (about 2 hours for `ai-ml-data`),
-and each board is read to the end again once a week; runs in between read only the newest page. Scheduled runs
-happen in the background, but pick the packs of your field rather than all of them.
+`ai-ml-data`, about 16 minutes. The first run reads each Workday board to the end (about 2 hours for `ai-ml-data`,
+about 3 with every pack), and each board is read to the end again once a week; runs in between read only the newest
+page. Boards and scores are saved as they come, so a run that gets interrupted carries on where it stopped.
+
+**Big packs also find many jobs to score.** Each run scores at most `scoring.max_jobs_per_run` jobs (default 300),
+newest first, and the rest wait for later runs. A first read of many packs can leave tens of thousands of candidates,
+which takes weeks at two runs a day, so pick the packs of your field rather than all of them and keep
+`filters.title_include` tight. Raise the cap if your plan allows it.
 
 A pack can also be a file of your own: `packs: [my-companies.yaml]` (relative to `config.yaml`, same format as the
 bundled ones). New packs are welcome as pull requests; see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -288,7 +293,8 @@ scoring:
 - **Cost.** A batch of 12 jobs is up to about 30k input tokens (descriptions are capped at 8,000 characters each)
   and 1-2k output tokens. Jobs scoring near or above `min_score` are scored once more on their own (about one job
   in six; `recheck_alone: false` turns it off). The first run on a large source list can score hundreds of jobs,
-  later runs only new ones. With a pay-per-use API, set `max_jobs_per_run` and tight filters.
+  later runs only new ones. `max_jobs_per_run` (default 300) caps each run; with a pay-per-use API, set it to what you
+  want to spend, and keep your filters tight.
 
 Discovery's model calls go through the same backend (`discovery.model` can name a different model).
 
@@ -373,7 +379,8 @@ powershell -ExecutionPolicy Bypass -File scripts\schedule_windows.ps1 -Remove   
 ```
 
 The task starts at logon and checks every hour while you are logged on, so with the defaults you get a run soon
-after you start the computer and another one 6+ hours later. It runs without a window, at normal priority, on
+after you start the computer and another one 6+ hours later. A run may take up to 12 hours (if you registered the
+task with an earlier version, run the script again to get this limit). It runs without a window, at normal priority, on
 battery too, and only with a network. Output goes to `shortlist.log`. Try it with
 `Start-ScheduledTask -TaskName Shortlist`.
 
@@ -501,8 +508,9 @@ Check the terms of any site you add yourself. You are responsible for how you us
   also `python -m playwright install-deps chromium`, which uses sudo).
 - **`WinError 206` or "filename too long" while installing on Windows**: the folder path is too long for one of
   Playwright's files. Clone into a shorter folder (such as `C:\shortlist`), or enable Windows long paths.
-- **The first run takes long**: every open job that passes the filters is scored once. Use `--limit` or
-  `scoring.max_jobs_per_run` to spread it out.
+- **The first run takes long**: every Workday board is read to the end once, and each run scores up to
+  `scoring.max_jobs_per_run` jobs. An interrupted run carries on where it stopped.
+- **"Run now" says a run is already in progress**: the scheduled run is working. The Runs page shows its log.
 
 ## Contributing
 

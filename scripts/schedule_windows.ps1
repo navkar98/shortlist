@@ -42,9 +42,10 @@ $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAM
 $repeat = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes $CheckEveryMinutes)
 $trigger.Repetition = $repeat.Repetition
 # Priority 5 = normal. The default (7) also lowers disk priority, and on a busy disk the run then stalls for
-# minutes just loading Python (seen with antivirus and search indexing busy).
+# minutes just loading Python (seen with antivirus and search indexing busy). A first read of big packs takes hours;
+# a shorter limit kills the run before it finishes.
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAvailable -AllowStartIfOnBatteries `
-    -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 2) -MultipleInstances IgnoreNew -Priority 5
+    -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 12) -MultipleInstances IgnoreNew -Priority 5
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Settings $settings -Force `
     -Description "Shortlist: checks at logon and every $CheckEveryMinutes min; runs as allowed by config.yaml schedule" |
     Out-Null

@@ -28,7 +28,8 @@
         {% endfor %}
       </nav>
       <div class="sidebar-foot">
-        {% if activity.running %}<a class="live" href="/runs"><span class="pulse"></span><span>{{ activity.label | capitalize }} running</span></a>{% endif %}
+        {% if activity.running %}<a class="live" href="/runs"><span class="pulse"></span><span>{{ activity.label | capitalize }} running</span></a>
+        {% elif run_elsewhere %}<a class="live" href="/runs"><span class="pulse"></span><span>Run in progress</span></a>{% endif %}
         <div class="foot-row">
           <span class="muted">Local · only on this computer</span>
           <button class="icon-btn" type="button" data-theme-toggle title="Light or dark" aria-label="Switch between light and dark">{{ icon("moon", "moon") }}{{ icon("sun", "sun") }}</button>

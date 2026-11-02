@@ -24,7 +24,7 @@ class Scoring(BaseModel):
     model: str = ""                 # empty: the backend's default (scoring.DEFAULT_MODELS)
     batch_size: int = Field(12, ge=1)
     timeout_seconds: int = Field(300, gt=0)
-    max_jobs_per_run: int = Field(0, ge=0)  # 0: no cap. API backends bill per call; a cap bounds each run's cost
+    max_jobs_per_run: int = Field(300, ge=0)  # newest first, the rest wait for later runs; 0: no cap
     recheck_alone: bool = True      # score again alone every job within 15 points of min_score or above it
     feedback_examples: int = Field(20, ge=0)  # jobs you rated, shown to the scorer as examples; 0: none
     instructions: str = ""          # your own scoring instructions (Settings > Scoring prompt); empty: the built-in ones

@@ -53,7 +53,7 @@ preferences: |
 #   anthropic_api      Anthropic API, key in ANTHROPIC_API_KEY. model: claude-opus-5-5 (default), claude-sonnet-5-5,
 #                      claude-haiku-5-5 (cheapest); `effort: low` lowers cost further
 #   openai_api         OpenAI API, key in OPENAI_API_KEY. `model` is required, e.g. gpt-5.4-mini.
-# max_jobs_per_run caps the jobs scored per run (0: no cap); worth setting with pay-per-use APIs.
+# max_jobs_per_run caps the jobs scored per run, newest first; the rest wait for later runs (0: no cap).
 # recheck_alone scores again on their own the jobs within 15 points of min_score or above (scores in a batch shift
 # with the other jobs in it); feedback_examples is how many jobs you rated the scorer sees as examples.
 # instructions replaces the built-in scoring prompt (easiest to edit on the web app's Settings page); leave it out
@@ -65,7 +65,7 @@ scoring:
   model: sonnet
   batch_size: 12
   timeout_seconds: 300
-  max_jobs_per_run: 0
+  max_jobs_per_run: 300
   recheck_alone: true
   feedback_examples: 20
   claude_path: claude

@@ -100,7 +100,7 @@ svg.i.big { width: 28px; height: 28px; stroke-width: 1.5; }
 .nav .count { margin-left: auto; min-width: 22px; text-align: center; font-size: 11.5px; font-weight: 650;
   padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-variant-numeric: tabular-nums; }
 .sidebar-foot { margin-top: auto; display: grid; gap: 8px; padding: 0 4px; }
-.live { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); padding: 8px 10px;
+a.live { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); padding: 8px 10px;
   border-radius: 9px; background: var(--surface); border: 1px solid var(--line); }
 .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent);
   animation: pulse 1.6s infinite; flex: none; }
@@ -132,6 +132,7 @@ main { padding: 30px 44px 90px; max-width: 1520px; width: 100%; margin: 0 auto; 
   font: 550 13.5px var(--font); cursor: pointer; white-space: nowrap; transition: background 0.15s, border-color 0.15s, transform 0.05s; }
 .btn:hover { background: var(--surface-2); border-color: var(--faint); text-decoration: none; }
 .btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn.primary:hover { filter: brightness(1.07); }
 .btn.ghost { background: transparent; border-color: transparent; color: var(--muted); }

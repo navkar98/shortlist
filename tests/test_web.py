@@ -295,3 +295,21 @@ def test_scoring_prompt_can_be_changed_restored_and_jobs_rescored(app):
     client.post("/rescore", data={"from_score": "80", "scope": "all"}, headers=TOKEN)
     assert started == [("re-score", ["rescore", "--from", "55"]), ("re-score", ["rescore", "--from", "80", "--all"])]
     assert client.post("/rescore", data={"from_score": "95", "scope": "all"}, headers=TOKEN).status_code == 400
+
+
+def test_a_run_started_elsewhere_shows_and_blocks_starting_another(app):
+    client, tmp_path, _, started = app
+    (tmp_path / "shortlist.log").write_text("2026-11-02 16:27:38 INFO    greenhouse:acme: 12 jobs\n", encoding="utf-8")
+    db_path = str(tmp_path / "shortlist.db")
+    assert "Run in progress" not in client.get("/").text and not db.run_in_progress(db_path)
+    with db.single_run(f"{db_path}.lock") as locked:  # what a scheduled run holds
+        assert locked and db.run_in_progress(db_path)
+        home = client.get("/").text
+        assert "Run in progress" in home and 'disabled hx-post="/runs"' in home
+        panel = client.get("/activity").text
+        assert "greenhouse:acme: 12 jobs" in panel and 'hx-trigger="every 2s"' in panel
+        response = client.post("/runs", data={"kind": "real"}, headers=TOKEN)
+        assert response.status_code == 409 and "already in progress" in response.text
+        assert client.post("/rescore", data={"from_score": "55", "scope": "all"}, headers=TOKEN).status_code == 409
+    assert not started and not db.run_in_progress(db_path)
+    assert client.post("/runs", data={"kind": "real"}, headers=TOKEN).status_code == 204 and len(started) == 1

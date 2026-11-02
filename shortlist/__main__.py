@@ -2,18 +2,18 @@
 import argparse
 import json
 import logging
-import os
 import re
 import sqlite3
 import sys
+import threading
 import time
 from collections import Counter
-from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import db, notify
 from .config import Config, HtmlBoard, Schedule, load_config
+from .db import single_run
 from .details import fetch_details
 from .discover import discover_sites, site_job_counts, site_sources
 from .fetchers import Job, fetch_all
@@ -22,11 +22,6 @@ from .listings import fetch_listings
 from .notify import LIMITS, format_digest
 from .prefilter import build_filter
 from .scoring import INSTRUCTIONS, fingerprint, score_jobs
-
-if os.name == "nt":
-    import msvcrt
-else:
-    import fcntl
 
 log = logging.getLogger("shortlist")
 
@@ -75,30 +70,6 @@ def skip_reason(conn: sqlite3.Connection, schedule: Schedule, now: datetime) -> 
     return None
 
 
-@contextmanager
-def single_run(lock_path: str):
-    """An exclusive lock for a run or a discovery, so a scheduled run and one started from the web app never overlap.
-    Yields False when another process holds it. The operating system drops the lock if the process dies."""
-    handle = open(lock_path, "a+")
-    locked = False
-    try:
-        handle.seek(0)
-        try:
-            if os.name == "nt":
-                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
-            else:
-                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-            locked = True
-        except OSError:
-            pass
-        yield locked
-    finally:
-        if locked and os.name == "nt":
-            handle.seek(0)
-            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
-        handle.close()
-
-
 def run(cfg: Config, *, dry_run: bool = False, limit: int | None = None, if_due: bool = False) -> int:
     missing = notify.missing_env(cfg.notify)
     if not dry_run and missing:
@@ -127,7 +98,16 @@ def _run(cfg: Config, *, dry_run: bool, limit: int | None, if_due: bool) -> int:
     full_scan = db.full_scans_due(conn, companies + [board_id(b) for b in recipes],
                                   (started - FULL_SCAN_EVERY).isoformat(timespec="seconds"))
     done = done_keys(conn, build_filter(cfg.filters))
-    board_jobs = (fetch_all(companies, known=done, full_scan=full_scan)
+    writer, write_lock, first_seen = db.connect(cfg.db_path, any_thread=True), threading.Lock(), [0]
+
+    def save_board(company: str, jobs: list[Job]) -> None:
+        # As each board is read: a run that gets interrupted loses nothing, and the next one carries on from here.
+        with write_lock:
+            first_seen[0] += db.upsert_jobs(writer, jobs, now)
+            if jobs and company in full_scan:
+                db.record_full_scans(writer, {company}, now)
+
+    board_jobs = (fetch_all(companies, known=done, full_scan=full_scan, on_board=save_board)
                   + scrape_boards(recipes, known=done, full_scan=full_scan))
     db.record_full_scans(conn, full_scan & boards_with_jobs(companies, recipes, board_jobs), now)
     db.record_site_results(conn, site_job_counts(site_rows, board_jobs), now)
@@ -144,7 +124,7 @@ def _run(cfg: Config, *, dry_run: bool, limit: int | None, if_due: bool) -> int:
              len(jobs), from_boards, len({(j.ats, j.slug) for j in board_jobs}), len(listed),
              len(listed) - (len(jobs) - from_boards))
     stats: dict = {}
-    code = process(cfg, conn, jobs, resume, now, dry_run=dry_run, limit=limit, stats=stats)
+    code = process(cfg, conn, jobs, resume, now, dry_run=dry_run, limit=limit, stats=stats, first_seen=first_seen[0])
     # Dry runs, and runs that fetched nothing or failed, don't count toward the schedule limits (see completed_runs).
     db.record_run(conn, now, len(jobs), code, dry_run=dry_run, stats=stats,
                   finished_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
@@ -152,12 +132,13 @@ def _run(cfg: Config, *, dry_run: bool, limit: int | None, if_due: bool) -> int:
 
 
 def process(cfg: Config, conn: sqlite3.Connection, jobs: list[Job], resume: str, now: str, *, dry_run: bool,
-            limit: int | None, stats: dict | None = None) -> int:
-    """Store, filter, score, and notify for one run's fetched jobs. Returns the exit code; fills `stats`."""
+            limit: int | None, stats: dict | None = None, first_seen: int = 0) -> int:
+    """Store, filter, score, and notify for one run's fetched jobs. Returns the exit code; fills `stats`. `first_seen`:
+    how many of the jobs were already stored as new, board by board, during this run."""
     stats = {} if stats is None else stats
-    first_seen = db.upsert_jobs(conn, jobs, now)
+    first_seen += db.upsert_jobs(conn, jobs, now)
     stats.update(first_seen=first_seen, scored=0, matches=0, sent=0)
-    unscored = db.unscored_keys(conn)
+    unscored = db.unscored_first_seen(conn)
     reject = build_filter(cfg.filters)
     new = [(job, reject(job)) for job in jobs if job.key in unscored]
     reasons = Counter(reason for _, reason in new)
@@ -166,7 +147,11 @@ def process(cfg: Config, conn: sqlite3.Connection, jobs: list[Job], resume: str,
              reasons[None], reasons["title"], reasons["excluded title"], reasons["location"])
 
     # Full descriptions for listing-only jobs are fetched here, for new jobs that passed the filter only.
-    candidates = fetch_details([job for job, reason in new if reason is None][:limit])
+    # With more candidates than the cap, the newest go first, so a backlog never holds up today's jobs.
+    passing = sorted((job for job, reason in new if reason is None), key=lambda j: unscored[j.key], reverse=True)
+    if limit and len(passing) > limit:
+        log.info("%d more candidates wait for later runs (at most %d are scored per run)", len(passing) - limit, limit)
+    candidates = fetch_details(passing[:limit])
     handled = db.handled_roles(conn)
     roles = []
     for rep, copies in group_roles(candidates):
@@ -180,13 +165,20 @@ def process(cfg: Config, conn: sqlite3.Connection, jobs: list[Job], resume: str,
     if feedback:
         log.info("showing the scorer %d jobs you rated (%d of them disagree with their score)", len(feedback),
                  sum(e["disagrees"] for e in feedback))
-    scores, failed = score_jobs([rep for rep, _ in roles], resume, cfg.preferences, cfg.scoring, feedback=feedback,
-                                recheck_from=cfg.min_score - 15 if cfg.scoring.recheck_alone else None)
     scored_with = fingerprint(resume, cfg.preferences, cfg.scoring.instructions or INSTRUCTIONS)
+    by_key = {rep.key: (rep, copies) for rep, copies in roles}
+
+    def save(got: dict) -> None:  # as each call returns: a run that gets interrupted keeps what it scored
+        for key, result in got.items():
+            rep, copies = by_key[key]
+            db.save_result(conn, rep, result.model_dump_json(), result.score, now, scored_with)
+            db.mark_duplicates(conn, copies, key)
+
+    scores, failed = score_jobs([rep for rep, _ in roles], resume, cfg.preferences, cfg.scoring, feedback=feedback,
+                                recheck_from=cfg.min_score - 15 if cfg.scoring.recheck_alone else None, on_scores=save)
     for rep, copies in roles:
-        if rep.key in scores or rep.key in failed:
-            result = scores.get(rep.key)
-            db.save_result(conn, rep, result and result.model_dump_json(), result and result.score, now, scored_with)
+        if rep.key in failed:
+            db.save_result(conn, rep, None, None, now, scored_with)
             db.mark_duplicates(conn, copies, rep.key)
     log.info("scored %d, failed %d, left for next run %d", len(scores), len(failed), len(roles) - len(scores) - len(failed))
 

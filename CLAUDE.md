@@ -73,6 +73,10 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   same 86 paced at one request a second per data center (`polite.pace_key`) got no 429 (81 with open jobs).
 - Field packs (2026-11-01): the SimplifyJobs new-grad and Summer2026 internship lists link to 3,828 boards Shortlist
   can read; 3,508 listed open jobs. Grouped by each listing's `category`; Workday boards over 2,000 jobs left out.
+- All eight packs together (3,599 boards, 2026-11-02): wd1 alone takes ~3 hours on a first read, past the scheduled
+  task's old 2-hour limit, and nothing was stored until every board was read, so runs were killed and restarted from
+  zero. 2,978 boards had listed 364,080 jobs by then; 6.4% of stored jobs passed a real config's filters. Hence boards
+  and scores saved as they come, a 12-hour limit, and a default cap of 300 jobs scored per run, newest first.
 - Workable: GET `apply.workable.com/api/v1/widget/accounts/<account>?details=true` (descriptions included). Amazon:
   GET `amazon.jobs/en/search.json?base_query&result_limit=100&offset&sort=recent` (newest 500 per query).
 - SimplifyJobs listings.json fields: id, company_name, title, locations, url, active, is_visible, category, degrees,

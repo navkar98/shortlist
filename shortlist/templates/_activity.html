@@ -1,6 +1,12 @@
 {% from "_ui.html" import icon %}
-<div id="activity" hx-get="/activity" hx-swap="outerHTML" {% if activity.running %}hx-trigger="every 2s"{% endif %}>
-  {% if activity.label %}
+<div id="activity" hx-get="/activity" hx-swap="outerHTML" {% if activity.running or run_elsewhere %}hx-trigger="every 2s"{% endif %}>
+  {% if run_elsewhere %}
+  <section class="console live">
+    <header><span class="lights"><i></i><i></i><i></i></span><span>Run started outside this page</span>
+      <span class="state"><span class="pulse"></span> running</span></header>
+    <pre>{{ scheduled_log() or "(its log is not in shortlist.log)" }}</pre>
+  </section>
+  {% elif activity.label %}
   <section class="console {{ 'live' if activity.running }}">
     <header><span class="lights"><i></i><i></i><i></i></span><span>{{ activity.label | capitalize }}</span>
       <span class="state">{% if activity.running %}<span class="pulse"></span> running{% else %}finished{% endif %}</span></header>

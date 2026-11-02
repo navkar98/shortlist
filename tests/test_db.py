@@ -16,7 +16,7 @@ def test_upsert_dedupes_and_tracks_unscored(tmp_path):
     assert db.upsert_jobs(conn, jobs, "t2") == 0
     rows = conn.execute("SELECT slug, job_id, first_seen, last_seen FROM jobs ORDER BY slug, job_id").fetchall()
     assert [tuple(r) for r in rows] == [("acme", "1", "t1", "t2"), ("acme", "2", "t1", "t2"), ("other", "1", "t1", "t2")]
-    assert db.unscored_keys(conn) == {j.key for j in jobs}
+    assert set(db.unscored_first_seen(conn)) == {j.key for j in jobs}
 
 
 def test_schema_survives_reconnect(tmp_path):
@@ -59,7 +59,7 @@ def test_results_duplicates_and_pending_matches(tmp_path):
     db.save_result(conn, broken, None, None, "t1")
     db.save_result(conn, gone, '{"one_line_reason": "r"}', 95, "t0")
 
-    assert db.unscored_keys(conn) == set()
+    assert not db.unscored_first_seen(conn)
     assert db.handled_roles(conn)[good.role_hash] == good.key
     pending = db.pending_matches(conn, 70, "t1")  # `gone` scores higher but was not seen in this run
     assert [(r["job_id"], r["location"], r["score"]) for r in pending] == [("1", "NYC; London", 90)]

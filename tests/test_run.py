@@ -313,3 +313,54 @@ def test_rescore_scores_outdated_jobs_alone_with_the_current_prompt(setup, monke
     assert again["score"] == 60 and again["description"] == "Read again." and again["scored_with"] != first["scored_with"]
     assert cli.rescore(strict, from_score=None, everything=False, limit=None) == 0 and len(prompts) == 1
     assert cli.rescore(strict, from_score=50, everything=True, limit=None) == 0 and len(prompts) == 2  # --all
+
+
+def test_an_interrupted_run_keeps_the_boards_it_read_and_the_jobs_it_scored(setup, monkeypatch):
+    cfg, scored_keys = setup
+    jobs = cli.fetch_all(cfg.companies)
+
+    def killed_while_fetching(companies, *, on_board, full_scan, **kwargs):
+        assert "greenhouse:nextdoor" in full_scan
+        on_board("greenhouse:nextdoor", jobs)
+        raise KeyboardInterrupt  # as good as the scheduled task's time limit, for what is stored by then
+
+    monkeypatch.setattr(cli, "fetch_all", killed_while_fetching)
+    with pytest.raises(KeyboardInterrupt):
+        cli.run(cfg, dry_run=True)
+    conn = cli.db.connect(cfg.db_path)
+    assert conn.execute("SELECT count(*) FROM jobs").fetchone()[0] == len(jobs)
+
+    seen = {}
+
+    def carries_on(companies, *, full_scan, **kwargs):
+        seen["full_scan"] = full_scan
+        return jobs
+
+    good_backend = scoring.BACKENDS["claude_cli"]
+
+    def killed_after_one_call(prompt, schema, cfg_):
+        if scored_keys:
+            raise KeyboardInterrupt
+        return good_backend(prompt, schema, cfg_)
+
+    monkeypatch.setattr(cli, "fetch_all", carries_on)
+    monkeypatch.setitem(scoring.BACKENDS, "claude_cli", killed_after_one_call)
+    cfg.scoring.batch_size = 1
+    with pytest.raises(KeyboardInterrupt):
+        cli.run(cfg, dry_run=True)
+    assert "greenhouse:nextdoor" not in seen["full_scan"]  # already read to the end: not again
+    assert conn.execute("SELECT count(*) FROM jobs WHERE status = 'scored'").fetchone()[0] == 1
+
+
+def test_with_more_candidates_than_the_cap_the_newest_are_scored_first(setup, caplog):
+    cfg, scored_keys = setup
+    jobs = cli.fetch_all(cfg.companies)
+    reject = cli.build_filter(cfg.filters)
+    newest = [j for j in jobs if reject(j) is None][1]  # not the first in the list
+    conn = cli.db.connect(cfg.db_path)
+    cli.db.upsert_jobs(conn, [j for j in jobs if j is not newest], "2026-01-01T00:00:00+00:00")
+    cfg.scoring.max_jobs_per_run = 1
+    caplog.set_level("INFO", logger="shortlist")
+    cli.run(cfg, dry_run=True)
+    assert scored_keys == [newest.key]
+    assert "more candidates wait for later runs (at most 1 are scored per run)" in caplog.text

@@ -9,9 +9,10 @@
       and scheduled runs never overlap.</p>
   </div>
   <div class="actions">
-    <button class="btn" hx-post="/runs" hx-vals='{"kind": "discover"}' title="Turn new careers pages into job boards now">{{ icon("globe") }} Discover</button>
-    <button class="btn" hx-post="/runs" hx-vals='{"kind": "dry"}' title="Score new jobs and print the digest without sending it">{{ icon("eye") }} Dry run</button>
-    <button class="btn primary" hx-post="/runs" hx-vals='{"kind": "real"}' hx-confirm="Run now and send the digest of new matches?" data-confirm-ok="Run now">{{ icon("play") }} Run now</button>
+    {% set busy = activity.running or run_elsewhere %}
+    <button class="btn" {{ "disabled" if busy }} hx-post="/runs" hx-vals='{"kind": "discover"}' title="Turn new careers pages into job boards now">{{ icon("globe") }} Discover</button>
+    <button class="btn" {{ "disabled" if busy }} hx-post="/runs" hx-vals='{"kind": "dry"}' title="Score new jobs and print the digest without sending it">{{ icon("eye") }} Dry run</button>
+    <button class="btn primary" {{ "disabled" if busy }} hx-post="/runs" hx-vals='{"kind": "real"}' hx-confirm="Run now and send the digest of new matches?" data-confirm-ok="Run now">{{ icon("play") }} Run now</button>
   </div>
 </header>
 

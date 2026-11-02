@@ -1,7 +1,14 @@
 """SQLite storage. Each job is stored once per (ats, slug, job_id), scored at most once, and notified at most once."""
+import os
 import sqlite3
+from contextlib import contextmanager
 
 from .fetchers import Job
+
+if os.name == "nt":
+    import msvcrt
+else:
+    import fcntl
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS jobs (
@@ -71,8 +78,39 @@ ADDED_COLUMNS = {
 WHERE_JOB = "WHERE ats = ? AND slug = ? AND job_id = ?"
 
 
-def connect(path: str) -> sqlite3.Connection:
-    conn = sqlite3.connect(path, timeout=30)  # the web app and a run may write at the same time
+@contextmanager
+def single_run(lock_path: str):
+    """An exclusive lock for a run or a discovery, so a scheduled run and one started from the web app never overlap.
+    Yields False when another process holds it. The operating system drops the lock if the process dies."""
+    handle = open(lock_path, "a+")
+    locked = False
+    try:
+        handle.seek(0)
+        try:
+            if os.name == "nt":
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            locked = True
+        except OSError:
+            pass
+        yield locked
+    finally:
+        if locked and os.name == "nt":
+            handle.seek(0)
+            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+        handle.close()
+
+
+def run_in_progress(db_path: str) -> bool:
+    """Whether a run, discovery, or re-score holds the run lock, in any process: the scheduled task, or a terminal."""
+    with single_run(f"{db_path}.lock") as free:
+        return not free
+
+
+def connect(path: str, *, any_thread: bool = False) -> sqlite3.Connection:
+    """`any_thread`: for one connection shared by worker threads, which then take turns with a lock."""
+    conn = sqlite3.connect(path, timeout=30, check_same_thread=not any_thread)  # a run and the web app may both write
     conn.row_factory = sqlite3.Row
     for schema in (SCHEMA, RUNS_SCHEMA, SITES_SCHEMA, SCANS_SCHEMA, TRACKING_SCHEMA):
         conn.execute(schema)
@@ -190,8 +228,9 @@ def upsert_jobs(conn: sqlite3.Connection, jobs: list[Job], now: str) -> int:
     return inserted
 
 
-def unscored_keys(conn: sqlite3.Connection) -> set[str]:
-    return {row[0] for row in conn.execute("SELECT ats || ':' || slug || ':' || job_id FROM jobs WHERE status IS NULL")}
+def unscored_first_seen(conn: sqlite3.Connection) -> dict[str, str]:
+    """Key -> first_seen of every job not handled yet."""
+    return dict(conn.execute("SELECT ats || ':' || slug || ':' || job_id, first_seen FROM jobs WHERE status IS NULL"))
 
 
 def handled_roles(conn: sqlite3.Connection) -> dict[str, str]:

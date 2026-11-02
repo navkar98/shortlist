@@ -185,6 +185,26 @@ def test_fetch_all_keeps_the_order_and_reads_each_host_one_board_at_a_time():
     assert host_group("workday:acme.wd1/External") != host_group("workday:acme.wd5/External")
 
 
+def test_fetch_all_hands_over_each_board_as_it_is_read(caplog):
+    def handler(request):
+        if request.url.path == "/robots.txt":
+            return httpx.Response(404)
+        slug = request.url.path.rsplit("/", 2)[-2]
+        return httpx.Response(200, json={"jobs": [{"id": slug, "title": "ML Engineer", "location": {"name": ""},
+                                                   "absolute_url": f"https://x.example/{slug}"}]})
+
+    seen = []
+
+    def on_board(company, jobs):
+        seen.append((company, len(jobs)))
+        if company == "greenhouse:b":
+            raise OSError("database is locked")
+
+    jobs = fetch_all(["greenhouse:a", "greenhouse:b"], on_board=on_board, transport=httpx.MockTransport(handler))
+    assert seen == [("greenhouse:a", 1), ("greenhouse:b", 1)] and len(jobs) == 2  # a failed save loses nothing
+    assert "greenhouse:b: not saved yet (OSError: database is locked)" in caplog.text
+
+
 def test_workday_tenants_share_one_pace_per_data_center():
     assert pace_key("acme.wd1.myworkdayjobs.com") == pace_key("other.wd1.myworkdayjobs.com") == "wd1.myworkdayjobs.com"
     assert pace_key("acme.wd5.myworkdayjobs.com") != pace_key("acme.wd1.myworkdayjobs.com")

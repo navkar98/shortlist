@@ -282,8 +282,34 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
             return PlainTextResponse("Missing or wrong token; reload the page.", status_code=403)
         return await call_next(request)
 
+    loaded: dict = {}
+
     def cfg() -> Config:
-        return load_config(config_path)
+        # A page asks for the config several times, and parsing big packs takes a noticeable moment.
+        info = config_path.stat()
+        if loaded.get("stamp") != (info.st_mtime_ns, info.st_size):
+            loaded.update(stamp=(info.st_mtime_ns, info.st_size), config=load_config(config_path))
+        return loaded["config"]
+
+    def run_elsewhere() -> bool:
+        """A run this app didn't start is in progress: the scheduled task's, or one from a terminal."""
+        return not activity.running and db.run_in_progress(cfg().db_path)
+
+    def scheduled_log(size: int = 64_000, lines: int = 150) -> str:
+        """The end of the scheduled task's log, which can grow large."""
+        path = config_path.parent / "shortlist.log"
+        if not path.exists():
+            return ""
+        with open(path, "rb") as f:
+            f.seek(max(0, path.stat().st_size - size))
+            return "\n".join(f.read().decode("utf-8", "replace").splitlines()[-lines:])
+
+    def start_task(label: str, args: list[str]) -> None:
+        if run_elsewhere():
+            raise HTTPException(409, "A run is already in progress, probably the scheduled one. Follow it on the Runs "
+                                     "page and try again when it finishes.")
+        if not activity.start(label, args):
+            raise HTTPException(409, "Something is already running; wait for it to finish")
 
     def conn():
         return db.connect(cfg().db_path)
@@ -292,7 +318,8 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         if "nav" in context:  # full pages carry the sidebar's badges
             context["counts"] = nav_counts(conn(), cfg().min_score)
         return templates.TemplateResponse(request, name, {"token": token, "activity": activity, "stages": db.STAGES,
-                                                          "stage_labels": STAGE_LABELS, **context})
+                                                          "stage_labels": STAGE_LABELS, "run_elsewhere": run_elsewhere(),
+                                                          "scheduled_log": scheduled_log, **context})
 
     @app.get("/")
     def home(request: Request):
@@ -396,8 +423,7 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
 
     @app.post("/sources/rediscover")
     def rediscover(name: str = Form(...)):
-        if not activity.start(f"discover {name}", ["discover", "--site", name]):
-            raise HTTPException(409, "Something is already running; wait for it to finish")
+        start_task(f"discover {name}", ["discover", "--site", name])
         return Response(status_code=204, headers={"HX-Redirect": "/runs"})
 
     @app.post("/sources/forget")
@@ -418,8 +444,7 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         args = {"dry": ["run", "--dry-run"], "real": ["run"], "discover": ["discover"]}.get(kind)
         if args is None:
             raise HTTPException(400, "unknown kind")
-        if not activity.start({"dry": "dry run", "real": "run", "discover": "discovery"}[kind], args):
-            raise HTTPException(409, "Something is already running; wait for it to finish")
+        start_task({"dry": "dry run", "real": "run", "discover": "discovery"}[kind], args)
         return Response(status_code=204, headers={"HX-Refresh": "true"})
 
     @app.get("/activity")
@@ -480,8 +505,7 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         if not rescore_count(cfg(), from_score, scope):
             raise HTTPException(400, "No open job to re-score with these choices")
         args = ["rescore", "--from", str(from_score)] + (["--all"] if scope == "all" else [])
-        if not activity.start("re-score", args):
-            raise HTTPException(409, "Something is already running; wait for it to finish")
+        start_task("re-score", args)
         return Response(status_code=204, headers={"HX-Redirect": "/runs"})
 
     @app.get("/filtered")
