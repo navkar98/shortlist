@@ -161,11 +161,15 @@ def pack_path(name: str, folder: Path) -> Path:
     return folder / name if name.endswith((".yaml", ".yml")) else PACKS_DIR / f"{name}.yaml"
 
 
+# Packs can list thousands of boards. libyaml parses them much faster, when this install of PyYAML has it.
+_Loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+
+
 def load_pack(path: Path) -> Pack:
     if not path.exists():
         available = ", ".join(sorted(p.stem for p in PACKS_DIR.glob("*.yaml")))
         raise ValueError(f"company pack {path} not found (bundled packs: {available})")
-    return Pack.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")) or {})
+    return Pack.model_validate(yaml.load(path.read_text(encoding="utf-8"), Loader=_Loader) or {})
 
 
 def available_packs() -> dict[str, Pack]:

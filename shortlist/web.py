@@ -19,6 +19,7 @@ import zlib
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from types import SimpleNamespace
 from urllib.parse import quote
 
 import yaml
@@ -145,7 +146,8 @@ def search_jobs(conn, *, q: str = "", min_score: int = 0, stage: str = "active",
         where.append("j.first_seen >= ?")
         args.append((datetime.now(timezone.utc) - timedelta(days=days)).isoformat(timespec="seconds"))
     sql = JOINED + " AND ".join(where)
-    order = "j.first_seen DESC, j.score DESC" if sort == "newest" else "j.score DESC, j.first_seen DESC"
+    # The rowid settles ties, so "Show more" can't repeat or skip a job.
+    order = "j.first_seen DESC, j.score DESC, j.rowid" if sort == "newest" else "j.score DESC, j.first_seen DESC, j.rowid"
     total = conn.execute("SELECT count(*)" + sql, args).fetchone()[0]
     rows = conn.execute("SELECT j.rowid AS id, j.company, j.title, j.location, j.url, j.ats, j.score, j.result,"
                         " j.first_seen, j.last_seen, coalesce(t.stage, 'new') AS stage, coalesce(t.feedback, 0) AS feedback,"
@@ -216,12 +218,20 @@ def filtered_jobs(conn, filters: Filters, scope: str) -> list[dict]:
     reject, dropped = build_filter(filters), []
     for r in conn.execute(f"SELECT rowid AS id, ats, slug, job_id, company, title, location, url, first_seen FROM jobs"
                           f" WHERE status IS NULL AND {column} = ?", (last_run_start(conn),)):
-        job = Job(ats=r["ats"], slug=r["slug"], job_id=r["job_id"], company=r["company"], title=r["title"],
-                  location=r["location"], remote="remote" in r["location"].lower(), url=r["url"], description="")
+        # What the filters read, and nothing more: this loop can see hundreds of thousands of jobs.
+        job = SimpleNamespace(title=r["title"], location=r["location"], remote="remote" in r["location"].lower())
         if reason := reject(job):
             word = first_match(filters.title_exclude, r["title"]).lower() if reason == "excluded title" else ""
             dropped.append({**dict(r), "job": job, "reason": reason, "word": word})
     return dropped
+
+
+def filtered_summary(conn, filters: Filters, scope: str, rows: int = 400) -> dict:
+    """What the Filtered out page shows: the counts and suggestions, and the first dropped jobs."""
+    dropped = filtered_jobs(conn, filters, scope)
+    return {"total": len(dropped), "dropped": [{k: v for k, v in d.items() if k != "job"} for d in dropped[:rows]],
+            "reasons": Counter(d["reason"] for d in dropped), "words": Counter(d["word"] for d in dropped if d["word"]),
+            "titles": title_suggestions(dropped, filters), "places": place_suggestions(dropped)}
 
 
 def _grams(text: str, sizes=(1, 2)) -> set[str]:
@@ -234,14 +244,16 @@ def title_suggestions(dropped: list[dict], filters: Filters, limit: int = 14) ->
     """Words and two-word phrases common in titles the include list missed, with how many jobs each would let through
     (still subject to the excluded words and places)."""
     titles = [d for d in dropped if d["reason"] == "title"]
-    counts = Counter(g for d in titles for g in _grams(d["title"]))
+    lowered = [d["title"].lower() for d in titles]
+    counts = Counter(g for title in lowered for g in _grams(title))
     known = {t.lower() for t in filters.title_include + filters.title_exclude}
     out = []
     for phrase, n in counts.most_common(200):
-        if phrase in known or any(first_match([k], phrase) for k in filters.title_exclude):
+        if phrase in known or first_match(filters.title_exclude, phrase):
             continue
         reject = build_filter(filters.model_copy(update={"title_include": filters.title_include + [phrase]}))
-        passing = sum(1 for d in titles if first_match([phrase], d["title"]) and reject(d["job"]) is None)
+        passing = sum(1 for d, title in zip(titles, lowered)  # the plain check rules out nearly every title, cheaply
+                      if phrase in title and first_match([phrase], d["title"]) and reject(d["job"]) is None)
         if passing:
             out.append({"phrase": phrase, "titles": n, "passing": passing})
         if len(out) == limit:
@@ -291,6 +303,16 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
             loaded.update(stamp=(info.st_mtime_ns, info.st_size), config=load_config(config_path))
         return loaded["config"]
 
+    remembered: dict = {}
+
+    def once(key: tuple, compute):
+        """For results that need a walk over every job and only change when a run finishes or the filters change."""
+        if key not in remembered:
+            if len(remembered) >= 8:
+                remembered.clear()
+            remembered[key] = compute()
+        return remembered[key]
+
     def run_elsewhere() -> bool:
         """A run this app didn't start is in progress: the scheduled task's, or one from a terminal."""
         return not activity.running and db.run_in_progress(cfg().db_path)
@@ -331,7 +353,8 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
     @app.get("/matches")
     def matches(request: Request):
         c = conn()
-        sources = [r[0] for r in c.execute("SELECT DISTINCT ats FROM jobs WHERE status = 'scored' ORDER BY ats")]
+        sources = [r[0] for r in c.execute("SELECT DISTINCT ats FROM jobs INDEXED BY jobs_scored"
+                                           " WHERE status = 'scored' ORDER BY ats")]
         stats = dict(c.execute(
             f"SELECT count(*) AS scored, sum(j.score >= ? AND NOT {db.CLOSED}) AS strong, sum(j.first_seen >= ?) AS since_run,"
             f" sum({db.CLOSED}) AS closed" + JOINED + "j.status = 'scored'", (cfg().min_score, last_run_start(c))).fetchone())
@@ -403,7 +426,7 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         c, config = conn(), cfg()
         stored = db.sites(c)
         sites = [{"name": p.name, "url": p.url, "row": stored.get(p.url)} for p in config.career_pages]
-        boards = board_health(c)
+        boards = once(("boards", last_run_start(c)), lambda: board_health(c))
         site_status = {s: sum(1 for x in sites if (x["row"]["status"] if x["row"] else "pending") == s)
                        for s in ("board", "recipe", "unsupported", "pending")}
         return page(request, "sources.html", nav="sources", sites=sites, boards=boards, site_status=site_status,
@@ -511,24 +534,24 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
     @app.get("/filtered")
     def filtered(request: Request, scope: str = "run", added: str = "", removed: str = "", passing: int = 0):
         config, c = cfg(), conn()
-        dropped = filtered_jobs(c, config.filters, scope)
-        return page(request, "filtered.html", nav="filtered", scope=scope, dropped=dropped,
-                    reasons=Counter(d["reason"] for d in dropped), words=Counter(d["word"] for d in dropped if d["word"]),
-                    titles=title_suggestions(dropped, config.filters), places=place_suggestions(dropped),
-                    added=added, removed=removed, passing=passing, last_run=last_run_start(c),
-                    batch_size=config.scoring.batch_size)
+        last_run = last_run_start(c)
+        summary = once(("filtered", scope, last_run, config.filters.model_dump_json()),
+                       lambda: filtered_summary(c, config.filters, scope))
+        return page(request, "filtered.html", nav="filtered", scope=scope, added=added, removed=removed, passing=passing,
+                    last_run=last_run, cap=config.scoring.max_jobs_per_run, **summary)
 
     def change_filter(field: str, term: str, add: bool, scope: str) -> Response:
         if field not in ("title_include", "title_exclude", "locations"):
             raise HTTPException(400, "unknown filter")
         config, text = cfg(), config_path.read_text(encoding="utf-8")
         terms = list(getattr(config.filters, field))
-        before = {d["id"] for d in filtered_jobs(conn(), config.filters, "open")}
+        before = filtered_jobs(conn(), config.filters, "open")
         terms = [*terms, term] if add and term.lower() not in map(str.lower, terms) else \
             [t for t in terms if t.lower() != term.lower()]
         filters = config.filters.model_copy(update={field: terms})
         write_config(config_path, replace_sections(text, {"filters": filters.model_dump()}))
-        passing = len(before - {d["id"] for d in filtered_jobs(conn(), filters, "open")})
+        reject = build_filter(filters)
+        passing = sum(1 for d in before if reject(d["job"]) is None)
         return Response(status_code=204, headers={"HX-Redirect": f"/filtered?scope={scope}&{'added' if add else 'removed'}="
                                                                  f"{quote(term)}&passing={passing}"})
 

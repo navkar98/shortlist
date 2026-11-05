@@ -68,6 +68,19 @@ CREATE TABLE IF NOT EXISTS tracking (   -- what you did with a job (web app)
     PRIMARY KEY (ats, slug, job_id)
 )"""
 STAGES = ["new", "saved", "applied", "interviewing", "offer", "rejected", "not_interested"]
+# When each board was last read, one row per board. Telling if a posting has closed needs this on nearly every page, and
+# working it out from `jobs` means reading the whole table.
+BOARDS_SCHEMA = """
+CREATE TABLE IF NOT EXISTS boards (
+    ats        TEXT NOT NULL,
+    slug       TEXT NOT NULL,
+    board_seen TEXT NOT NULL,   -- the latest last_seen of its jobs
+    PRIMARY KEY (ats, slug)
+)"""
+# Scored jobs are a tiny part of `jobs`; the web app mostly reads those. Both indexes change only when a job is first
+# stored or scored, not with each run's last_seen.
+INDEXES = ("CREATE INDEX IF NOT EXISTS jobs_scored ON jobs(score) WHERE status = 'scored'",
+           "CREATE INDEX IF NOT EXISTS jobs_new ON jobs(first_seen) WHERE status IS NULL")
 # Columns added after the first release of a table; `connect` adds any that an older database lacks.
 ADDED_COLUMNS = {
     "jobs": {"description": "TEXT",   # kept for scored jobs, for the job detail view and rescoring
@@ -112,7 +125,7 @@ def connect(path: str, *, any_thread: bool = False) -> sqlite3.Connection:
     """`any_thread`: for one connection shared by worker threads, which then take turns with a lock."""
     conn = sqlite3.connect(path, timeout=30, check_same_thread=not any_thread)  # a run and the web app may both write
     conn.row_factory = sqlite3.Row
-    for schema in (SCHEMA, RUNS_SCHEMA, SITES_SCHEMA, SCANS_SCHEMA, TRACKING_SCHEMA):
+    for schema in (SCHEMA, RUNS_SCHEMA, SITES_SCHEMA, SCANS_SCHEMA, TRACKING_SCHEMA, BOARDS_SCHEMA):
         conn.execute(schema)
     with conn:
         for table, columns in ADDED_COLUMNS.items():
@@ -120,6 +133,10 @@ def connect(path: str, *, any_thread: bool = False) -> sqlite3.Connection:
             for column, declaration in columns.items():
                 if column not in have:
                     conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {declaration}")
+        for index in INDEXES:
+            conn.execute(index)
+        if not conn.execute("SELECT 1 FROM boards LIMIT 1").fetchone():  # a database from before this table
+            conn.execute("INSERT OR IGNORE INTO boards SELECT ats, slug, max(last_seen) FROM jobs GROUP BY ats, slug")
     return conn
 
 
@@ -225,6 +242,9 @@ def upsert_jobs(conn: sqlite3.Connection, jobs: list[Job], now: str) -> int:
             [(j.ats, j.slug, j.job_id, j.company, j.title, j.location, j.url, j.role_hash, now, now) for j in jobs])
         inserted = conn.total_changes - before
         conn.executemany(f"UPDATE jobs SET last_seen = ? {WHERE_JOB}", [(now, j.ats, j.slug, j.job_id) for j in jobs])
+        conn.executemany("INSERT INTO boards (ats, slug, board_seen) VALUES (?, ?, ?) ON CONFLICT (ats, slug)"
+                         " DO UPDATE SET board_seen = max(board_seen, excluded.board_seen)",
+                         [(ats, slug, now) for ats, slug in {(j.ats, j.slug) for j in jobs}])
     return inserted
 
 
@@ -266,7 +286,7 @@ def mark_notified(conn: sqlite3.Connection, rows: list[sqlite3.Row], now: str) -
 # boards are read to the end at least weekly (FULL_SCAN_EVERY), so a job unseen for longer than that is gone. Amazon
 # searches (newest 500) and HTML boards (limited pages) can drop an open job, so they never count as closed.
 COMPLETE_LISTS = ("greenhouse", "lever", "ashby", "workable", "simplify")
-BOARD_SEEN = "(SELECT ats, slug, max(last_seen) AS board_seen FROM jobs GROUP BY ats, slug)"
+BOARD_SEEN = "boards"
 CLOSED = (f"(j.last_seen < b.board_seen AND (j.ats IN {COMPLETE_LISTS} OR j.ats = 'workday'"
           " AND julianday(b.board_seen) - julianday(j.last_seen) > 8))")
 

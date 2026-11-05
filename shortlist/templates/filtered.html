@@ -9,12 +9,13 @@
 </form>
 {% endmacro %}
 {% block main %}
+{% set when = "at most %d per run, newest first" | format(cap) if cap else "in the next run" %}
 <header class="page-head">
   <div>
     <p class="eyebrow"><a href="/matches">Matches</a> /</p>
     <h1>Filtered out</h1>
     <p class="lede">Jobs your title and place rules dropped before scoring, so no model call was spent on them. Let a word
-      through and the jobs it matches are scored in the next run.</p>
+      through and the jobs it matches get scored, {{ when }}.</p>
   </div>
   <div class="seg" role="radiogroup" aria-label="Which jobs">
     {% for value, label in [("run", "New in the last run"), ("open", "Every open job")] %}
@@ -24,11 +25,11 @@
   </div>
 </header>
 
-{% if added %}<p class="notice">{{ icon("check") }} Added “{{ added }}”: {{ passing }} job{{ "" if passing == 1 else "s" }} it lets through will be scored in the next run.</p>{% endif %}
-{% if removed %}<p class="notice">{{ icon("check") }} Removed “{{ removed }}”: {{ passing }} more job{{ "" if passing == 1 else "s" }} will be scored in the next run.</p>{% endif %}
+{% if added %}<p class="notice">{{ icon("check") }} Added “{{ added }}”: {{ passing }} job{{ "" if passing == 1 else "s" }} it lets through will be scored, {{ when }}.</p>{% endif %}
+{% if removed %}<p class="notice">{{ icon("check") }} Removed “{{ removed }}”: {{ passing }} more job{{ "" if passing == 1 else "s" }} will be scored, {{ when }}.</p>{% endif %}
 
 <section class="stats-strip">
-  <div class="card kpi"><span class="label">{{ icon("filter") }} Dropped</span><span class="value">{{ "{:,}".format(dropped | length) }}</span>
+  <div class="card kpi"><span class="label">{{ icon("filter") }} Dropped</span><span class="value">{{ "{:,}".format(total) }}</span>
     <span class="hint">{{ "first seen in the last run" if scope == "run" else "of the jobs the last run listed" }}, {{ last_run | ago }}</span></div>
   <div class="card kpi"><span class="label">No title word</span><span class="value">{{ "{:,}".format(reasons["title"]) }}</span>
     <span class="hint">none of your title words in the title</span></div>
@@ -48,8 +49,8 @@
         {% for t in titles %}
         <tr><td><b>{{ t.phrase }}</b></td><td class="r">{{ t.titles }}</td><td class="r">{{ t.passing }}</td>
           <td class="r">{{ filter_button("add", "title_include", t.phrase, "Add to titles",
-              confirm=("Add “%s”? It lets %d jobs through: about %d scoring calls in the next run."
-                       | format(t.phrase, t.passing, (t.passing / batch_size) | round(0, "ceil") | int)) if t.passing > 100 else "") }}</td></tr>
+              confirm=("Add “%s”? It lets %d jobs through, to be scored %s."
+                       | format(t.phrase, t.passing, when)) if t.passing > 100 else "") }}</td></tr>
         {% endfor %}
       </tbody>
     </table>
@@ -88,14 +89,14 @@
 </div>
 
 <div class="page-head section-gap" style="margin-bottom: 12px">
-  <h2>The dropped jobs <span class="hint">{% if dropped | length > 400 %}first 400 of {{ "{:,}".format(dropped | length) }}{% else %}{{ dropped | length }}{% endif %}</span></h2>
+  <h2>The dropped jobs <span class="hint">{% if total > dropped | length %}first {{ dropped | length }} of {{ "{:,}".format(total) }}{% else %}{{ total }}{% endif %}</span></h2>
   <input class="filter-input" type="search" placeholder="Filter" aria-label="Filter dropped jobs" data-filter="#dropped">
 </div>
 <div class="card table-wrap">
 <table class="table" id="dropped">
   <thead><tr><th>Role</th><th>Company</th><th>Location</th><th>Why</th></tr></thead>
   <tbody>
-    {% for d in dropped[:400] %}
+    {% for d in dropped %}
     <tr>
       <td><a href="{{ d.url }}" target="_blank" rel="noopener noreferrer">{{ d.title }}</a></td>
       <td class="nowrap">{{ d.company }}</td>

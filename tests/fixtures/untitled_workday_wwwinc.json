@@ -1,0 +1,62 @@
+{
+ "total": 256,
+ "jobPostings": [
+  {
+   "title": "Assistant Store Manager - Merrell",
+   "externalPath": "/job/Park-City-UT/Assistant-Store-Manager---Merrell_2023-10730",
+   "timeType": "Full time",
+   "locationsText": "Park City, UT",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "2023-10730"
+   ]
+  },
+  {
+   "title": "Full Time Keyholder - Merrell",
+   "externalPath": "/job/Silver-Sands-FL/Full-Time-Keyholder---Merrell_2023-10694-1",
+   "timeType": "Full time",
+   "locationsText": "Silver Sands, FL",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "2023-10694"
+   ]
+  },
+  {
+   "title": "Seasonal Temporary Store Associate - Merrell",
+   "externalPath": "/job/Myrtle-Beach-SC/Seasonal-Temporary-Store-Associate---Merrell_2022-10528",
+   "timeType": "Part time",
+   "locationsText": "Myrtle Beach, SC",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "2022-10528"
+   ]
+  },
+  {
+   "externalPath": "/job/Lancaster-PA/Part-Time-Keyholder---Merrell_2022-10575",
+   "timeType": "Part time",
+   "locationsText": "Lancaster, PA",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "2022-10575"
+   ]
+  },
+  {
+   "externalPath": "/job/Lancaster-PA/Seasonal-Temporary-Store-Associate---Merrell_2022-10576",
+   "timeType": "Part time",
+   "locationsText": "Lancaster, PA",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "2022-10576"
+   ]
+  },
+  {
+   "externalPath": "/job/Waterloo-NY/Part-Time-Keyholder---Merrell_2022-10517",
+   "timeType": "Part time",
+   "locationsText": "Waterloo, NY",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "2022-10517"
+   ]
+  }
+ ]
+}

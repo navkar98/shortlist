@@ -94,7 +94,8 @@ def parse_workday(data: dict, slug: str) -> list[Job]:
     host, site = slug.split("/", 1)
     jobs = []
     for j in data["jobPostings"]:
-        if not j.get("externalPath"):  # rare entries without a job page (seen deep in NVIDIA's list); nothing to link to
+        # Rare entries without a job page (seen deep in NVIDIA's list) or a title (12 on 4 of 1,551 boards).
+        if not j.get("externalPath") or not j.get("title"):
             continue
         path = j["externalPath"]  # /job/<location>/<title>_<requisition id>
         url = f"https://{host}.myworkdayjobs.com/{site}{path}"

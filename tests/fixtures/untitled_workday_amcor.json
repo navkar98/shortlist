@@ -1,0 +1,42 @@
+{
+ "total": 761,
+ "jobPostings": [
+  {
+   "title": "Production Associate (Inspector Packer)",
+   "externalPath": "/job/RPSNA-Syracuse-NY/Production-Associate--Inspector-Packer-_REQ_97398",
+   "timeType": "Full time",
+   "locationsText": "RPSNA Syracuse NY",
+   "postedOn": "Posted 5 Days Ago",
+   "bulletFields": [
+    "REQ_97398"
+   ]
+  },
+  {
+   "title": "Production Associate (Inspector Packer)",
+   "externalPath": "/job/RPSNA-Syracuse-NY/Production-Associate_REQ_97270",
+   "timeType": "Full time",
+   "locationsText": "RPSNA Syracuse NY",
+   "postedOn": "Posted 5 Days Ago",
+   "bulletFields": [
+    "REQ_97270"
+   ]
+  },
+  {
+   "title": "Packer",
+   "externalPath": "/job/RPSI-Cranbury-NJ/Packer_REQ_91452",
+   "timeType": "Full time",
+   "locationsText": "RPSI Cranbury NJ",
+   "postedOn": "Posted 5 Days Ago",
+   "bulletFields": [
+    "REQ_91452"
+   ]
+  },
+  {
+   "externalPath": "/job/_REQ_97997",
+   "postedOn": "Posted 6 Days Ago",
+   "bulletFields": [
+    "REQ_97997"
+   ]
+  }
+ ]
+}

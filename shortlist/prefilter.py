@@ -5,6 +5,7 @@ and "ml" matches "AI/ML" but not "HTML".
 """
 import re
 from collections.abc import Callable
+from functools import lru_cache
 
 from .config import Filters
 from .fetchers import Job
@@ -15,10 +16,15 @@ _GENERIC_LOCATION = re.compile(r"(?<!\w)(?:remote|anywhere|global|worldwide|dist
                                r"various locations|flexible|\d+ locations)(?!\w)", re.I)
 
 
-def _terms(terms: list[str]) -> re.Pattern | None:
+@lru_cache(maxsize=1024)
+def _compiled(terms: tuple[str, ...]) -> re.Pattern | None:
     if not terms:
         return None
     return re.compile(r"(?<!\w)(?:" + "|".join(re.escape(t.strip()) for t in terms) + r")(?!\w)", re.I)
+
+
+def _terms(terms: list[str]) -> re.Pattern | None:
+    return _compiled(tuple(terms))
 
 
 def build_filter(filters: Filters) -> Callable[[Job], str | None]:

@@ -61,6 +61,16 @@ def test_workday_posting_without_a_job_page_is_skipped():
     assert len(parse_workday(data, SLUGS["workday_zillow"])) == len(data["jobPostings"]) - 1
 
 
+@pytest.mark.parametrize("name, slug", [("untitled_workday_amcor", "amcor.wd5/amcor_external_career_site"),
+                                        ("untitled_workday_wwwinc", "wwwinc.wd1/WWW")])
+def test_workday_entries_without_a_title_are_skipped_not_the_whole_board(name, slug):
+    data = load(name)
+    untitled = [j for j in data["jobPostings"] if not j.get("title")]
+    jobs = parse_workday(data, slug)
+    assert untitled and len(jobs) == len(data["jobPostings"]) - len(untitled) == 3
+    assert all(j.title for j in jobs)
+
+
 def test_workable_fields():
     data = load("workable_huggingface")
     raw, job = data["jobs"][0], parse_workable(data, "huggingface")[0]

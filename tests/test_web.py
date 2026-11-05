@@ -313,3 +313,40 @@ def test_a_run_started_elsewhere_shows_and_blocks_starting_another(app):
         assert client.post("/rescore", data={"from_score": "55", "scope": "all"}, headers=TOKEN).status_code == 409
     assert not started and not db.run_in_progress(db_path)
     assert client.post("/runs", data={"kind": "real"}, headers=TOKEN).status_code == 204 and len(started) == 1
+
+
+def test_jobs_with_equal_scores_keep_one_order_across_pages(tmp_path):
+    conn = db.connect(str(tmp_path / "t.db"))
+    jobs = [job(str(n), f"ML Engineer {n}") for n in range(6)]
+    db.upsert_jobs(conn, jobs, "2026-10-20T10:00:00+00:00")
+    for j in reversed(jobs):
+        db.save_result(conn, j, json.dumps({"job_id": j.key, "score": 80, "matched_skills": [], "missing_skills": [],
+                                            "dealbreakers": [], "one_line_reason": "fit"}), 80, "2026-10-20T10:05:00+00:00")
+    first, total = web.search_jobs(conn, limit=3)
+    second, _ = web.search_jobs(conn, limit=3, offset=3)
+    assert total == 6 and [r["title"] for r in first + second] == [j.title for j in jobs]
+
+
+def test_remembered_pages_change_with_the_filters_and_with_each_run(app):
+    client, tmp_path, *_ = app
+    conn = db.connect(str(tmp_path / "shortlist.db"))
+    page = client.get("/filtered").text
+    assert "Account Executive" in page and "Sales Lead" not in page
+    assert client.get("/sources").text.count("Globex") >= 1
+    # A new job appears only with the run that found it...
+    db.upsert_jobs(conn, [job("9", "Sales Lead")], "2026-10-21T10:00:00+00:00")
+    assert "Sales Lead" not in client.get("/filtered").text
+    db.record_run(conn, "2026-10-21T10:00:00+00:00", 1, 0, stats={"first_seen": 1}, finished_at="2026-10-21T10:01:00+00:00")
+    assert "Sales Lead" in client.get("/filtered").text
+    # ...and letting a word through shows at once.
+    response = client.post("/filters/add", data={"field": "title_include", "term": "sales lead", "scope": "run"}, headers=TOKEN)
+    assert response.status_code == 204 and "passing=1" in response.headers["HX-Redirect"]
+    assert "Sales Lead</a>" not in client.get("/filtered").text
+
+
+def test_filtered_out_says_how_the_scoring_cap_applies(app):
+    client, tmp_path, *_ = app
+    assert "get scored, at most 300 per run, newest first." in client.get("/filtered").text
+    config = tmp_path / "config.yaml"
+    config.write_text(config.read_text(encoding="utf-8") + "\nscoring:\n  max_jobs_per_run: 0\n", encoding="utf-8")
+    assert "get scored, in the next run." in client.get("/filtered").text

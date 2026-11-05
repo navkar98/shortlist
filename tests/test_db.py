@@ -85,3 +85,24 @@ def test_feedback_examples_put_disagreements_first_and_balance_the_kinds(tmp_pat
         ("Role 4", True, False), ("Role 2", True, False), ("Role 5", False, False), ("Role 3", False, False)]
     few = db.feedback_examples(conn, min_score=70, limit=4)
     assert sum(e["good"] for e in few) == 2 and few[0]["disagrees"]
+
+
+def test_boards_remember_when_each_was_last_read(tmp_path):
+    path = str(tmp_path / "t.db")
+    conn = db.connect(path)
+    seen = lambda: {tuple(r) for r in conn.execute("SELECT ats, slug, board_seen FROM boards")}
+    one = Job(ats="lever", slug="acme", job_id="1", company="acme", title="ML", location="NYC", remote=False,
+              url="https://x", description="")
+    other = one.model_copy(update={"slug": "globex"})
+    db.upsert_jobs(conn, [one, other], "2026-10-20T10:00:00+00:00")
+    db.upsert_jobs(conn, [one], "2026-10-21T10:00:00+00:00")
+    assert seen() == {("lever", "acme", "2026-10-21T10:00:00+00:00"), ("lever", "globex", "2026-10-20T10:00:00+00:00")}
+    db.upsert_jobs(conn, [one], "2026-10-19T10:00:00+00:00")  # never goes back in time
+    assert ("lever", "acme", "2026-10-21T10:00:00+00:00") in seen()
+
+    # A database from before the table gets it filled in, from the jobs it has.
+    with conn:
+        conn.execute("DROP TABLE boards")
+    conn.close()
+    conn = db.connect(path)
+    assert seen() == {("lever", "acme", "2026-10-19T10:00:00+00:00"), ("lever", "globex", "2026-10-20T10:00:00+00:00")}

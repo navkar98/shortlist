@@ -77,6 +77,11 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   task's old 2-hour limit, and nothing was stored until every board was read, so runs were killed and restarted from
   zero. 2,978 boards had listed 364,080 jobs by then; 6.4% of stored jobs passed a real config's filters. Hence boards
   and scores saved as they come, a 12-hour limit, and a default cap of 300 jobs scored per run, newest first.
+- With 586,000 jobs stored (2026-11-03), working out each board's latest `last_seen` from `jobs` took 0.4 s warm and
+  8 s cold, several times per page. Hence the `boards` table, written once per board per run (closed flags identical
+  on 2,741 scored jobs), and two partial indexes that a run's `last_seen` updates don't touch. An index on `(ats, slug,
+  last_seen)` also worked but added 36 MB and had to change with every job on every run. Workday list entries can lack
+  `title` (12 on 4 of 1,551 boards), which used to lose the whole board.
 - Workable: GET `apply.workable.com/api/v1/widget/accounts/<account>?details=true` (descriptions included). Amazon:
   GET `amazon.jobs/en/search.json?base_query&result_limit=100&offset&sort=recent` (newest 500 per query).
 - SimplifyJobs listings.json fields: id, company_name, title, locations, url, active, is_visible, category, degrees,
