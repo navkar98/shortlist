@@ -29,6 +29,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from . import db
+from .categories import FIELDS, LABELS as GROUP_LABELS, STAGES, groups
 from .config import Config, Filters, add_career_page, available_packs, load_config, replace_sections, write_config
 from .fetchers import Job
 from .notify import LIMITS, REQUIRED_ENV
@@ -118,10 +119,8 @@ PAGE_SIZE = 50
 JOINED = f" FROM jobs j JOIN {db.BOARD_SEEN} b USING (ats, slug) LEFT JOIN tracking t USING (ats, slug, job_id) WHERE "
 
 
-def search_jobs(conn, *, q: str = "", min_score: int = 0, stage: str = "active", company: str = "", source: str = "",
-                remote: bool = False, days: int = 0, sort: str = "score", closed: bool = False, limit: int = PAGE_SIZE,
-                offset: int = 0) -> tuple[list[dict], int]:
-    """One page of scored jobs matching the filters, and how many match in all. Closed postings only on request."""
+def _match_filters(q: str = "", min_score: int = 0, stage: str = "active", company: str = "", source: str = "",
+                   remote: bool = False, days: int = 0, closed: bool = False) -> tuple[list[str], list]:
     where, args = ["j.status = 'scored'"] + ([] if closed else [f"NOT {db.CLOSED}"]), []
     if q:
         where.append("(j.title LIKE ? OR j.company LIKE ? OR j.location LIKE ? OR j.result LIKE ?)")
@@ -145,6 +144,18 @@ def search_jobs(conn, *, q: str = "", min_score: int = 0, stage: str = "active",
     if days:
         where.append("j.first_seen >= ?")
         args.append((datetime.now(timezone.utc) - timedelta(days=days)).isoformat(timespec="seconds"))
+    return where, args
+
+
+def search_jobs(conn, *, level: str = "", field: str = "", sort: str = "score", limit: int = PAGE_SIZE, offset: int = 0,
+                **filters) -> tuple[list[dict], int]:
+    """One page of scored jobs matching the filters (see `_match_filters`; `level` and `field` are groups from
+    categories.py), and how many match in all. Closed postings only on request."""
+    where, args = _match_filters(**filters)
+    for group in (level, field):
+        if group in STAGES or group in FIELDS:
+            where.append("job_groups(j.title) LIKE ?")
+            args.append(f"% {group} %")
     sql = JOINED + " AND ".join(where)
     # The rowid settles ties, so "Show more" can't repeat or skip a job.
     order = "j.first_seen DESC, j.score DESC, j.rowid" if sort == "newest" else "j.score DESC, j.first_seen DESC, j.rowid"
@@ -152,7 +163,23 @@ def search_jobs(conn, *, q: str = "", min_score: int = 0, stage: str = "active",
     rows = conn.execute("SELECT j.rowid AS id, j.company, j.title, j.location, j.url, j.ats, j.score, j.result,"
                         " j.first_seen, j.last_seen, coalesce(t.stage, 'new') AS stage, coalesce(t.feedback, 0) AS feedback,"
                         f" {db.CLOSED} AS closed{sql} ORDER BY {order} LIMIT ? OFFSET ?", [*args, limit, offset])
-    return [_with_result(dict(r)) for r in rows], total
+    return [_with_groups(_with_result(dict(r))) for r in rows], total
+
+
+def group_counts(conn, *, level: str = "", field: str = "", **filters) -> dict[str, int]:
+    """How many jobs each group would show with the other filters as they are: stages counted within the chosen
+    field, fields within the chosen stage."""
+    where, args = _match_filters(**filters)
+    tagged = [set(groups(r[0])) for r in conn.execute("SELECT j.title" + JOINED + " AND ".join(where), args)]
+    counts = {g: sum(1 for t in tagged if g in t and (not field or field in t)) for g in STAGES}
+    counts.update({g: sum(1 for t in tagged if g in t and (not level or level in t)) for g in FIELDS})
+    return counts
+
+
+def _with_groups(row: dict) -> dict:
+    """The stages a title names, shown on each match (its field is plain from the title itself)."""
+    row["groups"] = [g for g in groups(row["title"]) if g in STAGES and g != "senior"]
+    return row
 
 
 def _with_result(row: dict) -> dict:
@@ -340,6 +367,8 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         if "nav" in context:  # full pages carry the sidebar's badges
             context["counts"] = nav_counts(conn(), cfg().min_score)
         return templates.TemplateResponse(request, name, {"token": token, "activity": activity, "stages": db.STAGES,
+                                                          "group_labels": GROUP_LABELS, "fields": FIELDS,
+                                                          "stage_groups": STAGES,
                                                           "stage_labels": STAGE_LABELS, "run_elsewhere": run_elsewhere(),
                                                           "scheduled_log": scheduled_log, **context})
 
@@ -361,17 +390,19 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         dropped = c.execute("SELECT count(*) FROM jobs WHERE status IS NULL AND first_seen = ?",
                             (last_run_start(c),)).fetchone()[0]
         return page(request, "matches.html", nav="matches", sources=sources, stats=stats, min_score=cfg().min_score,
-                    dropped=dropped)
+                    dropped=dropped, group_tally=group_counts(c, min_score=cfg().min_score), level="", field="")
 
     @app.get("/matches/rows")
     def matches_rows(request: Request, q: str = "", min_score: int = 0, stage: str = "active", company: str = "",
                      source: str = "", remote: str = "", days: int = 0, sort: str = "score", closed: str = "",
-                     offset: int = 0):
+                     level: str = "", field: str = "", offset: int = 0):
         c = conn()
-        rows, total = search_jobs(c, q=q, min_score=min_score, stage=stage, company=company, source=source,
-                                  remote=bool(remote), days=days, sort=sort, closed=bool(closed), offset=max(0, offset))
+        filters = dict(q=q, min_score=min_score, stage=stage, company=company, source=source, remote=bool(remote),
+                       days=days, closed=bool(closed))
+        rows, total = search_jobs(c, level=level, field=field, sort=sort, offset=max(0, offset), **filters)
+        counts = group_counts(c, level=level, field=field, **filters) if offset == 0 else None
         return page(request, "_match_rows.html", rows=rows, total=total, offset=offset, page_size=PAGE_SIZE,
-                    since=last_run_start(c))
+                    since=last_run_start(c), group_tally=counts, level=level, field=field)
 
     @app.get("/jobs/{job_id}")
     def job_detail(request: Request, job_id: int):

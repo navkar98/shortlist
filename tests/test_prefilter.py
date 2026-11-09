@@ -39,3 +39,23 @@ def test_locations_and_remote():
 
 def test_empty_filters_pass_everything():
     assert build_filter(Filters())(job(title="Anything", location="Mars")) is None
+
+
+def test_a_state_or_province_counts_as_its_country():
+    us = build_filter(Filters(locations=["united states"]))
+    assert us(job(location="Boise, ID")) is None
+    assert us(job(location="Indianapolis, IN 46204")) is None
+    assert us(job(location="Bar Harbor, Maine")) is None
+    assert us(job(location="Livingston, NJ / Sunnyvale, CA")) is None
+    assert us(job(location="Toronto, ON")) == "location"
+    assert us(job(location="Shanghai")) == "location"
+    assert us(job(location="Sydney, New South Wales")) == "location"  # not Wales, and not a US state either
+    canada = build_filter(Filters(locations=["canada"]))
+    assert canada(job(location="Toronto, ON")) is None and canada(job(location="Vancouver, British Columbia")) is None
+    assert canada(job(location="Boise, ID")) == "location"
+    assert build_filter(Filters(locations=["uk"]))(job(location="Edinburgh, Scotland")) is None
+    assert build_filter(Filters(locations=["australia"]))(job(location="Sydney, New South Wales")) is None
+    # Codes that are also country codes count as both: kept for either, and the scorer sorts them out.
+    india = build_filter(Filters(locations=["india"]))
+    assert india(job(location="Bangalore, IN")) is None and us(job(location="Bangalore, IN")) is None
+    assert india(job(location="Pune, Maharashtra")) is None

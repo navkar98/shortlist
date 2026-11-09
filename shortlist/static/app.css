@@ -161,6 +161,11 @@ input[type=number] { width: 6.5rem; }
 .seg span:hover { color: var(--ink); }
 .seg input:checked + span { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); outline: 1px solid var(--line); }
 .seg input:focus-visible + span { outline: 2px solid var(--accent); }
+.seg.wrap { flex-wrap: wrap; }
+.seg span.count { display: inline; padding: 0; font-weight: 450; color: var(--faint); margin-left: 4px;
+  font-variant-numeric: tabular-nums; }
+.groups { display: flex; flex-wrap: wrap; gap: 8px 12px; }
+.pill.group { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 
 .switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13.5px; color: var(--ink-2); }
 .switch input { appearance: none; width: 34px; height: 20px; border-radius: 999px; background: var(--line-strong);

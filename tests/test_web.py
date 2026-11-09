@@ -350,3 +350,24 @@ def test_filtered_out_says_how_the_scoring_cap_applies(app):
     config = tmp_path / "config.yaml"
     config.write_text(config.read_text(encoding="utf-8") + "\nscoring:\n  max_jobs_per_run: 0\n", encoding="utf-8")
     assert "get scored, in the next run." in client.get("/filtered").text
+
+
+
+def test_matches_by_stage_and_field(app):
+    client, tmp_path, *_ = app
+    conn = db.connect(str(tmp_path / "shortlist.db"))
+    for n, title in (("10", "Machine Learning Engineer New Grad"), ("11", "Research Scientist, PhD New Grad")):
+        j = job(n, title)
+        db.upsert_jobs(conn, [j], "2026-10-20T10:00:00+00:00")
+        db.save_result(conn, j, json.dumps({"job_id": j.key, "score": 75, "matched_skills": [], "missing_skills": [],
+                                            "dealbreakers": [], "one_line_reason": "fit"}), 75, "2026-10-20T10:05:00+00:00")
+    page = client.get("/matches").text
+    assert 'name="level" value="new-grad"' in page and 'name="field" value="research"' in page
+    assert 'name="level" value="intern"' not in page  # no intern roles: no button
+    rows = client.get("/matches/rows", params={"level": "new-grad", "min_score": 0}).text
+    assert "Machine Learning Engineer New Grad" in rows and "Research Scientist, PhD New Grad" in rows
+    assert "ML Engineer, Ranking" not in rows and 'pill group">New grad' in rows and 'hx-swap-oob="true"' in rows
+    rows = client.get("/matches/rows", params={"level": "new-grad", "field": "research", "min_score": 0}).text
+    assert "Research Scientist, PhD New Grad" in rows and "Machine Learning Engineer New Grad" not in rows
+    # Counts follow the other filters: within new grads, one research role.
+    assert 'value="research" checked><span>Research\n      <span class="count">1</span>' in rows

@@ -3,6 +3,7 @@ import os
 import sqlite3
 from contextlib import contextmanager
 
+from .categories import groups
 from .fetchers import Job
 
 if os.name == "nt":
@@ -125,6 +126,8 @@ def connect(path: str, *, any_thread: bool = False) -> sqlite3.Connection:
     """`any_thread`: for one connection shared by worker threads, which then take turns with a lock."""
     conn = sqlite3.connect(path, timeout=30, check_same_thread=not any_thread)  # a run and the web app may both write
     conn.row_factory = sqlite3.Row
+    # " ml research " for a title, so a query can pick a group: job_groups(title) LIKE '% ml %'
+    conn.create_function("job_groups", 1, lambda title: f" {' '.join(groups(title))} ", deterministic=True)
     for schema in (SCHEMA, RUNS_SCHEMA, SITES_SCHEMA, SCANS_SCHEMA, TRACKING_SCHEMA, BOARDS_SCHEMA):
         conn.execute(schema)
     with conn:

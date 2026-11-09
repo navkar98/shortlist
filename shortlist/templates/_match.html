@@ -9,6 +9,7 @@
       {% if r.location %}<span class="loc" title="{{ r.location }}">{{ icon("map-pin") }}{{ r.location | truncate(70, true, "…") }}</span>{% endif %}
       <span title="First seen {{ r.first_seen | fromiso }}">{{ r.first_seen | ago }}</span>
       {% if since and r.first_seen >= since %}<span class="pill new">New</span>{% endif %}
+      {% for g in r.groups %}<span class="pill group">{{ group_labels[g] }}</span>{% endfor %}
       {% if r.closed %}<span class="pill closed" title="Its board no longer lists it; last seen {{ r.last_seen | ago }}">Closed</span>{% endif %}
       {% if r.stage != "new" %}<span class="pill stage-{{ r.stage }}">{{ stage_labels[r.stage] }}</span>{% endif %}
       <span class="src">{{ r.ats }}</span>

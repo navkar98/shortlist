@@ -42,6 +42,8 @@
   <label class="switch"><input type="checkbox" name="remote" value="1"> Remote</label>
   <label class="switch" title="Postings their board no longer lists"><input type="checkbox" name="closed" value="1"> Show closed
     {% if stats.closed %}<span class="hint">({{ stats.closed }})</span>{% endif %}</label>
+  <span class="break"></span>
+  {% with oob = false %}{% include "_groups.html" %}{% endwith %}
 </form>
 
 <div id="rows" hx-get="/matches/rows" hx-include="#filters" hx-trigger="load, jobChanged from:body">

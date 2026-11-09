@@ -1,0 +1,13 @@
+{# The group buttons on Matches: career stage and field, with how many jobs each would show. Groups with no jobs are
+   left out unless chosen. Rows re-render this block (hx-swap-oob) so the counts follow the other filters. #}
+<div id="groups" class="groups"{% if oob %} hx-swap-oob="true"{% endif %}>
+  {% for name, kind, chosen, title in [("level", stage_groups, level, "Stage"), ("field", fields, field, "Field")] %}
+  <div class="seg wrap" role="radiogroup" aria-label="{{ title }}">
+    <label><input type="radio" name="{{ name }}" value="" {{ "checked" if not chosen }}><span>Any {{ title | lower }}</span></label>
+    {% for group, spec in kind.items() if group_tally[group] or group == chosen %}
+    <label><input type="radio" name="{{ name }}" value="{{ group }}" {{ "checked" if group == chosen }}><span>{{ spec[0] }}
+      <span class="count">{{ "{:,}".format(group_tally[group]) }}</span></span></label>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>

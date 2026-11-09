@@ -80,7 +80,7 @@ It only notifies. It never applies to anything.
 ### Web app
 
 - **Overview and Matches:** the strong matches waiting for you, the best new ones, and every scored job with search,
-  filters, keyboard shortcuts, and a detail panel per job.
+  filters, groups by career stage and field, keyboard shortcuts, and a detail panel per job.
 - **Filtered out:** what your title and place rules dropped, and which words would let more jobs through.
 - **Applications:** a board of stages from saved to offer, with notes, applied dates, and CSV export.
 - **Sources and Runs:** what each careers page was discovered as, every board's health, and runs with a live log.
@@ -248,6 +248,11 @@ filters:
 Matching ignores case and works on whole words and phrases. These rules run before any model call, so they decide
 most of your cost. An empty `title_include` sends every title to the scorer.
 
+Many job boards write only a state or province: "Boise, ID", "Bar Harbor, Maine", "Toronto, ON". Those count as
+naming the country too (US states, Canadian provinces, Australian and Indian states, and England, Scotland, Wales, and
+Northern Ireland), so `united states` keeps "Boise, ID". A code that is also a country code ("Bangalore, IN" for India,
+"Berlin, DE" for Germany) counts as both, since the scorer reads the location anyway.
+
 ### Resume and preferences
 
 `resume.md` is your resume as plain text or Markdown. `preferences` in `config.yaml` is free text the scorer reads
@@ -407,7 +412,9 @@ python -m shortlist web       # opens http://127.0.0.1:8765
 - **Overview:** how many strong matches are waiting, this week's numbers, the best new matches, the score
   distribution, strong matches per day, your application pipeline, and when the last run happened.
 - **Matches:** every scored job, best first, as a list with a score ring, company, place, age, and the one-line
-  reason. Search and filter by stage, minimum score, time, source, and remote; 50 at a time with "Show more". Hover
+  reason. Search and filter by stage, minimum score, time, source, and remote; 50 at a time with "Show more". Group
+  them by career stage (new grad, PhD & postdoc, intern, senior) and field (research, ML & AI, data, software, quant,
+  hardware, product), read from each title, with how many jobs each group holds. Hover
   a job (or select it with the keyboard) for quick actions: save, applied, good or poor fit, not interested. Its
   title opens the detail panel: why it scored that way, the skills you have and miss, dealbreakers, the stage, your
   notes (saved as you type), and the full description. Closed postings stay hidden unless you ask for them.

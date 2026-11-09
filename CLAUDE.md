@@ -12,7 +12,8 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   recipes; `listings.py` SimplifyJobs lists; `details.py` descriptions for list-only jobs; `render.py` Playwright.
 - `discover.py` careers page -> board or recipe (links, name guesses, JobPosting data, then a capped agent loop).
 - `scoring.py` `BACKENDS` (claude_cli, codex_cli, anthropic_api, openai_api): prompt + JSON schema in, dict out.
-- `notify.py` digest formatting and `SENDERS`; `db.py` SQLite; `polite.py` robots.txt + pacing; `prefilter.py`.
+- `notify.py` digest formatting and `SENDERS`; `db.py` SQLite; `polite.py` robots.txt + pacing; `prefilter.py`;
+  `categories.py` groups jobs by career stage and field from their titles (Matches, and a shared daily list later).
 - `web.py` + `templates/` + `static/` the web app; `wizard.py` `init` and `check`; `install.py` (repo root) setup.
 
 ## Rules
@@ -82,6 +83,12 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   on 2,741 scored jobs), and two partial indexes that a run's `last_seen` updates don't touch. An index on `(ats, slug,
   last_seen)` also worked but added 36 MB and had to change with every job on every run. Workday list entries can lack
   `title` (12 on 4 of 1,551 boards), which used to lose the whole board.
+- Locations (2026-11-05): of 1,927 jobs a real config's titles passed but its places dropped, 312 named a US state
+  only ("Indianapolis, IN", "Bar Harbor, Maine"); the rest were campus names ("Penn State University Park") or unlisted
+  countries. ", CA" after a city is California in practice, ", IN" Indiana but also "Bangalore, IN" (129) and
+  "Pune, IN" (82), ", DE" both Delaware and Germany: codes that are also country codes count as both.
+- Title groups (2026-11-05): of 462 matches scoring 60+, 461 got a field; only 102 a stage, since most titles don't
+  name one. TikTok writes new-grad roles as "... Graduate", so "graduate" counts as new grad.
 - Workable: GET `apply.workable.com/api/v1/widget/accounts/<account>?details=true` (descriptions included). Amazon:
   GET `amazon.jobs/en/search.json?base_query&result_limit=100&offset&sort=recent` (newest 500 per query).
 - SimplifyJobs listings.json fields: id, company_name, title, locations, url, active, is_visible, category, degrees,
