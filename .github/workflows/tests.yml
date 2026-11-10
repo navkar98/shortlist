@@ -2,7 +2,7 @@ name: tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, public-list]  # public-list: the code the machine that posts the public list runs
   pull_request:
 
 permissions:

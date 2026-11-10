@@ -9,7 +9,8 @@ from urllib.robotparser import RobotFileParser
 import httpx
 
 # Identifies the tool to the sites it reads, with a page that explains it (robots.txt rules match "shortlist").
-USER_AGENT = "shortlist/0.1 (+https://github.com/navkar98/shortlist; personal job alert tool)"
+PROJECT_URL = "https://github.com/navkar98/shortlist"
+USER_AGENT = f"shortlist/0.1 (+{PROJECT_URL}; personal job alert tool)"
 
 
 class Blocked(Exception):

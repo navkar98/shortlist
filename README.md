@@ -22,6 +22,7 @@ It only notifies. It never applies to anything.
 - [Configuration](#configuration): [sources](#sources), [company packs](#company-packs), [filters](#filters),
   [preferences](#resume-and-preferences), [scoring backends](#scoring-backends),
   [scoring prompt](#scoring-prompt-and-re-scoring), [notifications](#notifications), [discovery](#discovery),
+  [publishing a public list](#publishing-a-public-list),
   [schedule](#running-on-a-schedule)
 - [The web app](#the-web-app)
 - [How it works](#how-it-works)
@@ -370,10 +371,16 @@ and otherwise logs `not due` and exits:
 schedule:
   max_runs_per_day: 2          # at most this many runs per calendar day
   min_hours_between_runs: 6    # and at least this long after the previous run
+  auto_update: false           # true: each check first pulls new commits for this checkout
 ```
 
 A run that fetched nothing (say, no network yet right after logon) or failed to send doesn't count, so the next check
 tries again. Manual runs are never limited.
+
+With `auto_update: true`, each scheduled check first runs `git pull --ff-only` in the Shortlist folder, so new
+companies in the packs and other changes arrive without you. A check that pulled new code stops there, and the next
+check runs it. A failed pull (no network, local edits in the way) is logged and the check goes on with the code it
+has. A new dependency still needs `python install.py`, and the log says so.
 
 **Windows.** The wizard can register the task for you, or:
 
@@ -397,6 +404,57 @@ battery too, and only with a network. Output goes to `shortlist.log`. Try it wit
 ```
 
 With `claude_cli`, also set `scoring.claude_path` to the output of `which claude`.
+
+### Publishing a public list
+
+Shortlist can also keep a public GitHub repo of open roles up to date, grouped as on the Matches page: internships,
+new grad, PhD and postdoc, and research roles, each split by field (ML & AI, software, data, quant...). After every
+run it writes every open role: a README counting the roles in each group and field, a page per field of each group
+listing its roles by company, A to Z (each company's newest roles first), and `jobs.json` with every role, one per
+line. A role drops off once its company stops listing it. Then it commits and pushes, if any role changed.
+
+Pages stay under 300 KB so that GitHub shows them whole; a longer list goes on over several pages, split at first
+letters ("A–R", "S–Z") so that a new role doesn't move every page after it. Only pages whose roles changed are
+rewritten, so an update with a few hundred new and closed roles adds about 16 KB to the repo's history. Every link
+goes to the company's own posting. Roles known only from SimplifyJobs' lists are left out, since those lists are
+theirs.
+
+The config's `filters` apply to the lists as well. "Research" in a title also matches clinical studies, market
+research, and paid study participants, so a publishing machine leaves those out with `title_exclude`; without
+`title_include` or `locations`, every title and place is kept. A machine that only publishes needs no resume. Its
+model is used only by the discovery agent, which works out how to read careers pages that aren't on a known job board
+(each page once, and again only if it stops returning jobs); `discovery.max_agent_calls_per_site: 0` needs no model
+at all, but then those pages are matched by their links and names only.
+
+```yaml
+packs: [ai-labs, ai-ml-data, consumer-tech, hardware, product, quant, software]
+filters:
+  title_exclude: [ai training, participant, participants, contributor, subject matter expert, remote advisory,
+    decision makers, research study, survey, clinical, physician, nurse, nursing, patient, pharmacy, oncology, cancer,
+    toxicology, epidemiology, laboratory, animal, technician, coordinator, market research, marketing research,
+    legal research]
+scoring:
+  enabled: false                 # fetch and store only
+  backend: codex_cli             # the discovery agent's model: here a ChatGPT login (claude_cli works too)
+schedule:
+  max_runs_per_day: 4
+  min_hours_between_runs: 6
+  auto_update: true              # pull new commits (new companies, fixes) before each check
+publish:
+  folder: ../my-jobs-list        # a clone of the public repo
+  push: true
+  groups: [intern, new-grad, phd, research]
+  title: Early-career and research roles
+```
+
+To set it up: create the repo on GitHub; on the machine, make an SSH key and add it to that repo as a deploy key with
+write access (the repo's Settings, Deploy keys), so the machine can push to that one repo and nothing else; clone the
+repo with its SSH URL; and set `git config user.name` and `user.email` in the clone. Sign in to the model's CLI (`codex
+login`, or run `claude` once for `claude_cli`), check the setup with `python -m shortlist check`, and register the scheduled task
+as above; it runs while you're signed in to the machine, so sign in again after a restart. `python -m shortlist
+publish` writes the lists from the jobs already stored, without fetching (`--push` also pushes), which is handy for a
+first look. The machine owns the repo's files: after an edit made on GitHub, every push it makes fails, so change
+the lists through Shortlist instead.
 
 ## The web app
 

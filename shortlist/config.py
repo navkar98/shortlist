@@ -24,6 +24,7 @@ class Scoring(BaseModel):
     model: str = ""                 # empty: the backend's default (scoring.DEFAULT_MODELS)
     batch_size: int = Field(12, ge=1)
     timeout_seconds: int = Field(300, gt=0)
+    enabled: bool = True            # false: runs only fetch and store jobs (a machine that publishes the public list)
     max_jobs_per_run: int = Field(300, ge=0)  # newest first, the rest wait for later runs; 0: no cap
     recheck_alone: bool = True      # score again alone every job within 15 points of min_score or above it
     feedback_examples: int = Field(20, ge=0)  # jobs you rated, shown to the scorer as examples; 0: none
@@ -94,10 +95,28 @@ class Discovery(BaseModel):
     rediscover_after_empty_runs: int = Field(2, ge=1)
 
 
+class Publish(BaseModel):
+    """A public list of open roles, written after each run into a clone of a git repo (README: Publishing a list)."""
+    folder: str = ""                # the clone, relative to config.yaml; empty: nothing is published
+    push: bool = False              # commit and push the lists when they changed
+    groups: list[str] = ["intern", "new-grad", "phd", "research"]  # a page each (categories.py)
+    title: str = "Early-career and research roles"
+
+    @field_validator("groups")
+    @classmethod
+    def _known_groups(cls, wanted: list[str]) -> list[str]:
+        from .categories import LABELS
+
+        if bad := [g for g in wanted if g not in LABELS] or not wanted:
+            raise ValueError(f"publish.groups must name groups from {sorted(LABELS)}, got {bad or wanted}")
+        return list(dict.fromkeys(wanted))
+
+
 class Schedule(BaseModel):
     """Limits for `run --if-due`, which the scheduled task calls; manual runs are not limited."""
     max_runs_per_day: int = Field(2, ge=1)
     min_hours_between_runs: float = Field(6, ge=0)
+    auto_update: bool = False  # true: each scheduled check first pulls new commits for this checkout (git pull)
 
 
 def _check_companies(companies: list[str]) -> list[str]:
@@ -136,6 +155,7 @@ class Config(BaseModel):
     notify: list[str] = []          # telegram; empty: see matches in the web app only
     discovery: Discovery = Discovery()
     schedule: Schedule = Schedule()
+    publish: Publish = Publish()
     min_score: int = Field(70, ge=0, le=100)
     db_path: str = "shortlist.db"
     resume_path: str = "resume.md"
@@ -196,6 +216,8 @@ def load_config(path: str | Path) -> Config:
     cfg = with_packs(Config.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")) or {}), path.parent)
     cfg.db_path = str(path.parent / cfg.db_path)
     cfg.resume_path = str(path.parent / cfg.resume_path)
+    if cfg.publish.folder:
+        cfg.publish.folder = str(path.parent / cfg.publish.folder)
     workdir = path.parent / Path(cfg.scoring.workdir).expanduser()
     # `claude -p` loads CLAUDE.md from its cwd and every parent folder, and `codex exec` loads AGENTS.md from its cwd
     # (tested with both), so a workdir inside this repo would leak the repo's rules into scoring.

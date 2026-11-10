@@ -87,6 +87,15 @@ discovery:
 schedule:
   max_runs_per_day: 2
   min_hours_between_runs: 6
+  auto_update: false           # true: each check first pulls new commits for this checkout (README: Running on a schedule)
+
+# A public list of open roles, written after each run into a clone of a git repo and pushed (README: Publishing a
+# public list). The filters above apply to it too. A machine that only publishes also sets scoring.enabled: false.
+# publish:
+#   folder: ../my-jobs-list
+#   push: true
+#   groups: [intern, new-grad, phd, research]
+#   title: Early-career and research roles
 
 # Notify about jobs scoring at least this (0-100): 85+ apply now, 70-84 strong fit, 40-69 partial fit.
 min_score: 70

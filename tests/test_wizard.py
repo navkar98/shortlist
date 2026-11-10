@@ -116,6 +116,19 @@ def test_check_reports_each_problem(tmp_path, monkeypatch, capsys):
     assert wizard.check(config, call=False) == 0 and "All set." in capsys.readouterr().out
 
 
+def test_a_publishing_machine_needs_no_resume_but_checks_the_agents_model(tmp_path, monkeypatch, capsys):
+    config = tmp_path / "config.yaml"
+    config.write_text(yaml.safe_dump({"companies": ["lever:foo"], "discovery": {"model": "haiku"},
+                                      "scoring": {"enabled": False, "claude_path": sys.executable,
+                                                  "workdir": str(tmp_path / "wd")}}), encoding="utf-8")
+    models = []
+    monkeypatch.setitem(scoring.BACKENDS, "claude_cli", lambda prompt, schema, cfg: models.append(cfg.model) or {"ok": True})
+    assert wizard.check(config) == 0
+    out = capsys.readouterr().out
+    assert "[note] scoring is off" in out and "resume.md" not in out and "title_include" not in out
+    assert "[ ok ] discovery agent (claude_cli, model haiku): answered" in out and models == ["haiku"]
+
+
 def test_check_without_a_config_points_to_init(tmp_path, capsys):
     assert wizard.check(tmp_path / "config.yaml") == 1
     assert "run: python -m shortlist init" in capsys.readouterr().out

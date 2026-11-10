@@ -275,17 +275,23 @@ def check(config_path: Path, *, call: bool = True, send_test: bool = False) -> i
                  + (f" (packs: {', '.join(cfg.packs)})" if cfg.packs else ""))
     if not (cfg.companies or cfg.career_pages or cfg.html_boards or cfg.github_listings):
         report(False, "no sources: add `packs`, `companies`, or `career_pages` to config.yaml")
-    if not cfg.filters.title_include:
+    if not cfg.scoring.enabled:
+        report(None, "scoring is off (scoring.enabled): runs fetch and store jobs only, so no resume is needed")
+    elif not cfg.filters.title_include:
         report(None, "filters.title_include is empty, so every title is scored: that can be thousands of model calls")
 
     resume = Path(cfg.resume_path)
     text = resume.read_text(encoding="utf-8") if resume.exists() else ""
-    if not text.strip() or RESUME_MARKER in text:
+    if not cfg.scoring.enabled:
+        pass
+    elif not text.strip() or RESUME_MARKER in text:
         report(False, f"{resume.name} is {'missing' if not resume.exists() else 'still the template'}: "
                       "paste your resume into it (or the web app's Settings page)")
     else:
         report(True, f"{resume.name}: {len(text.split())} words")
-    if not cfg.preferences.strip():
+    if not cfg.scoring.enabled:
+        pass
+    elif not cfg.preferences.strip():
         report(None, "`preferences` is empty: the scorer only has your resume to go on")
     elif "(for example" in cfg.preferences:
         report(None, "`preferences` still has the starter text in parentheses: say what you want instead")
@@ -297,22 +303,27 @@ def check(config_path: Path, *, call: bool = True, send_test: bool = False) -> i
         report(False, f"database {cfg.db_path}: {_describe(e)}")
 
     s = cfg.scoring
+    use = "scoring" if s.enabled else "discovery agent"  # with scoring off, only the agent calls the model
+    if not s.enabled:
+        s = s.model_copy(update={"model": cfg.discovery.model or s.model})
     where = f"{s.backend}, model {s.model or '(Codex default)'}"
     cli = {"claude_cli": s.claude_path, "codex_cli": s.codex_path}.get(s.backend)
-    if cli and not (shutil.which(cli) or Path(cli).is_file()):
-        report(False, f"scoring ({where}): {cli} not found; install the CLI or set scoring."
+    if not cfg.scoring.enabled and not cfg.discovery.max_agent_calls_per_site:
+        report(None, "no model needed: scoring and the discovery agent are both off")
+    elif cli and not (shutil.which(cli) or Path(cli).is_file()):
+        report(False, f"{use} ({where}): {cli} not found; install the CLI or set scoring."
                       f"{'claude' if s.backend == 'claude_cli' else 'codex'}_path")
     elif needs_key(s) and not api_key(s):
-        report(False, f"scoring ({where}): {KEY_ENV[s.backend]} is not set (add it to .env)")
+        report(False, f"{use} ({where}): {KEY_ENV[s.backend]} is not set (add it to .env)")
     elif call:
         started = time.monotonic()
         try:
             answer = BACKENDS[s.backend]("This is a connection test. Answer with ok set to true.", CHECK_SCHEMA, s)
-            report(answer.get("ok") is True, f"scoring ({where}): answered in {time.monotonic() - started:.0f}s")
+            report(answer.get("ok") is True, f"{use} ({where}): answered in {time.monotonic() - started:.0f}s")
         except Exception as e:
-            report(False, f"scoring ({where}): {_describe(e)}")
+            report(False, f"{use} ({where}): {_describe(e)}")
     else:
-        report(None, f"scoring ({where}): test call skipped")
+        report(None, f"{use} ({where}): test call skipped")
 
     if not cfg.notify:
         report(None, "notifications: none set (`notify` in config.yaml); matches are in the web app")

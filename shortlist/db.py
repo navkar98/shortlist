@@ -290,8 +290,9 @@ def mark_notified(conn: sqlite3.Connection, rows: list[sqlite3.Row], now: str) -
 # searches (newest 500) and HTML boards (limited pages) can drop an open job, so they never count as closed.
 COMPLETE_LISTS = ("greenhouse", "lever", "ashby", "workable", "simplify")
 BOARD_SEEN = "boards"
+UNSEEN_DAYS = 8  # a week between full reads of a paged board, and a day to spare
 CLOSED = (f"(j.last_seen < b.board_seen AND (j.ats IN {COMPLETE_LISTS} OR j.ats = 'workday'"
-          " AND julianday(b.board_seen) - julianday(j.last_seen) > 8))")
+          f" AND julianday(b.board_seen) - julianday(j.last_seen) > {UNSEEN_DAYS}))")
 
 
 def feedback_examples(conn: sqlite3.Connection, min_score: int, limit: int) -> list[dict]:

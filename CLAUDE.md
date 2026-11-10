@@ -13,7 +13,8 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
 - `discover.py` careers page -> board or recipe (links, name guesses, JobPosting data, then a capped agent loop).
 - `scoring.py` `BACKENDS` (claude_cli, codex_cli, anthropic_api, openai_api): prompt + JSON schema in, dict out.
 - `notify.py` digest formatting and `SENDERS`; `db.py` SQLite; `polite.py` robots.txt + pacing; `prefilter.py`;
-  `categories.py` groups jobs by career stage and field from their titles (Matches, and a shared daily list later).
+  `categories.py` groups jobs by career stage and field from their titles; `publish.py` writes the public list (a
+  README, every open role by group, field, and company, jobs.json) into a git clone and pushes it.
 - `web.py` + `templates/` + `static/` the web app; `wizard.py` `init` and `check`; `install.py` (repo root) setup.
 
 ## Rules
@@ -87,6 +88,20 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   only ("Indianapolis, IN", "Bar Harbor, Maine"); the rest were campus names ("Penn State University Park") or unlisted
   countries. ", CA" after a city is California in practice, ", IN" Indiana but also "Bangalore, IN" (129) and
   "Pune, IN" (82), ", DE" both Delaware and Germany: codes that are also country codes count as both.
+- GitHub cuts a README off after 500 KiB (its docs); for other Markdown pages it documents no limit, but users report
+  the same, so each published page stays under 300 KB. Public list (2026-11-09): of 10,653 open early-career and
+  research roles, 5,564 were in no field (marketing, customer service, and the like), so only roles in a field are
+  listed: 5,089 from 1,217 companies. "Research" also matched gigs and clinical work (505 "... Graduates - AI
+  Training", 205 "Research Participants", 106 clinical). A simulated update (2% of roles new, 2% closed) changed 26
+  files and grew the packed repo by 16 KiB. Workday and Ashby give an ID for the company ("ag" for Airbus): the packs'
+  comments carry the names. With scoring off, every stored job counts as done, or paged boards would be read to the end
+  on every run. "Seen in the last 48 hours" hid older Workday roles between weekly full reads (1,454 open postings
+  one day; the list doubled after the next full reads), so a role counts as open while its board was read within 48
+  hours and it isn't closed (Workday: unseen up to 8 days). Then (2026-11-10): 11,421 roles, 8,993 after the README's
+  title_exclude (38 of the dropped had a tech field, e.g. "AI for Clinical Development"); 36 pages, 2.3 MB, largest
+  275 KB, written in 8 s. Research-only titles (4,444) were mostly university and hospital research (Penn State 379).
+  The discovery agent works with scoring off, on claude_cli and codex_cli (Moveworks: a recipe in 1 call on each;
+  check's test call took 4 s and 21 s).
 - Title groups (2026-11-05): of 462 matches scoring 60+, 461 got a field; only 102 a stage, since most titles don't
   name one. TikTok writes new-grad roles as "... Graduate", so "graduate" counts as new grad.
 - Workable: GET `apply.workable.com/api/v1/widget/accounts/<account>?details=true` (descriptions included). Amazon:

@@ -4,6 +4,7 @@ import json
 import logging
 import re
 import sqlite3
+import subprocess
 import sys
 import threading
 import time
@@ -11,7 +12,7 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from . import db, notify
+from . import db, notify, publish
 from .config import Config, HtmlBoard, Schedule, load_config
 from .db import single_run
 from .details import fetch_details
@@ -25,6 +26,7 @@ from .scoring import INSTRUCTIONS, fingerprint, score_jobs
 
 log = logging.getLogger("shortlist")
 
+ROOT = Path(__file__).resolve().parent.parent  # this checkout, for schedule.auto_update
 FULL_SCAN_EVERY = timedelta(days=7)  # paged boards otherwise stop at the first page with nothing new
 SEEN_WINDOW = timedelta(hours=48)    # a match is sent only if its board listed it this recently
 
@@ -81,11 +83,39 @@ def run(cfg: Config, *, dry_run: bool = False, limit: int | None = None, if_due:
         if not locked:
             log.info("another run or discovery is in progress; skipping this one")
             return 0
+        if if_due and cfg.schedule.auto_update and update_code():
+            return 0
         return _run(cfg, dry_run=dry_run, limit=min(caps) if caps else None, if_due=if_due)
 
 
+def update_code(root: Path = ROOT) -> bool:
+    """Pull new commits for this checkout (schedule.auto_update). True when the code changed: this check then stops,
+    since the code already loaded is the old one, and the next check runs the new code whole. Failures are logged."""
+    def git(*args: str) -> subprocess.CompletedProcess:
+        return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True, encoding="utf-8",
+                              errors="replace", timeout=300, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+
+    try:
+        before = git("rev-parse", "HEAD").stdout.strip()
+        if (r := git("pull", "--ff-only", "-q")).returncode != 0:
+            log.warning("auto update: git pull failed (exit %d): %s", r.returncode, publish.redact(r.stderr))
+            return False
+        after = git("rev-parse", "HEAD").stdout.strip()
+        changed = git("diff", "--name-only", before, after).stdout.split() if after != before else []
+    except (OSError, subprocess.TimeoutExpired) as e:  # no git, or a pull that hangs
+        log.warning("auto update: git failed (%s)", type(e).__name__)
+        return False
+    if after == before:
+        return False
+    log.info("auto update: %s -> %s, %d files changed; the next check runs the new code", before[:7], after[:7],
+             len(changed))
+    if "requirements.txt" in changed:
+        log.warning("auto update: requirements.txt changed; run python install.py to install new dependencies")
+    return True
+
+
 def _run(cfg: Config, *, dry_run: bool, limit: int | None, if_due: bool) -> int:
-    resume = Path(cfg.resume_path).read_text(encoding="utf-8")
+    resume = Path(cfg.resume_path).read_text(encoding="utf-8") if cfg.scoring.enabled else ""
     started = datetime.now(timezone.utc)
     now = started.isoformat(timespec="seconds")
     conn = db.connect(cfg.db_path)
@@ -97,7 +127,9 @@ def _run(cfg: Config, *, dry_run: bool, limit: int | None, if_due: bool) -> int:
     companies, recipes = list(dict.fromkeys(cfg.companies + site_companies)), cfg.html_boards + site_recipes
     full_scan = db.full_scans_due(conn, companies + [board_id(b) for b in recipes],
                                   (started - FULL_SCAN_EVERY).isoformat(timespec="seconds"))
-    done = done_keys(conn, build_filter(cfg.filters))
+    # With scoring off nothing is ever scored, so nothing waits to be: every stored job is done, and paged boards stop at
+    # their first page with nothing new instead of being read to the end on every run.
+    done = done_keys(conn, build_filter(cfg.filters)) if cfg.scoring.enabled else db.known_keys(conn)
     writer, write_lock, first_seen = db.connect(cfg.db_path, any_thread=True), threading.Lock(), [0]
 
     def save_board(company: str, jobs: list[Job]) -> None:
@@ -128,6 +160,11 @@ def _run(cfg: Config, *, dry_run: bool, limit: int | None, if_due: bool) -> int:
     # Dry runs, and runs that fetched nothing or failed, don't count toward the schedule limits (see completed_runs).
     db.record_run(conn, now, len(jobs), code, dry_run=dry_run, stats=stats,
                   finished_at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+    if cfg.publish.folder and jobs:
+        try:
+            publish.publish(cfg, conn)
+        except Exception as e:  # the public list failing never fails the run
+            log.warning("public list: not written (%s: %s)", type(e).__name__, str(e)[:200])
     return code
 
 
@@ -138,6 +175,9 @@ def process(cfg: Config, conn: sqlite3.Connection, jobs: list[Job], resume: str,
     stats = {} if stats is None else stats
     first_seen += db.upsert_jobs(conn, jobs, now)
     stats.update(first_seen=first_seen, scored=0, matches=0, sent=0)
+    if not cfg.scoring.enabled:
+        log.info("%d jobs stored (%d first seen); scoring is off (scoring.enabled)", len(jobs), first_seen)
+        return 0
     unscored = db.unscored_first_seen(conn)
     reject = build_filter(cfg.filters)
     new = [(job, reject(job)) for job in jobs if job.key in unscored]
@@ -327,12 +367,14 @@ def main(argv: list[str] | None = None) -> int:
     rescore_cmd.add_argument("--limit", type=int, help="re-score at most N jobs")
     sites_cmd = commands.add_parser("sites", help="list what each career page was discovered as")
     sites_cmd.add_argument("--forget", metavar="NAME_OR_URL", help="forget a site so the next run rediscovers it")
+    publish_cmd = commands.add_parser("publish", help="write the public list (publish.folder) from the stored jobs")
+    publish_cmd.add_argument("--push", action="store_true", help="also commit and push it, if it changed")
     web_cmd = commands.add_parser("web", help="open the web app: matches, tracker, sources, runs, settings")
     web_cmd.add_argument("--port", type=int, default=8765)
     web_cmd.add_argument("--host", default="127.0.0.1",
                          help="interface to listen on (default 127.0.0.1: only this computer can reach the app)")
     web_cmd.add_argument("--no-browser", action="store_true", help="don't open a browser tab")
-    for cmd in (init_cmd, check_cmd, run_cmd, discover_cmd, rescore_cmd, sites_cmd, web_cmd):
+    for cmd in (init_cmd, check_cmd, run_cmd, discover_cmd, rescore_cmd, sites_cmd, publish_cmd, web_cmd):
         cmd.add_argument("--config", default="config.yaml", help="path to config.yaml (default: ./config.yaml)")
         cmd.add_argument("--log-file", help="append log lines to this file instead of the console")
     args = parser.parse_args(argv)
@@ -357,6 +399,12 @@ def main(argv: list[str] | None = None) -> int:
             return discover_now(cfg, site=args.site, max_calls=args.max_calls)
         if args.command == "rescore":
             return rescore(cfg, from_score=args.from_score, everything=args.all, limit=args.limit)
+        if args.command == "publish":
+            if not cfg.publish.folder:
+                log.error("set publish.folder in config.yaml to a clone of the repo the list goes to")
+                return 2
+            publish.publish(cfg, db.connect(cfg.db_path), push_changes=args.push or cfg.publish.push)
+            return 0
         if args.command == "sites":
             conn = db.connect(cfg.db_path)
             if args.forget:

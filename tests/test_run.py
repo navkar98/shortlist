@@ -364,3 +364,62 @@ def test_with_more_candidates_than_the_cap_the_newest_are_scored_first(setup, ca
     cli.run(cfg, dry_run=True)
     assert scored_keys == [newest.key]
     assert "more candidates wait for later runs (at most 1 are scored per run)" in caplog.text
+
+
+def test_a_publishing_machine_needs_no_resume_and_writes_the_list(setup, tmp_path):
+    cfg, scored_keys = setup
+    Path(cfg.resume_path).unlink()
+    cfg.scoring.enabled = False
+    cfg.publish.folder = str(tmp_path / "jobs")
+    cfg.publish.groups = ["research", "new-grad"]
+    assert cli.run(cfg) == 0 and scored_keys == []
+    assert (tmp_path / "jobs" / "README.md").exists() and (tmp_path / "jobs" / "jobs.json").exists()
+
+
+
+def test_without_scoring_known_jobs_count_as_done_so_paged_boards_stop_early(setup, monkeypatch):
+    cfg, _ = setup
+    cfg.scoring.enabled = False
+    jobs = cli.fetch_all(cfg.companies)  # the fixture's jobs
+    seen = []
+    monkeypatch.setattr(cli, "fetch_all", lambda companies, *, known, **kwargs: seen.append(set(known)) or jobs)
+    cli.run(cfg)
+    cli.run(cfg)
+    assert seen[0] == set() and seen[1] == {j.key for j in jobs}  # everything stored is done, though none was scored
+
+
+def _git(folder, *args):
+    import subprocess
+    return subprocess.run(["git", "-C", str(folder), *args], capture_output=True, text=True, check=True).stdout
+
+
+def _commit(folder, name, text):
+    (folder / name).write_text(text, encoding="utf-8")
+    _git(folder, "add", "-A")
+    _git(folder, "-c", "user.email=a@example.com", "-c", "user.name=A", "commit", "-q", "-m", f"change {name}")
+
+
+def test_auto_update_pulls_new_commits_and_says_when_the_code_changed(tmp_path, caplog):
+    import subprocess
+    caplog.set_level("INFO", logger="shortlist")
+    origin, mine, theirs = tmp_path / "origin.git", tmp_path / "mine", tmp_path / "theirs"
+    subprocess.run(["git", "init", "-q", "--bare", str(origin)], check=True)
+    subprocess.run(["git", "clone", "-q", str(origin), str(theirs)], check=True, capture_output=True)
+    _commit(theirs, "packs.yaml", "one\n")
+    _git(theirs, "push", "-q", "origin", "HEAD")
+    subprocess.run(["git", "clone", "-q", str(origin), str(mine)], check=True, capture_output=True)
+    assert cli.update_code(mine) is False  # nothing new
+    _commit(theirs, "requirements.txt", "httpx\n")
+    _git(theirs, "push", "-q", "origin", "HEAD")
+    assert cli.update_code(mine) is True and (mine / "requirements.txt").exists()
+    assert "1 files changed" in caplog.text and "run python install.py" in caplog.text
+    assert cli.update_code(tmp_path / "not-a-checkout") is False and "auto update: git pull failed" in caplog.text
+
+
+def test_a_scheduled_check_that_updated_the_code_stops_there(setup, telegram, monkeypatch):
+    cfg, scored_keys = setup
+    cfg.schedule.auto_update = True
+    monkeypatch.setattr(cli, "update_code", lambda: True)
+    assert cli.run(cfg, if_due=True) == 0 and not scored_keys and not telegram
+    monkeypatch.setattr(cli, "update_code", lambda: False)
+    assert cli.run(cfg, if_due=True) == 0 and scored_keys and telegram
