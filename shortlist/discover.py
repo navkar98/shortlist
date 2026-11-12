@@ -41,12 +41,18 @@ SIGNATURES = [  # job boards linked from a careers page, as they appear in its l
     ("ashby", r"jobs\.ashbyhq\.com/([A-Za-z0-9_.%-]+)"),
     ("workday", r"([a-z0-9-]+\.wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)"),
     ("workable", r"apply\.workable\.com/([A-Za-z0-9_-]+)"),
+    # Workday's other host, wd<N>.myworkdaysite.com/recruiting/<tenant>/<site>: the same tenants answer on
+    # <tenant>.wd<N>.myworkdayjobs.com (checked on 3), so these become ordinary Workday boards.
+    ("workday_site", r"(wd\d+)\.myworkdaysite\.com/(?:[a-z]{2}-[A-Z]{2}/)?recruiting/([a-z0-9-]+)/([A-Za-z0-9_-]+)"),
+    ("rippling", r"ats\.rippling\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)"),
+    ("bamboohr", r"([a-z0-9-]+)\.bamboohr\.com/(?:careers|jobs)"),
 ]
 NOT_SLUGS = {"embed", "v1", "boards", "api", "jobs", "j", "careers", "job_board", "js", "static", "assets"}
 NOT_WORKDAY_SITES = {"wday"}  # "careers" is a real Workday site name (Yahoo's), unlike on the other boards
 GENERIC_WORDS = {"ai", "labs", "lab", "inc", "the", "technologies", "technology", "group", "company", "co", "and",
                  "for", "of", "global", "tech"}
-JOBISH = re.compile(r"job|career|position|opening|role|vacanc|join|hiring|apply|greenhouse|lever|ashby|workday|workable",
+JOBISH = re.compile(r"job|career|position|opening|role|vacanc|join|hiring|apply|greenhouse|lever|ashby|workday|workable|"
+                    r"rippling|bamboohr",
                     re.I)
 NOT_TITLES = {"apply", "apply now", "learn more", "view job", "view details", "see details", "read more", "details",
               "view all jobs", "see all jobs", "view", "more"}
@@ -81,7 +87,8 @@ class Outcome:
 
 class AgentStep(BaseModel):
     action: Literal["board", "recipe", "open", "render", "give_up"]
-    board: str = ""      # board: "greenhouse:<slug>", "lever:<slug>", "ashby:<slug>", "workday:<tenant>.wd<N>/<site>", "workable:<account>"
+    board: str = ""      # board: "greenhouse:<slug>", "lever:<slug>", "ashby:<slug>", "workday:<tenant>.wd<N>/<site>",
+    #                      "workable:<account>", "rippling:<slug>", "bamboohr:<slug>"
     url: str = ""        # open: a link from the page
     jobs: str = ""       # recipe: CSS selector matching one element per job
     title: str = ""      # recipe: inside a job element; empty = the link's text
@@ -121,6 +128,9 @@ def linked_boards(text: str) -> list[str]:
             if ats == "workday":
                 if m.group(2).lower() not in NOT_WORKDAY_SITES:
                     found.append(f"workday:{m.group(1)}/{m.group(2)}")
+            elif ats == "workday_site":
+                if m.group(3).lower() not in NOT_WORKDAY_SITES:
+                    found.append(f"workday:{m.group(2)}.{m.group(1)}/{m.group(3)}")
             elif (slug := unquote(m.group(1)).strip(".")) and slug.lower() not in NOT_SLUGS:
                 found.append(f"{ats}:{slug}")
     return list(dict.fromkeys(found))[:8]
@@ -249,8 +259,9 @@ INSTRUCTIONS = """You help a program find where a company lists its open jobs, s
 without you. Answer with exactly one action:
 - "board": the jobs live on a job board the program reads. Set `board` to greenhouse:<slug> (boards.greenhouse.io/<slug>
   or job-boards.greenhouse.io/<slug>), lever:<slug> (jobs.lever.co/<slug>), ashby:<slug> (jobs.ashbyhq.com/<slug>),
-  workday:<tenant>.wd<N>/<site> (<tenant>.wd<N>.myworkdayjobs.com/<site>) or workable:<account>
-  (apply.workable.com/<account>). Use a slug you saw on the page, or one you are confident about.
+  workday:<tenant>.wd<N>/<site> (<tenant>.wd<N>.myworkdayjobs.com/<site> or wd<N>.myworkdaysite.com/recruiting/<tenant>/
+  <site>), workable:<account> (apply.workable.com/<account>), rippling:<slug> (ats.rippling.com/<slug>) or
+  bamboohr:<slug> (<slug>.bamboohr.com/careers). Use a slug you saw on the page, or one you are confident about.
 - "recipe": the CURRENT page lists jobs itself. Give CSS selectors (soupsieve syntax): `jobs` matches one element per
   job; `title`, `link`, `location` are looked up inside that element (title empty: use the link's text; link empty: the
   job element is the link, or its first link); `next_page` matches the link to the next page of results, if any.

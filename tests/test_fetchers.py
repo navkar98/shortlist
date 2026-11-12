@@ -9,12 +9,14 @@ import httpx
 import pytest
 
 from shortlist.fetchers import (AMAZON_MAX_RESULTS, MAX_DESCRIPTION_CHARS, fetch_all, host_group, html_to_text,
-                                parse_amazon, parse_ashby, parse_greenhouse, parse_lever, parse_workable, parse_workday)
+                                parse_amazon, parse_ashby, parse_bamboohr, parse_bamboohr_detail, parse_greenhouse,
+                                parse_lever, parse_rippling, parse_rippling_detail, parse_workable, parse_workday)
 from shortlist.polite import pace_key
 
 FIXTURES = Path(__file__).parent / "fixtures"
 PARSERS = {"greenhouse": parse_greenhouse, "lever": parse_lever, "ashby": parse_ashby, "workday": parse_workday,
-           "workable": parse_workable, "amazon": parse_amazon}
+           "workable": parse_workable, "amazon": parse_amazon, "rippling": parse_rippling, "bamboohr": parse_bamboohr}
+LIST_ONLY = ("workday", "rippling", "bamboohr")  # lists without descriptions; each job's page or API has one
 SLUGS = {"workday_nvidia": "nvidia.wd5/NVIDIAExternalCareerSite", "workday_zillow": "zillow.wd5/Zillow_Group_External"}
 
 
@@ -23,7 +25,10 @@ def load(name):
 
 
 def raw_jobs(ats, data):
-    return data if ats == "lever" else data["jobPostings"] if ats == "workday" else data["jobs"]
+    if ats == "rippling":  # one row per location of a job
+        return list({j["uuid"]: j for j in data}.values())
+    return data if ats == "lever" else data["jobPostings"] if ats == "workday" else data["result"] if ats == "bamboohr" \
+        else data["jobs"]
 
 
 @pytest.mark.parametrize("name", sorted(p.stem for p in FIXTURES.glob("*.json") if p.stem.split("_")[0] in PARSERS))
@@ -37,9 +42,10 @@ def test_parse_fixture(name):
     for j in jobs:
         expected_slug = "amazon" if ats == "amazon" else slug  # every Amazon query shares one identity
         assert (j.ats, j.slug, j.key) == (ats, expected_slug, f"{ats}:{expected_slug}:{j.job_id}")
-        assert j.job_id and j.title == j.title.strip() and j.title and j.company and j.location
+        assert j.job_id and j.title == j.title.strip() and j.title and j.company
+        assert j.location or ats == "bamboohr"  # often empty on BambooHR lists; the single-job API gives the place
         assert j.url.startswith("https://")
-        if ats == "workday":  # the list has no descriptions; each job's page has one
+        if ats in LIST_ONLY:
             assert j.description == "" and j.detail_url == j.url
         else:
             assert 0 < len(j.description) <= MAX_DESCRIPTION_CHARS and not j.detail_url
@@ -307,3 +313,31 @@ def test_robots_txt_disallow_skips_the_company(caplog):
     caplog.set_level(logging.INFO, logger="shortlist.fetchers")
     assert fetch_all(["workable:acme"], transport=httpx.MockTransport(handler)) == []
     assert "workable:acme: skipped (blocked by robots.txt)" in caplog.text
+
+
+def test_rippling_rows_of_one_job_in_several_places_become_one_job():
+    data = load("rippling_citylogix")
+    jobs = parse_rippling(data, "citylogix")
+    assert len(data) == 12 and len(jobs) == 2
+    job = next(j for j in jobs if j.job_id == data[0]["uuid"])
+    places = [r["workLocation"]["label"] for r in data if r["uuid"] == job.job_id]
+    assert job.location == "; ".join(places) and "Seattle, WA" in job.location
+    assert job.url == data[0]["url"] == f"https://ats.rippling.com/citylogix/jobs/{job.job_id}"
+    assert any(j.remote for j in parse_rippling(load("rippling_rippling"), "rippling"))  # "Remote (Dallas, Texas, US)"
+
+
+def test_bamboohr_places_and_links():
+    jobs = parse_bamboohr(load("bamboohr_fullbay"), "fullbay")
+    assert jobs[0].location == "Phoenix, Arizona, United States"
+    assert jobs[0].url == jobs[0].detail_url == f"https://fullbay.bamboohr.com/careers/{jobs[0].job_id}"
+    data = load("bamboohr_euna")
+    assert parse_bamboohr(data, "euna")[1].location == "Oakville, Ontario"  # from `location` when atsLocation is empty
+
+
+@pytest.mark.parametrize("name", ["rippling_rippling", "rippling_citylogix", "bamboohr_euna", "bamboohr_fullbay"])
+def test_rippling_and_bamboohr_job_details(name):
+    data = load(f"detail_{name}")
+    text, place = (parse_rippling_detail if name.startswith("rippling") else parse_bamboohr_detail)(data)
+    assert len(text) > 1000 and place
+    for leftover in ("&lt;", "&amp;", "<p", "<div", "<span", "<br", "\xa0"):
+        assert leftover not in text

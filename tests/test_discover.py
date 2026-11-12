@@ -59,6 +59,11 @@ def test_linked_boards_and_name_guesses():
     assert linked_boards(text) == ["greenhouse:acmeai", "lever:acme", "ashby:Acme AI", "workday:acme.wd5/Acme_Careers",
                                    "workable:acme-2"]
     assert linked_boards("https://ouryahoo.wd5.myworkdayjobs.com/careers") == ["workday:ouryahoo.wd5/careers"]
+    assert linked_boards("https://wd5.myworkdaysite.com/en-US/recruiting/microchiphr/External/job/1 "
+                         "https://ats.rippling.com/boom-supersonic/jobs https://ats.rippling.com/en-GB/acme/jobs/1 "
+                         "https://fullbay.bamboohr.com/careers/196 https://acme.bamboohr.com/jobs/") == \
+        ["workday:microchiphr.wd5/External", "rippling:boom-supersonic", "rippling:acme", "bamboohr:fullbay",
+         "bamboohr:acme"]
     guesses = name_guesses("Together AI")
     assert guesses[:4] == ["greenhouse:togetherai", "ashby:togetherai", "lever:togetherai", "workable:togetherai"]
     assert "greenhouse:together" in guesses and "greenhouse:together-ai" in guesses

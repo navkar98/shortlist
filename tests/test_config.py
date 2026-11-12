@@ -20,7 +20,8 @@ def test_paths_resolve_next_to_config_and_companies_dedupe(tmp_path):
     assert cfg.scoring.batch_size == 12 and cfg.scoring.backend == "claude_cli"
 
 
-@pytest.mark.parametrize("company", ["smartrecruiters:acme", "workday:acme", "workday:acme/External", "greenhouse:", "acme"])
+@pytest.mark.parametrize("company", ["smartrecruiters:acme", "workday:acme", "workday:acme/External", "greenhouse:", "acme",
+                                     "bamboohr:acme.evil.example/x", "bamboohr:Acme Co"])
 def test_rejects_bad_company_entries(tmp_path, company):
     with pytest.raises(ValidationError):
         load_config(write(tmp_path, f"companies: ['{company}']\n"))

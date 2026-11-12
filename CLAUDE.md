@@ -8,7 +8,8 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
 ## Layout (flat modules in `shortlist/`)
 - `__main__.py` CLI and the run pipeline (discover -> fetch -> store -> pre-filter -> details -> score -> notify).
 - `config.py` pydantic config, company packs (`packs/*.yaml`), and config.yaml editing that keeps comments.
-- `fetchers.py` ATS APIs (`FETCHERS`: greenhouse, lever, ashby, workday, workable, amazon); `html_boards.py` CSS
+- `fetchers.py` ATS APIs (`FETCHERS`: greenhouse, lever, ashby, workday, workable, amazon,
+  rippling, bamboohr); `html_boards.py` CSS
   recipes; `listings.py` SimplifyJobs lists; `details.py` descriptions for list-only jobs; `render.py` Playwright.
 - `discover.py` careers page -> board or recipe (links, name guesses, JobPosting data, then a capped agent loop).
 - `scoring.py` `BACKENDS` (claude_cli, codex_cli, anthropic_api, openai_api): prompt + JSON schema in, dict out.
@@ -53,8 +54,8 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
 - `claude -p` once exited 1 within 2 s using zero tokens for 31 calls in a row (the reason was cut off in the log);
   scoring stops after 3 failed calls in a row. A subprocess timeout reported a negative `timeout` after the computer
   slept mid-call.
-- Closed postings: complete-list sources (Greenhouse, Lever, Ashby, Workable, SimplifyJobs) list every open job per
-  read; 5 of 5 sampled "closed" Greenhouse jobs answered 404 on the single-job API, 5 of 5 "open" ones 200.
+- Closed postings: complete-list sources (Greenhouse, Lever, Ashby, Workable, Rippling, BambooHR, SimplifyJobs) list
+  every open job per read; 5 of 5 sampled "closed" Greenhouse jobs answered 404 on the single-job API, 5 of 5 "open" ones 200.
 - Anthropic Messages API: POST `https://api.anthropic.com/v1/messages`, headers `x-api-key`, `anthropic-version:
   2023-06-01`; structured outputs via `output_config.format` (`json_schema`; objects need `additionalProperties:
   false`; no numeric/length bounds); 401 body `{"type":"error","error":{"type":...,"message":...}}` (seen live).
@@ -74,6 +75,8 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   same 86 paced at one request a second per data center (`polite.pace_key`) got no 429 (81 with open jobs).
 - Field packs (2026-11-01): the SimplifyJobs new-grad and Summer2026 internship lists link to 3,828 boards Shortlist
   can read; 3,508 listed open jobs. Grouped by each listing's `category`; Workday boards over 2,000 jobs left out.
+  2026-11-11: the same lists link to 233 more Rippling, BambooHR, and myworkdaysite.com boards not in a pack; 211
+  listed open jobs, 210 were added (Sysco left out: exactly 2,000, likely Workday's cap).
 - All eight packs together (3,599 boards, 2026-11-02): wd1 alone takes ~3 hours on a first read, past the scheduled
   task's old 2-hour limit, and nothing was stored until every board was read, so runs were killed and restarted from
   zero. 2,978 boards had listed 364,080 jobs by then; 6.4% of stored jobs passed a real config's filters. Hence boards
@@ -91,6 +94,17 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   name one. TikTok writes new-grad roles as "... Graduate", so "graduate" counts as new grad.
 - Workable: GET `apply.workable.com/api/v1/widget/accounts/<account>?details=true` (descriptions included). Amazon:
   GET `amazon.jobs/en/search.json?base_query&result_limit=100&offset&sort=recent` (newest 500 per query).
+- Rippling (2026-11-11): GET `api.rippling.com/platform/api/ats/v1/board/<slug>/jobs`, the whole board in one list,
+  one row per (uuid, location); no descriptions. Single job `.../jobs/<uuid>`: `description.role` and `.company` (HTML),
+  `workLocations`. Missing board: 404 JSON. api.rippling.com robots.txt answers 404 (allowed).
+- BambooHR (2026-11-11): GET `<company>.bamboohr.com/careers/list`, `{meta: {totalCount}, result: [...]}`, totalCount
+  equal to the rows (57/57, 12/12); no descriptions; places in `atsLocation` or `location`, often empty. Single job
+  `/careers/<id>/detail` -> `result.jobOpening.description`. `locationType` "2" is not "remote" (one such job names an
+  office), so it is not read. A missing company redirects (302) to bamboohr.com.
+- Workday's other host `wd<N>.myworkdaysite.com/recruiting/<tenant>/<site>`: the same tenants answer on
+  `<tenant>.wd<N>.myworkdayjobs.com` (Microchip, Wells Fargo, Magna), so discovery maps it to a workday entry.
+- iCIMS tenant hosts (careers-<x>.icims.com) disallow `/` in robots.txt: no iCIMS adapter. JazzHR (applytojob.com) and
+  Jobvite serve HTML only (no JSON API seen): read them with a CSS recipe or discovery.
 - SimplifyJobs listings.json fields: id, company_name, title, locations, url, active, is_visible, category, degrees,
   sponsorship, date_posted. No descriptions.
 - api.smartrecruiters.com robots.txt disallows `*`, so there is no SmartRecruiters adapter. Meta's robots.txt

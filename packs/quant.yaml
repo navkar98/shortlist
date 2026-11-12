@@ -1,8 +1,9 @@
 description: >-
-  317 companies that posted quantitative finance roles for new grads or interns on the SimplifyJobs lists, on boards
-  Shortlist reads (177 workday, 90 greenhouse, 19 ashby, 17 workable, 14 lever); each board listed open jobs when
-  checked 2026-11-01. A run reads every board, about 2 minutes; the first run, which reads each Workday board to the
-  end, about 17 minutes.
+  326 companies that posted quantitative finance roles for new grads or interns on the SimplifyJobs lists, on boards
+  Shortlist reads (181 workday, 90 greenhouse, 19 ashby, 17 workable, 14 lever, 4 rippling, 1 bamboohr); each board
+  listed open jobs when checked 2026-11-01 (Rippling, BambooHR, and Workday boards found on myworkdaysite.com:
+  2026-11-11). A run reads every board, about 2 minutes; the first run, which reads each Workday board to the end,
+  about 17 minutes.
 
 companies:
   - greenhouse:3redpartners                                       # 3RedPartners
@@ -50,6 +51,7 @@ companies:
   - greenhouse:blockchain                                         # Blockchain.com
   - workday:bpinternational.wd3/bpEarlyCareers                    # BP
   - workday:bpinternational.wd3/bpPrivateExternalCareersSite      # BP
+  - workday:brevanhoward.wd3/BH_ExternalCareers                   # Brevan Howard
   - greenhouse:bridgewater89                                      # Bridgewater Associates
   - greenhouse:bwaltpostings                                      # Bridgewater Associates
   - workday:bci.wd10/BCI_Careers                                  # British Columbia Investment
@@ -96,6 +98,7 @@ companies:
   - greenhouse:dvtrading                                          # DV Trading
   - workable:eagle-seven                                          # Eagle Seven
   - workday:edftrading.wd1/EDFTrading                             # EDFT
+  - rippling:edgehog-trading                                      # Edgehog Trading
   - ashby:ellipsislabs                                            # Ellipsis Labs
   - workday:gnw.wd1/enact_mi                                      # Enact Mortgage Insurance
   - greenhouse:engineersgate                                      # Engineers Gate
@@ -208,6 +211,7 @@ companies:
   - greenhouse:ninjatrader                                        # NinjaTrader
   - workday:northwest.wd1/Northwest_Careers                       # Northwest Bank
   - workday:northwesternmutual.wd5/corporate-careers              # Northwestern Mutual
+  - rippling:noviam                                               # Noviam Inc.
   - ashby:numerixs-quant                                          # NumerixS Quant
   - workday:theocc.wd5/careers                                    # OCC
   - ashby:old-mission-capital                                     # Old Mission
@@ -226,6 +230,7 @@ companies:
   - workday:talentmanagementsolution.wd3/perseus-careers          # Perseus Group
   - workday:pru.wd5/pgim_careers                                  # PGIM
   - greenhouse:pharomanagement                                    # Pharo Management
+  - bamboohr:pictonmahoney                                        # Picton Mahoney Asset Management
   - workday:pimco.wd1/pimco-careers                               # PIMCO
   - workday:pnc.wd5/External                                      # PNC Financial Services
   - greenhouse:point72                                            # Point72
@@ -281,6 +286,7 @@ companies:
   - workday:rb.wd5/FRS                                            # The Federal Reserve System
   - greenhouse:thetradedesk                                       # The Trade Desk
   - ashby:voleon                                                  # The Voleon Group
+  - workday:upenn.wd1/Wharton                                     # The Wharton School
   - workday:thyssenkruppmaterialsna.wd12/1                        # thyssenkrupp
   - workday:tmx.wd3/TMX_Careers                                   # TMX Group
   - ashby:trading212                                              # Trading212
@@ -289,6 +295,7 @@ companies:
   - workable:trexquant                                            # Trexquant
   - greenhouse:trinityparktalent                                  # Trinity Park Talent
   - ashby:triumph-arcade                                          # Triumph
+  - rippling:truepointcareers                                     # Truepoint Wealth Counsel
   - workday:truist.wd1/Careers                                    # Truist Bank
   - greenhouse:trumid                                             # Trumid
   - ashby:turn-river                                              # Turn/River Capital
@@ -312,6 +319,8 @@ companies:
   - workable:wallstreetquants                                     # WallStreetQuants
   - greenhouse:weissassetmanagement                               # Weiss Asset Management
   - workday:wellington.wd5/external                               # Wellington Management
+  - workday:wf.wd1/WellsFargoJobs                                 # Wells Fargo
+  - workday:westernalliancebank.wd5/WAB                           # Western Alliance
   - greenhouse:whitewatermidstream                                # WhiteWater Midstream
   - workday:mtb.wd5/wtexternal                                    # Wilmington Trust
   - lever:wintermute-trading                                      # Wintermute
@@ -322,3 +331,4 @@ companies:
   - greenhouse:worldquant                                         # WorldQuant
   - greenhouse:wppmedia                                           # WPP Media
   - greenhouse:xantium                                            # Xantium
+  - rippling:zuckerman-investment-group                           # Zuckerman Investment Group

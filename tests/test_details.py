@@ -224,3 +224,33 @@ def test_workday_job_without_description_gets_its_page_data():
         httpx.Response(200, text=read("detail_page_workday_jsonld.html"))
     [filled] = fetch_details([job], transport=httpx.MockTransport(handler))
     assert len(filled.description) > 1000 and not filled.description.endswith("\n") and not filled.detail_url
+
+
+def test_rippling_and_bamboohr_links_are_read_from_their_job_apis():
+    rip = "https://ats.rippling.com/citylogix/jobs/9cddf245-08bd-4da4-8a10-d177f4445cf7"
+    assert canonical_identity(rip) == ("rippling", "citylogix", "9cddf245-08bd-4da4-8a10-d177f4445cf7")
+    assert canonical_identity("https://ats.rippling.com/en-GB/citylogix/jobs/abc") == ("rippling", "citylogix", "abc")
+    assert canonical_identity("https://fullbay.bamboohr.com/careers/196") == ("bamboohr", "fullbay", "196")
+    assert canonical_identity("https://fullbay.bamboohr.com/careers/list") is None
+    requests = []
+
+    def handler(request):
+        requests.append(str(request.url))
+        if request.url.path == "/robots.txt":
+            return httpx.Response(404)
+        if str(request.url) == "https://api.rippling.com/platform/api/ats/v1/board/citylogix/jobs/9cddf245-08bd-4da4-8a10-d177f4445cf7":
+            return httpx.Response(200, text=read("detail_rippling_citylogix.json"))
+        if str(request.url) == "https://fullbay.bamboohr.com/careers/196/detail":
+            return httpx.Response(200, text=read("detail_bamboohr_fullbay.json"))
+        raise AssertionError(f"unexpected request {request.url}")
+
+    jobs = [Job(ats="rippling", slug="citylogix", job_id="9cddf245-08bd-4da4-8a10-d177f4445cf7", company="citylogix",
+                title="Technician", location="Seattle, WA", remote=False, url=rip, description="", detail_url=rip),
+            Job(ats="bamboohr", slug="fullbay", job_id="196", company="fullbay", title="Customer Support Rep",
+                location="", remote=False, url="https://fullbay.bamboohr.com/careers/196", description="",
+                detail_url="https://fullbay.bamboohr.com/careers/196")]
+    rippling, bamboohr = fetch_details(jobs, transport=httpx.MockTransport(handler))
+    assert len(rippling.description) > 1000 and not rippling.detail_url
+    assert rippling.location == "Seattle, WA"  # the list's places are kept
+    assert len(bamboohr.description) > 1000 and bamboohr.location == "Phoenix, Arizona, United States"
+    assert not any("ats.rippling.com/citylogix" in r for r in requests)  # the API, not the page

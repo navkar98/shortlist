@@ -1,4 +1,4 @@
-"""Fetch open jobs from public Greenhouse, Lever, and Ashby job boards and normalize them into Job.
+"""Fetch open jobs from public job board APIs (FETCHERS, below) and normalize them into Job.
 
 Fields parsed here are only those seen in the saved responses under tests/fixtures/.
 """
@@ -127,6 +127,48 @@ def parse_amazon(data: dict, slug: str) -> list[Job]:
     return jobs
 
 
+def parse_rippling(data: list, slug: str) -> list[Job]:
+    """A Rippling board lists a job once per location, with the same uuid; those rows become one job. The list has no
+    descriptions: each job's description comes from the single-job API, only for new jobs that pass the filters."""
+    places, first = defaultdict(list), {}
+    for j in data:
+        first.setdefault(j["uuid"], j)
+        places[j["uuid"]].append((j.get("workLocation") or {}).get("label") or "")
+    return [_job("rippling", slug, uuid, slug, j["name"], places[uuid], "", j["url"], "", detail_url=j["url"])
+            for uuid, j in first.items()]
+
+
+def parse_bamboohr(data: dict, slug: str) -> list[Job]:
+    """A BambooHR board (<slug>.bamboohr.com/careers). Places are in `atsLocation` or else `location`; both are often
+    empty, and the single-job API then gives the place along with the description."""
+    jobs = []
+    for j in data["result"]:
+        loc = j.get("atsLocation") or {}
+        loc = loc if any(loc.get(k) for k in ("city", "state", "province", "country")) else j.get("location") or {}
+        place = ", ".join(p for p in (loc.get("city"), loc.get("state") or loc.get("province"), loc.get("country")) if p)
+        url = f"https://{slug}.bamboohr.com/careers/{j['id']}"
+        jobs.append(_job("bamboohr", slug, j["id"], slug, j["jobOpeningName"], [place], "", url, "", detail_url=url))
+    return jobs
+
+
+def parse_rippling_detail(data: dict) -> tuple[str, str]:
+    """(description, places) from Rippling's single-job API: the role's text, then the company's."""
+    text = data.get("description") or {}
+    description = "\n\n".join(html_to_text(text.get(k) or "") for k in ("role", "company") if text.get(k))
+    return description, "; ".join(data.get("workLocations") or [])
+
+
+def parse_bamboohr_detail(data: dict) -> tuple[str, str]:
+    """(description, place) from BambooHR's single-job API."""
+    job = data["result"]["jobOpening"]
+    place = ""
+    for loc in (job.get("atsLocation") or {}, job.get("location") or {}):
+        parts = [loc.get("city"), loc.get("state") or loc.get("province"), loc.get("country") or loc.get("addressCountry")]
+        if place := ", ".join(p for p in parts if p):
+            break
+    return html_to_text(job.get("description") or ""), place
+
+
 # Every fetch function takes `known`: the keys of jobs already stored. Paged sources (Workday, Amazon) list newest
 # first, so they stop after a page with nothing new; `known=None` asks for a full scan.
 
@@ -171,6 +213,14 @@ def fetch_workable(polite: Polite, slug: str, known: set[str] | None = None) -> 
     return parse_workable(data, slug)
 
 
+def fetch_rippling(polite: Polite, slug: str, known: set[str] | None = None) -> list[Job]:
+    return parse_rippling(polite.get(f"https://api.rippling.com/platform/api/ats/v1/board/{slug}/jobs").json(), slug)
+
+
+def fetch_bamboohr(polite: Polite, slug: str, known: set[str] | None = None) -> list[Job]:
+    return parse_bamboohr(polite.get(f"https://{slug}.bamboohr.com/careers/list").json(), slug)
+
+
 AMAZON_MAX_RESULTS = 500  # newest first per query; new postings between two runs are far fewer
 
 
@@ -189,7 +239,7 @@ def fetch_amazon(polite: Polite, query: str, known: set[str] | None = None) -> l
 
 # "ats:slug" in config.yaml -> fetch function. Workday slugs are "<tenant>.<wdN>/<site>"; Amazon slugs are a search query.
 FETCHERS = {"greenhouse": fetch_greenhouse, "lever": fetch_lever, "ashby": fetch_ashby, "workday": fetch_workday,
-            "workable": fetch_workable, "amazon": fetch_amazon}
+            "workable": fetch_workable, "amazon": fetch_amazon, "rippling": fetch_rippling, "bamboohr": fetch_bamboohr}
 
 
 def describe_error(e: Exception) -> str:

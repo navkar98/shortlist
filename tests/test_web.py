@@ -371,3 +371,30 @@ def test_matches_by_stage_and_field(app):
     assert "Research Scientist, PhD New Grad" in rows and "Machine Learning Engineer New Grad" not in rows
     # Counts follow the other filters: within new grads, one research role.
     assert 'value="research" checked><span>Research\n      <span class="count">1</span>' in rows
+
+
+def test_a_run_from_a_closed_web_app_is_followed_in_its_own_log(app):
+    """The web app started a run, was closed, and opened again: the run is still going and logs to logs/<run>.log."""
+    client, tmp_path, *_ = app
+    log_file = tmp_path / "logs" / "20261111-090000-dry-run.log"
+    log_file.parent.mkdir()
+    log_file.write_text("2026-11-11 09:00:01 INFO    lever:rover: 40 jobs\n", encoding="utf-8")
+    db_path = str(tmp_path / "shortlist.db")
+    with db.single_run(f"{db_path}.lock", {"command": "dry run", "log": str(log_file)}) as locked:
+        assert locked and db.run_holder(db_path)["command"] == "dry run"
+        panel = client.get("/activity").text
+        assert "Dry run started outside this page" in panel and "lever:rover: 40 jobs" in panel
+        assert 'hx-trigger="every 2s"' in panel
+        with open(log_file, "a", encoding="utf-8") as f:
+            f.write("2026-11-11 09:00:05 INFO    scoring 3 jobs\n")
+        assert "scoring 3 jobs" in client.get("/activity").text  # followed as it grows
+    assert db.run_holder(db_path) == {}  # its file stays behind, but the lock is free: nothing is running
+    assert "started outside this page" not in client.get("/activity").text
+
+
+def test_a_run_from_a_terminal_says_where_its_output_goes(app):
+    client, tmp_path, *_ = app
+    db_path = str(tmp_path / "shortlist.db")
+    with db.single_run(f"{db_path}.lock", {"command": "discovery", "log": None}):
+        panel = client.get("/activity").text
+        assert "Discovery started outside this page" in panel and "terminal that started it" in panel

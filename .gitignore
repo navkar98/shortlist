@@ -10,6 +10,7 @@ scorer_workdir/*
 config.yaml
 resume.md
 *.lock
+*.lock.json
 config.yaml.bak
 logs/
 CLAUDE.local.md

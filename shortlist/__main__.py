@@ -70,6 +70,11 @@ def skip_reason(conn: sqlite3.Connection, schedule: Schedule, now: datetime) -> 
     return None
 
 
+# What this process is and where it logs, for the run lock's holder file (db.single_run): set by `main`, so a web app
+# that didn't start this run can still show it.
+RUN_ABOUT: dict = {}
+
+
 def run(cfg: Config, *, dry_run: bool = False, limit: int | None = None, if_due: bool = False) -> int:
     missing = notify.missing_env(cfg.notify)
     if not dry_run and missing:
@@ -77,7 +82,7 @@ def run(cfg: Config, *, dry_run: bool = False, limit: int | None = None, if_due:
                   "instead", ", ".join(missing), ", ".join(cfg.notify))
         return 2
     caps = [n for n in (limit, cfg.scoring.max_jobs_per_run) if n]
-    with single_run(f"{cfg.db_path}.lock") as locked:
+    with single_run(f"{cfg.db_path}.lock", RUN_ABOUT) as locked:
         if not locked:
             log.info("another run or discovery is in progress; skipping this one")
             return 0
@@ -228,7 +233,7 @@ def detail_url(row: sqlite3.Row) -> str:
 def rescore(cfg: Config, *, from_score: int | None, everything: bool, limit: int | None) -> int:
     """Score open jobs again, each on its own, with the current resume, preferences, prompt, and ratings: by default
     those at min_score - 15 or above that were scored with an earlier version of any of these."""
-    with single_run(f"{cfg.db_path}.lock") as locked:
+    with single_run(f"{cfg.db_path}.lock", RUN_ABOUT) as locked:
         if not locked:
             log.info("a run or discovery is in progress; try again when it finishes")
             return 0
@@ -269,7 +274,7 @@ def rescore(cfg: Config, *, from_score: int | None, everything: bool, limit: int
 
 def discover_now(cfg: Config, *, site: str | None, max_calls: int | None) -> int:
     """Discover due career pages (or one named site, from scratch) without fetching jobs, and print the results."""
-    with single_run(f"{cfg.db_path}.lock") as locked:
+    with single_run(f"{cfg.db_path}.lock", RUN_ABOUT) as locked:
         if not locked:
             log.info("another run or discovery is in progress; try again when it finishes")
             return 0
@@ -343,6 +348,9 @@ def main(argv: list[str] | None = None) -> int:
         if stream is not None:  # both are None under pythonw.exe, which the scheduled task uses
             stream.reconfigure(encoding="utf-8", errors="replace")
     log_target = {"filename": args.log_file, "encoding": "utf-8"} if args.log_file else {}
+    RUN_ABOUT.update(command={"run": "dry run" if getattr(args, "dry_run", False) else "run", "discover": "discovery",
+                              "rescore": "re-score"}.get(args.command, args.command),
+                     log=str(Path(args.log_file).resolve()) if args.log_file else None)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)-7s %(message)s", **log_target)
     logging.getLogger("httpx").setLevel(logging.WARNING)  # httpx logs every request at INFO
     try:

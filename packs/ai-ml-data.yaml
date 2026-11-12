@@ -1,8 +1,9 @@
 description: >-
-  2,124 companies that posted AI, machine learning, or data roles for new grads or interns on the SimplifyJobs
-  lists, on boards Shortlist reads (1178 workday, 427 greenhouse, 273 ashby, 158 lever, 88 workable); each board
-  listed open jobs when checked 2026-11-01. A run reads every board, about 16 minutes; the first run, which reads
-  each Workday board to the end, about 2.3 hours.
+  2,210 companies that posted AI, machine learning, or data roles for new grads or interns on the SimplifyJobs
+  lists, on boards Shortlist reads (1194 workday, 427 greenhouse, 273 ashby, 158 lever, 88 workable, 55 rippling, 15
+  bamboohr); each board listed open jobs when checked 2026-11-01 (Rippling, BambooHR, and Workday boards found on
+  myworkdaysite.com: 2026-11-11). A run reads every board, about 16 minutes; the first run, which reads each Workday
+  board to the end, about 2.3 hours.
 
 companies:
   - greenhouse:10alabs                                                                         # 10a Labs
@@ -10,6 +11,7 @@ companies:
   - ashby:1x                                                                                   # 1X
   - workday:3m.wd1/Search                                                                      # 3M
   - ashby:42dot                                                                                # 42dot
+  - rippling:4ag                                                                               # 4AG Robotics
   - greenhouse:540                                                                             # 540
   - greenhouse:66degrees                                                                       # 66 Degrees
   - workday:my7elevenhr.wd12/Careers                                                           # 7-Eleven
@@ -34,6 +36,7 @@ companies:
   - workday:acushnetgolf.wd12/ACU                                                              # Acushnet Holdings
   - workday:acxiomllc.wd5/AcxiomUSA                                                            # Acxiom
   - ashby:adaption                                                                             # Adaption Labs
+  - rippling:adelaide                                                                          # Adelaide Metrics
   - ashby:aditude                                                                              # Aditude
   - workday:adobe.wd5/external_experienced                                                     # Adobe
   - greenhouse:adswerveinc                                                                     # Adswerve
@@ -52,6 +55,7 @@ companies:
   - ashby:afterquery                                                                           # AfterQuery
   - lever:agile-defense                                                                        # Agile Defense
   - workday:agilent.wd5/Agilent_Student_Careers                                                # Agilent Technologies
+  - rippling:agilitypr                                                                         # Agility PR Solutions
   - workday:agilonhealth.wd1/External                                                          # agilon health
   - greenhouse:agoda                                                                           # Agoda
   - greenhouse:agwestfarmcredit                                                                # AgWest Farm Credit
@@ -72,6 +76,7 @@ companies:
   - workday:astrazeneca.wd3/alexion                                                            # Alexion
   - workday:alfalaval.wd3/Alfa_Laval_jobs                                                      # ALFA LAVAL
   - workday:alkami.wd12/alkami                                                                 # Alkami Technology
+  - bamboohr:alleghenycounty                                                                   # Allegheny County
   - lever:allegiantair                                                                         # Allegiant Air
   - workday:allegion.wd5/careers                                                               # Allegion
   - workday:allegromicro.wd5/allegrocareers                                                    # Allegro MicroSystems
@@ -122,6 +127,7 @@ companies:
   - ashby:ami                                                                                  # AMI
   - workday:amn.wd1/amn_careers                                                                # AMN Healthcare
   - greenhouse:amperesand                                                                      # Amperesand
+  - rippling:ampersand-biomedicines                                                            # Ampersand
   - ashby:amplify                                                                              # Amplify
   - workday:amynta.wd5/global                                                                  # Amynta Group
   - workday:analogdevices.wd1/External                                                         # Analog Devices
@@ -141,8 +147,10 @@ companies:
   - greenhouse:antora                                                                          # Antora Energy
   - greenhouse:aperaaiinc                                                                      # Apera AI
   - greenhouse:aperiatechnologies                                                              # Aperia Technologies
+  - rippling:apexanalytix-careers                                                              # APEX Analytix
   - workday:peak6group.wd1/apexfintechsolutions                                                # Apex Fintech Solutions
   - workday:maersk.wd3/APMT_Careers                                                            # APM Terminals
+  - bamboohr:apollomce                                                                         # Apollo Mission Critical Engineering
   - lever:appen-2                                                                              # Appen
   - workday:applebank.wd5/applebankcareers                                                     # Apple Bank
   - workday:applied.wd501/applied                                                              # Applied Fluid Power
@@ -178,6 +186,7 @@ companies:
   - workday:ascendperformancematerials.wd1/ascend                                              # Ascend Performance Materials
   - workable:ascendis-pharma                                                                   # Ascendis Pharma
   - workday:ascensushr.wd1/ascensuscareers                                                     # Ascensus
+  - rippling:ascentt                                                                           # Ascentt
   - workday:asda.wd103/AsdaJobs                                                                # ASDA
   - workday:asml.wd3/asmlext1                                                                  # ASML
   - workday:aspendental.wd1/careers_aspen_dental                                               # Aspen Dental
@@ -205,6 +214,7 @@ companies:
   - greenhouse:attentionarc                                                                    # Attention Arc
   - greenhouse:audaxgroup                                                                      # Audax Group
   - ashby:augmodo                                                                              # Augmodo
+  - workday:angc.wd5/ANGC                                                                      # Augusta National Golf Club
   - ashby:aurora-operations-inc                                                                # Aurora Innovation
   - workday:austincc.wd1/external                                                              # Austin Community College District
   - workday:acg.wd1/Careers                                                                    # Auto Club Group
@@ -261,6 +271,7 @@ companies:
   - lever:bellwetheram-2                                                                       # Bellwether
   - workable:belmond-uk-ltd                                                                    # Belmond
   - workday:beigene.wd5/beigene                                                                # BeOne
+  - bamboohr:berkshiregrey                                                                     # Berkshire Grey
   - workday:bilh.wd1/External                                                                  # Beth Israel Lahey Health
   - workday:betmgminc.wd5/BetMGM                                                               # BetMGM
   - workday:myhcm.wd3/Betway                                                                   # Betway
@@ -309,6 +320,7 @@ companies:
   - workday:bmc.wd1/BMC                                                                        # Boston Medical Center
   - greenhouse:botauto                                                                         # Bot Auto
   - greenhouse:bottomlinetechnologies                                                          # Bottom Line
+  - bamboohr:bga                                                                               # BowerGroupAsia
   - workday:boystown.wd1/boystowncareers                                                       # Boys Town
   - workday:bpinternational.wd3/bpCareers                                                      # BP
   - workday:bpinternational.wd3/bpEarlyCareers                                                 # BP
@@ -318,8 +330,10 @@ companies:
   - ashby:brainco                                                                              # Brain Co.
   - workday:brandeis.wd5/Jobs                                                                  # Brandeis University
   - workday:braunintertec.wd5/brauninterteccareers                                             # Braun Intertec
+  - bamboohr:bravebison                                                                        # BraveBison
   - workday:alliancedata.wd5/breadfinancial_us                                                 # Bread Financial
   - ashby:bree                                                                                 # Bree
+  - workday:brevanhoward.wd3/BH_ExternalCareers                                                # Brevan Howard
   - greenhouse:brevium                                                                         # Brevium
   - workday:thinkbrg.wd5/BRG_External_Career_Site                                              # BRG
   - ashby:bridgeneurotech                                                                      # Bridge Neurotech
@@ -327,6 +341,7 @@ companies:
   - lever:brightmachines                                                                       # Bright Machines
   - greenhouse:brightai                                                                        # BrightAI
   - ashby:brightstar-ai                                                                        # Brightstar.AI
+  - rippling:briowt                                                                            # Brio Water Technology
   - workday:bristolmyerssquibb.wd5/bms                                                         # Bristol Myers Squibb
   - workday:bci.wd10/BCI_Careers                                                               # British Columbia Investment
   - workday:broadridge.wd5/careers                                                             # Broadridge
@@ -348,6 +363,7 @@ companies:
   - workday:busey.wd503/busey                                                                  # Busey Bank
   - greenhouse:businessolverinvitationonly                                                     # Businessolver
   - greenhouse:butternutbox                                                                    # Butternut Box
+  - rippling:buxtoncocareers                                                                   # Buxton
   - workday:cswg.wd1/cs_careers                                                                # C&S Wholesale Grocers
   - greenhouse:c3ascend                                                                        # C3.ai
   - workday:cableone.wd1/Cable_One_External_Careers                                            # Cable One
@@ -378,6 +394,7 @@ companies:
   - workday:candescent.wd501/Hiring                                                            # Candescent
   - lever:canvasww                                                                             # Canvas Worldwide
   - workday:canvasinc.wd108/Canvas                                                             # Canvas, Inc.
+  - rippling:capacity                                                                          # Capacity
   - greenhouse:capco                                                                           # Capco
   - workday:capgroup.wd1/capitalgroupcareers                                                   # Capital Group
   - workday:capitalhealth.wd1/CapitalHealthCareers                                             # Capital Health
@@ -385,6 +402,7 @@ companies:
   - workday:cardinalhealth.wd1/EXT                                                             # Cardinal Health
   - workday:elevancehealth.wd1/ANT                                                             # CareBridge
   - workday:caresource.wd1/caresource                                                          # CareSource
+  - workday:carislifesciences.wd12/CLS                                                         # Caris
   - workday:carmax.wd1/External                                                                # CarMax
   - workday:carrier.wd5/jobs                                                                   # Carrier Global
   - greenhouse:carta                                                                           # Carta
@@ -421,6 +439,7 @@ companies:
   - workday:chemours.wd103/Chemours                                                            # Chemours
   - workday:brambles.wd5/Brambles_Careers                                                      # CHEP
   - workday:chevron.wd5/University                                                             # Chevron Corporation
+  - workday:chewy.wd5/External                                                                 # Chewy
   - workday:cni.wd503/CNI                                                                      # Chickasaw Nation Industries
   - workday:chordenergy.wd1/external                                                           # Chord Energy
   - workday:cecentertainment.wd5/CEC_Careers                                                   # Chuck E. Cheese
@@ -441,6 +460,8 @@ companies:
   - workday:largo.wd1/external                                                                 # City of Largo
   - workday:olatheks.wd1/olatheks                                                              # City Of Olathe
   - workday:cityofvancouver.wd5/COV                                                            # City of Vancouver
+  - workday:vbgov.wd5/City_Of_Virginia_Beach_Careers                                           # City of Virginia Beach
+  - rippling:citylogix                                                                         # Citylogix
   - workable:civica-uk-ltd-1                                                                   # Civica
   - greenhouse:civisanalytics                                                                  # Civis Analytics
   - lever:civitech                                                                             # Civitech
@@ -458,6 +479,7 @@ companies:
   - greenhouse:cc                                                                              # Climate Corps
   - workday:clio.wd3/ClioCareerSite                                                            # Clio
   - workday:clorox.wd1/InviteClorox                                                            # Clorox
+  - workday:clorox.wd1/Clorox                                                                  # Clorox
   - workable:cloudfactory                                                                      # CloudFactory
   - greenhouse:cloudflare                                                                      # Cloudflare
   - lever:go-cloudforce                                                                        # Cloudforce
@@ -490,6 +512,7 @@ companies:
   - greenhouse:concentric                                                                      # Concentric
   - ashby:concourse                                                                            # Concourse
   - workday:conehealth.wd12/cone_health-careers                                                # Cone Health
+  - bamboohr:conetec                                                                           # ConeTec Group
   - workable:connectprep                                                                       # ConnectPrep
   - workday:conocophillips.wd1/External                                                        # ConocoPhillips
   - workday:cbrands.wd5/CBI_External_Careers                                                   # Constellation Brands
@@ -520,6 +543,7 @@ companies:
   - workday:cox.wd1/Cox_External_Career_Site_1                                                 # Cox
   - workday:coxhealth.wd5/CoxHealth_External                                                   # CoxHealth
   - workday:cranecompany.wd5/Careers                                                           # Crane Co.
+  - rippling:createmusicgroup                                                                  # Create Music Group
   - workday:creationtech.wd1/Creation                                                          # Creation Technologies
   - workday:caa.wd1/Careers                                                                    # Creative Artists Agency
   - workday:crescentenergyco.wd108/crescent_energy_careers                                     # Crescent Energy
@@ -527,11 +551,13 @@ companies:
   - workday:crestnicholson.wd103/CN                                                            # Crest Nicholson
   - greenhouse:cresta                                                                          # Cresta
   - workday:criteo.wd3/Criteo_Career_Site                                                      # Criteo
+  - rippling:critical-response-group                                                           # Critical Response Group
   - ashby:crosby                                                                               # Crosby
   - workday:crosscountrymortgage.wd1/CCMCareers                                                # CrossCountry Mortgage
   - lever:appen                                                                                # CrowdGen by Appen
   - workday:crowdstrike.wd5/crowdstrikecareers                                                 # Crowdstrike
   - workday:crowe.wd12/external_careers                                                        # Crowe
+  - rippling:cruiseplanners                                                                    # Cruise Planners
   - lever:crumbl                                                                               # Crumbl
   - ashby:crusoe                                                                               # Crusoe
   - workday:aaaie.wd1/CSAACareers2                                                             # CSAA Insurance Group
@@ -568,12 +594,14 @@ companies:
   - workday:rhsc.wd5/delta_dental_of_michigan                                                  # Delta Dental
   - workday:deluxe.wd5/USA_CAN                                                                 # Deluxe
   - lever:dga                                                                                  # Democratic Governors Association
+  - rippling:democratic-national-committee                                                     # Democratic National Committee
   - workday:dentsuaegis.wd3/DAN_GLOBAL                                                         # Dentsu
   - workday:denver.wd1/CCD-denver-denvergov-CSC_Jobs-Civil_service_jobs-Police_Jobs-Fire_Jobs  # Denver
   - workday:denverhealth.wd1/DHHA-Main                                                         # Denver Health
   - workday:desjardins.wd10/Desjardins                                                         # Desjardins Group
   - workday:ilitch.wd5/detroit-tigers                                                          # Detroit Tigers
   - greenhouse:devtechnology                                                                   # Dev Technology Group
+  - workday:devonenergy.wd5/Careers                                                            # Devon Energy
   - workday:dexcom.wd1/Dexcom                                                                  # Dexcom
   - ashby:dexmate                                                                              # Dexmate
   - greenhouse:dhpace                                                                          # DH Pace
@@ -685,6 +713,7 @@ companies:
   - workday:exelixis.wd1/exel                                                                  # Exelixis
   - workday:expedia.wd108/private                                                              # Expedia Group
   - workday:expedia.wd108/search                                                               # Expedia Group
+  - bamboohr:expedock                                                                          # Expedock
   - ashby:extropic                                                                             # Extropic
   - greenhouse:fschumacherco                                                                   # F. Schumacher & Co.
   - workday:ffive.wd5/f5jobs                                                                   # F5
@@ -757,6 +786,7 @@ companies:
   - greenhouse:fosphamarketing                                                                 # Fospha
   - lever:foth                                                                                 # FOTH
   - greenhouse:foundenergy                                                                     # Found Energy
+  - rippling:foundation-robotics                                                               # Foundation
   - workday:fourseasons.wd3/search                                                             # Four Seasons
   - workday:fox.wd1/Domestic                                                                   # FOX
   - workday:franklintempleton.wd5/invitation-only                                              # Franklin Templeton
@@ -778,6 +808,7 @@ companies:
   - ashby:g2                                                                                   # G2
   - workday:gables.wd5/Gables_Careers                                                          # Gables Residential
   - workday:gafsgi.wd5/GAF_Careers                                                             # GAF
+  - rippling:gaiias-open-positions                                                             # Gaiia
   - greenhouse:gallup                                                                          # Gallup
   - greenhouse:gametimeunited                                                                  # Gametime
   - greenhouse:garnerhealth                                                                    # Garner Health
@@ -804,6 +835,7 @@ companies:
   - ashby:genesis                                                                              # Genesis AI
   - ashby:genesis-molecular-ai                                                                 # Genesis Molecular AI
   - greenhouse:genevatrading                                                                   # Geneva Trading
+  - rippling:genlogs-corporation                                                               # GenLogs
   - ashby:genmd                                                                                # GenMD
   - greenhouse:genscript                                                                       # GenScript
   - greenhouse:gensyn                                                                          # Gensyn
@@ -813,6 +845,8 @@ companies:
   - lever:geocomply-2                                                                          # GeoComply
   - ashby:georgian                                                                             # Georgian Partners Growth
   - greenhouse:internshiplist2000                                                              # Geotab
+  - rippling:hearth-careers                                                                    # GetHearth.com
+  - workday:gflenv.wd3/Careers                                                                 # GFL
   - workday:gia.wd1/GIA                                                                        # GIA
   - workday:gilead.wd1/gileadcareers                                                           # Gilead Sciences
   - workday:gladstone.wd503/careers                                                            # Gladstone Institutes
@@ -827,6 +861,7 @@ companies:
   - greenhouse:globalizationpartners                                                           # Globalization Partners
   - workday:globusmedical.wd5/GMED_Careers                                                     # Globus Medical
   - greenhouse:glydways                                                                        # Glydways
+  - rippling:gofishdigital                                                                     # Go Fish Digital
   - workable:go-media                                                                          # GO Media
   - ashby:goaly                                                                                # Goaly
   - greenhouse:eventsandinterns                                                                # GoDaddy
@@ -889,6 +924,7 @@ companies:
   - lever:hatchit                                                                              # Hatch IT
   - ashby:hawkeyeinnovations                                                                   # Hawk-Eye Innovations
   - ashby:haydenai                                                                             # Hayden AI
+  - workday:hcahealthcare.wd3/hcacareers                                                       # HCA Healthcare UK
   - workday:hcsc.wd1/HCSC_External                                                             # HCSC
   - workday:hdsupply.wd1/External                                                              # HD Supply
   - greenhouse:headlandstechnologiesllc                                                        # Headlands Tech Holdings
@@ -942,6 +978,7 @@ companies:
   - greenhouse:humansignal                                                                     # HumanSignal
   - lever:humble-robotics                                                                      # Humble Robotics
   - workday:huntelec.wd501/HuntElectric_Careers                                                # Hunt Electric
+  - rippling:hunterstrategy                                                                    # Hunter Strategy
   - workday:huntington.wd12/HNBcareers                                                         # Huntington Bancshares
   - workday:huntsman.wd1/Huntsman                                                              # Huntsman
   - workday:huron.wd1/huroncareers                                                             # Huron
@@ -970,6 +1007,7 @@ companies:
   - workday:illuminateusa.wd503/Illuminate_Careers                                             # Illuminate USA
   - ashby:illumio                                                                              # Illumio
   - greenhouse:imc                                                                             # IMC Trading
+  - workday:imeg.wd1/Imeg_Careers                                                              # IMEG
   - workday:imerys.wd3/imerys-careers                                                          # Imerys
   - workday:imerys.wd3/imerys_career2                                                          # Imerys
   - lever:immuta                                                                               # Immuta
@@ -1020,6 +1058,7 @@ companies:
   - ashby:inworld-ai                                                                           # Inworld AI
   - greenhouse:iovancebiotherapeutics                                                          # Iovance Biotherapeutics
   - workday:isu.wd1/IowaStateJobs                                                              # Iowa State University
+  - rippling:ip-house                                                                          # IP House
   - workday:iqvia.wd1/IQVIA                                                                    # IQVIA
   - workday:ironmountain.wd5/iron-mountain-jobs                                                # Iron Mountain
   - greenhouse:ispottv                                                                         # iSpot.tv
@@ -1043,6 +1082,7 @@ companies:
   - ashby:jerry.ai                                                                             # Jerry
   - workday:capri.wd1/jimmychoocareers                                                         # Jimmy Choo
   - workday:jd.wd103/Campus_Career_Site                                                        # JINGDONG
+  - rippling:jitsu                                                                             # Jitsu
   - workday:jmfamily.wd1/jmfamily_external                                                     # JM Family
   - workday:macfound.wd1/MAC_FOUND_EXT_CAREERS                                                 # John D. and Catherine T. MacArthur Foundation
   - workday:jlp.wd3/JLPjobs_careers                                                            # John Lewis Partnership
@@ -1086,6 +1126,7 @@ companies:
   - workday:heinz.wd1/KraftHeinz_Careers                                                       # Kraft Heinz
   - workday:heinz.wd1/KraftHeinz_Careers_BC                                                    # Kraft Heinz
   - workday:heinz.wd1/KraftHeinz_Careers_UR                                                    # Kraft Heinz
+  - rippling:kraken-robotics-inc                                                               # Kraken Robotics
   - workday:kyndryl.wd5/KyndrylEarlyCareers                                                    # Kyndryl
   - workday:kyndryl.wd5/KyndrylProfessionalCareers                                             # Kyndryl
   - workday:lazboy.wd1/lzbcareers                                                              # La-Z-Boy
@@ -1101,6 +1142,7 @@ companies:
   - workday:agilitas.wd503/LMC                                                                 # Le Moyne College
   - workable:leap-legal-software                                                               # LEAP Legal Software
   - greenhouse:legendcareers                                                                   # Legend Biotech
+  - rippling:legitscript-careers                                                               # Legit Script
   - workday:lego.wd103/LEGO_External                                                           # LEGO
   - workday:leidos.wd5/External                                                                # Leidos
   - ashby:leland                                                                               # Leland
@@ -1126,6 +1168,7 @@ companies:
   - lever:economicmodeling                                                                     # Lightcast
   - greenhouse:lilasciences                                                                    # Lila Sciences
   - ashby:lilt-production                                                                      # Lilt
+  - rippling:linea-energy                                                                      # Linea Energy
   - workday:linklogistics.wd5/Link                                                             # Link Logistics
   - workday:ilitch.wd5/lc                                                                      # Little Caesars Enterprises
   - workday:livanova.wd5/search                                                                # LivaNova
@@ -1136,7 +1179,9 @@ companies:
   - greenhouse:locusrobotics                                                                   # Locus Robotics
   - greenhouse:lodestarspace                                                                   # Lodestar
   - workday:logitech.wd5/Logitech                                                              # Logitech
+  - rippling:longevity-holdings                                                                # Longevity Holdings
   - workable:longshot-systems-ltd                                                              # Longshot Systems
+  - rippling:loop-careers                                                                      # Loop
   - workday:bcbsla.wd1/Generation_Blue                                                         # Louisiana Blue
   - workday:lsu.wd1/LSU                                                                        # Louisiana State University (LSU)
   - workday:lsu.wd1/lsuwaiver                                                                  # Louisiana State University (LSU)
@@ -1152,6 +1197,7 @@ companies:
   - workday:lumeris.wd1/LC                                                                     # Lumeris
   - workable:luminance-1                                                                       # Luminance
   - greenhouse:lumosfiber                                                                      # Lumos
+  - bamboohr:lunaroutpost                                                                      # Lunar Outpost
   - workday:mgpru.wd3/mandgprudential                                                          # M&G
   - workday:mtb.wd5/MTB                                                                        # M&T Bank
   - ashby:mach9                                                                                # Mach9
@@ -1176,6 +1222,7 @@ companies:
   - workday:wasatchproperty.wd1/MarketStarCareers                                              # MarketStar
   - workday:marmon.wd501/Marmon_Careers                                                        # Marmon Holdings
   - workday:marmon.wd501/Marmon_MSIP_Internships                                               # Marmon Holdings
+  - bamboohr:marqueebrands                                                                     # Marquee Brands
   - workday:mymvw.wd5/mvw                                                                      # Marriott Vacations Worldwide
   - workday:mars.wd3/external                                                                  # Mars
   - workday:mmc.wd1/mmc                                                                        # Marsh
@@ -1230,7 +1277,10 @@ companies:
   - workday:mgmresorts.wd5/MGMCareers                                                          # MGM Resorts International
   - workday:miamioh.wd5/miamioh-staff                                                          # Miami University
   - workday:michelinhr.wd3/Michelin                                                            # Michelin
+  - workday:microchiphr.wd5/External                                                           # Microchip Technology
+  - rippling:mei-employment                                                                    # Middle East Institute
   - workday:midlandsb.wd1/msbcareers                                                           # Midland States Bank
+  - rippling:mile-marker                                                                       # MILE MARKER
   - greenhouse:mill                                                                            # Mill
   - workday:verawholehealth.wd1/MPG                                                            # Millennium Physician Group
   - workday:millerknoll.wd1/MillerKnoll                                                        # MillerKnoll
@@ -1252,11 +1302,13 @@ companies:
   - greenhouse:momentenergy                                                                    # Moment Energy
   - workday:momentive.wd1/MC                                                                   # Momentive
   - greenhouse:momentumcompany3                                                                # Momentum
+  - workday:mdlz.wd3/External                                                                  # Mondelez International
   - workday:monolithicpower.wd12/MPS_Careers                                                   # Monolithic Power Systems
   - greenhouse:monsterenergy                                                                   # Monster Energy
   - workday:montage.wd1/Montage_International                                                  # Montage International
   - workable:mila-2                                                                            # Montreal Institute for Learning Algorithms
   - workday:moog.wd5/moog_external_career_site                                                 # Moog
+  - rippling:moon                                                                              # Moon
   - workday:morganlewis.wd5/morganlewis                                                        # Morgan Lewis
   - workday:ms.wd5/External                                                                    # Morgan Stanley
   - workday:ms.wd5/private                                                                     # Morgan Stanley
@@ -1274,6 +1326,7 @@ companies:
   - workday:baldwin.wd1/MSI                                                                    # MSI
   - workday:msiexpress.wd5/MSI_Express_External_Careers                                        # MSI Express
   - workday:msigna.wd5/gbl                                                                     # MSIG USA
+  - rippling:msm                                                                               # MSM Inc.
   - workday:mufgub.wd3/mufg-careers                                                            # MUFG
   - lever:mulliganfunding                                                                      # Mulligan Funding
   - workday:multicare.wd1/multicare                                                            # MultiCare Health System
@@ -1281,6 +1334,7 @@ companies:
   - greenhouse:murj                                                                            # Murj
   - workable:murphy-research                                                                   # Murphy Research
   - workable:mustard-systems                                                                   # Mustard Systems
+  - rippling:mytra                                                                             # Mytra
   - lever:npowermedicine                                                                       # N-Power Medicine
   - lever:algorex                                                                              # N1 Health
   - workday:namsa.wd5/NAMSA                                                                    # NAMSA
@@ -1293,11 +1347,13 @@ companies:
   - workday:gaig.wd1/National_Interstate_External                                              # National Interstate Insurance
   - workday:nrel.wd5/NLR                                                                       # National Laboratory of the Rockies
   - greenhouse:nationallifeinsurancecompany                                                    # National Life
+  - rippling:nws                                                                               # National Water Services
   - workday:nationwide.wd1/Nationwide_Career                                                   # Nationwide
   - workday:nationwidechildrens.wd5/NCHCareers                                                 # Nationwide Children's Hospital
   - workday:rbs.wd3/rbs                                                                        # NatWest Group
   - workday:navcanada.wd10/NAV_Careers                                                         # NAV CANADA
   - workable:navionsl                                                                          # Navion Senior Solutions
+  - rippling:naxo                                                                              # NAXO
   - workday:nbtbancorp.wd12/NBT-B                                                              # NBT Bank
   - workday:ncratleos.wd1/ext_intern                                                           # NCR Atleos
   - lever:neighbor                                                                             # Neighbor
@@ -1305,6 +1361,8 @@ companies:
   - workday:nelnet.wd1/MyNelnet                                                                # Nelnet
   - ashby:neocognition                                                                         # NeoCognition
   - workday:neogen.wd5/neogencareers                                                           # Neogen
+  - rippling:nerdio-careers                                                                    # Nerdio
+  - rippling:fluidai-medical-careers                                                           # NERv Technology Inc. D.B.A. FluidAI Medical
   - workday:ntst.wd1/careers                                                                   # Netsmart
   - greenhouse:networkbio                                                                      # Network Bio
   - workday:nb.wd1/NBCareers                                                                   # Neuberger Berman
@@ -1393,6 +1451,7 @@ companies:
   - ashby:openloophealth                                                                       # OpenLoop
   - ashby:openmind                                                                             # OpenMind
   - greenhouse:opentable                                                                       # OpenTable
+  - rippling:opiniion                                                                          # Opiniion
   - greenhouse:optimove                                                                        # Optimove
   - workday:optrust.wd3/OPTrust                                                                # OPTrust
   - ashby:opusclip                                                                             # OpusClip
@@ -1419,6 +1478,7 @@ companies:
   - lever:palantir                                                                             # Palantir
   - greenhouse:palmettocleantech                                                               # Palmetto Clean Technology
   - workday:paloaltonetworks.wd5/panwexternalcareers                                           # Palo Alto Networks
+  - rippling:plmrcareers                                                                       # Palomar Holdings
   - workable:palona                                                                            # Palona AI
   - workday:empower.wd12/PanAgora                                                              # PanAgora
   - ashby:pangramlabs                                                                          # Pangram Labs
@@ -1428,6 +1488,7 @@ companies:
   - workday:parsons.wd5/search                                                                 # Parsons
   - ashby:parspec                                                                              # Parspec
   - greenhouse:pathrobotics                                                                    # Path Robotics
+  - rippling:pathos                                                                            # Pathos
   - greenhouse:pathward                                                                        # Pathward
   - workday:patientfirst.wd5/patientfirst                                                      # Patient First
   - greenhouse:patientpoint                                                                    # PatientPoint
@@ -1464,6 +1525,7 @@ companies:
   - ashby:phonic                                                                               # Phonic
   - ashby:physicalintelligence                                                                 # Physical Intelligence
   - greenhouse:piaggiofastforward                                                              # Piaggio Fast Forward
+  - bamboohr:pictonmahoney                                                                     # Picton Mahoney Asset Management
   - workday:pierrefabre.wd3/External_Career_Site                                               # Pierre Fabre
   - lever:pigment                                                                              # Pigment
   - ashby:pika                                                                                 # Pika
@@ -1496,6 +1558,7 @@ companies:
   - ashby:polymarket                                                                           # Polymarket
   - ashby:polymath                                                                             # Polymath
   - workable:pony-dot-ai                                                                       # pony.ai
+  - rippling:popstroke-job-board-1924                                                          # PopStroke Holdings LLC
   - workable:porsche-retail-group                                                              # Porsche
   - ashby:poshmark                                                                             # Poshmark
   - greenhouse:postscript                                                                      # Postscript
@@ -1540,6 +1603,7 @@ companies:
   - workday:ptc.wd1/ptc                                                                        # PTC
   - workday:publicpartnerships.wd1/ppl                                                         # Public Partnerships (PPL)
   - workday:pureinsurance.wd5/pure                                                             # PURE Insurance
+  - rippling:purefacts_jobs                                                                    # PureFacts Financial Solutions
   - workday:q2ebanking.wd5/Q2                                                                  # Q2
   - workable:q5-partners                                                                       # Q5
   - workable:qodeworld                                                                         # qode.world
@@ -1553,6 +1617,7 @@ companies:
   - greenhouse:quberesearchandtechnologies                                                     # Qube Research & Technologies
   - greenhouse:queracomputinginc                                                               # QuEra Computing
   - lever:questanalytics                                                                       # Quest Analytics
+  - bamboohr:quiktrakcontractor                                                                # Quiktrak
   - ashby:quora                                                                                # Quora
   - workday:r1rcm.wd1/R1RCM                                                                    # R1 RCM
   - greenhouse:racapitalmanagementllc                                                          # RA Capital Management
@@ -1599,6 +1664,7 @@ companies:
   - workday:richemont.wd3/richemont                                                            # Richemont
   - lever:rigetti                                                                              # Rigetti
   - workday:riotinto.wd3/riotinto_careers                                                      # Rio Tinto
+  - rippling:rippling                                                                          # Rippling
   - workday:risepoint.wd503/Risepoint                                                          # Risepoint
   - greenhouse:riversidenaturalfoodsltd                                                        # Riverside Natural Foods
   - ashby:rivianvw.tech                                                                        # Rivian and Volkswagen Group Technologies
@@ -1623,7 +1689,9 @@ companies:
   - workday:rsm.wd1/RSMCareers                                                                 # RSM
   - greenhouse:rtwinvestments                                                                  # RTW Investments
   - workday:globalhr.wd5/Private_Posting_No_TMP                                                # RTX
+  - bamboohr:ruekertmielke                                                                     # Ruekert & Mielke
   - greenhouse:ruggedrobotics                                                                  # Rugged Robotics
+  - rippling:rugsusa                                                                           # RugsUSA
   - lever:rws                                                                                  # RWS
   - workday:rxo.wd501/rxojobs                                                                  # RXO
   - workday:ryan.wd1/RyanCareers                                                               # Ryan
@@ -1720,6 +1788,7 @@ companies:
   - greenhouse:smartlyio                                                                       # Smartly.io
   - workday:smithnephew.wd5/External                                                           # Smith+Nephew
   - workday:smithfieldfoods.wd1/Careers                                                        # Smithfield Foods
+  - workday:snapchat.wd1/snap                                                                  # Snap
   - workday:snapfinance.wd1/snap_external_careers                                              # Snap Finance
   - greenhouse:snorkelai                                                                       # Snorkel AI
   - ashby:snowflake                                                                            # Snowflake
@@ -1751,8 +1820,11 @@ companies:
   - greenhouse:sparksoftcorporation                                                            # Sparksoft
   - lever:spawglass                                                                            # SpawGlass
   - ashby:specter                                                                              # Specter
+  - bamboohr:specteraerospace                                                                  # Specter Aerospace
   - ashby:spectral%20labs                                                                      # Spectral Labs
+  - rippling:sperry-rail-inc                                                                   # Sperry Rail
   - lever:spotify                                                                              # Spotify
+  - rippling:spreeai                                                                           # SpreeAI
   - workday:sprinklr.wd1/careers                                                               # Sprinklr
   - lever:sprymethods                                                                          # Spry Methods
   - greenhouse:srsacquiom                                                                      # SRS Acquiom
@@ -1762,6 +1834,7 @@ companies:
   - workday:sluhn.wd1/SLUHN                                                                    # St. Luke's University Health Network
   - greenhouse:stackav                                                                         # StackAV
   - greenhouse:stackline                                                                       # Stackline
+  - rippling:stag-careers                                                                      # STAG
   - ashby:standinsurance                                                                       # Stand Insurance
   - lever:standtogether                                                                        # Stand Together
   - workday:sbdinc.wd1/Stanley_Black_Decker_Career_Site                                        # Stanley Black & Decker
@@ -1787,6 +1860,7 @@ companies:
   - workday:strsoh.wd1/STRS_Jobs                                                               # STRS Ohio
   - workday:stryker.wd1/StrykerCareers                                                         # Stryker
   - greenhouse:stubhubinc                                                                      # StubHub
+  - rippling:studyfetch                                                                        # StudyFetch
   - workday:stvinc.wd5/stv                                                                     # STV
   - workday:sumitomopharma.wd5/smpa                                                            # Sumitomo Pharma America
   - workday:sunlife.wd3/Campus                                                                 # Sun Life
@@ -1795,6 +1869,7 @@ companies:
   - ashby:sunday                                                                               # Sunday Robotics
   - lever:sunwatercapital                                                                      # Sunwater Capital
   - ashby:super.com                                                                            # Super
+  - rippling:supper                                                                            # Supper
   - ashby:surge-ai                                                                             # Surge AI
   - workday:swbc.wd1/swbccareers                                                               # SWBC
   - workday:swift.wd3/join-swift                                                               # Swift
@@ -1817,6 +1892,7 @@ companies:
   - ashby:tapcart                                                                              # Tapcart
   - workday:trwd.wd1/TRWDCareers                                                               # Tarrant Regional Water District
   - greenhouse:tatari                                                                          # Tatari
+  - rippling:tavernresearch                                                                    # Tavern Research
   - greenhouse:taxreliefadvocates                                                              # Tax Relief Advocates
   - workday:taylor.wd1/external                                                                # Taylor Corporation
   - workday:taylormadegolf.wd5/taylormadegolf                                                  # TaylorMade Golf
@@ -1878,7 +1954,9 @@ companies:
   - ashby:voleon                                                                               # The Voleon Group
   - workday:disney.wd5/disneycareer                                                            # The Walt Disney Company
   - workday:disney.wd5/disneycareerdc                                                          # The Walt Disney Company
+  - workday:upenn.wd1/Wharton                                                                  # The Wharton School
   - lever:thea.energy                                                                          # Thea Energy
+  - rippling:theguarantors-open-positions                                                      # TheGuarantors
   - workable:thingtrax                                                                         # Thingtrax
   - greenhouse:thinkacademyus                                                                  # Think Academy International Education
   - lever:tandh                                                                                # Thomas & Hutton
@@ -1895,6 +1973,7 @@ companies:
   - greenhouse:togetherai                                                                      # Together AI
   - workable:tokamak-energy                                                                    # Tokamak Energy
   - workday:tel.wd3/tel-careers                                                                # Tokyo Electron
+  - rippling:topdoglaw                                                                         # TopDog Law
   - workday:topgolf.wd501/TopgolfCareers                                                       # Topgolf International
   - workday:toppan.wd108/TOPPAN-Packaging                                                      # TOPPAN Packaging Americas
   - greenhouse:torcrobotics                                                                    # Torc Robotics
@@ -1928,6 +2007,7 @@ companies:
   - workday:tsc.wd12/TSC-Careers                                                               # TSC
   - lever:tsmg                                                                                 # TSMG
   - workday:tucsonaz.wd1/Tucson_Talent                                                         # Tucson Talent
+  - rippling:jobs-at-tuesday-health                                                            # Tuesday Health
   - ashby:tunnl                                                                                # Tunnl
   - workday:turo.wd12/Turo_careers                                                             # Turo
   - lever:tutorintelligence                                                                    # Tutor Intelligence
@@ -1940,6 +2020,7 @@ companies:
   - workable:ubds                                                                              # UBDS Group
   - greenhouse:uberfreight                                                                     # Uber Freight
   - workday:uhaul.wd1/UhaulJobs                                                                # Uhaul
+  - rippling:uhin-careers                                                                      # UHIN
   - workday:uhyus.wd12/uhy                                                                     # UHY
   - ashby:uipath                                                                               # UiPath
   - greenhouse:ujet                                                                            # UJET
@@ -1953,6 +2034,7 @@ companies:
   - workday:unilever.wd3/Unilever_Experienced_Professionals                                    # Unilever
   - lever:unisoninfra                                                                          # Unison Infrastructure
   - workday:hcmportal.wd5/Search                                                               # United Parcel Service (UPS)
+  - bamboohr:unitedsmarttech                                                                   # United Smart Tech
   - ashby:united-talent-agency                                                                 # United Talent Agency
   - ashby:unitxlabs                                                                            # UnitX
   - workday:unitytech.wd1/Unity                                                                # Unity
@@ -1970,6 +2052,7 @@ companies:
   - workday:nshe.wd1/UNR-external                                                              # University of Nevada, Reno
   - workday:uottawa.wd3/uOttawa_External_Career_Site                                           # University of Ottawa
   - workday:upenn.wd1/careers-at-penn                                                          # University of Pennsylvania
+  - bamboohr:upike                                                                             # University of Pikeville
   - workday:rochester.wd5/UR_Staff                                                             # University of Rochester
   - workday:usc.wd5/ExternalUSCCareers                                                         # University of Southern California
   - workday:utaustin.wd1/UTstaff                                                               # University of Texas at Austin
@@ -2010,6 +2093,7 @@ companies:
   - ashby:verne%20robotics                                                                     # Verne Robotics
   - workday:vrtx.wd501/vertex_careers                                                          # Vertex Pharmaceuticals
   - workday:vrtx.wd501/vertex_intern                                                           # Vertex Pharmaceuticals
+  - rippling:veryable-careers                                                                  # Veryable
   - workday:veteransunited.wd1/VUHL                                                            # Veterans United
   - lever:vevo                                                                                 # Vevo
   - workday:vfc.wd5/vfc_careers                                                                # VF
@@ -2030,6 +2114,7 @@ companies:
   - workday:volarisgroup.wd3/volaris                                                           # Volaris Group
   - workable:volga-partners                                                                    # Volga Partners
   - lever:voltus                                                                               # Voltus
+  - rippling:vortex-companies-llc                                                              # Vortex Companies, LLC
   - greenhouse:voyagertechnologiesinc                                                          # Voyager Technologies
   - workday:vsp.wd1/vspvisioncareers                                                           # VSP Vision
   - ashby:vytalize%20health                                                                    # Vytalize Health
@@ -2054,11 +2139,13 @@ companies:
   - workable:weekday-1                                                                         # Weekday AI
   - workday:wellington.wd5/Campus                                                              # Wellington Management
   - workday:wellington.wd5/external                                                            # Wellington Management
+  - workday:wf.wd1/WellsFargoJobs                                                              # Wells Fargo
   - workday:wellsky.wd1/WellSkyCareers                                                         # WellSky
   - lever:weloglobal                                                                           # Welo Global
   - workday:welocalize.wd1/welocalize                                                          # Welocalize
   - lever:wepclinical                                                                          # WEP Clinical
   - lever:weride                                                                               # WeRide
+  - workday:westernalliancebank.wd5/WAB                                                        # Western Alliance
   - workday:westernunion.wd5/WesternUnionJobs                                                  # Western Union
   - workday:westlake.wd1/westlake                                                              # Westlake
   - workday:wexinc.wd5/WEXInc                                                                  # Wex

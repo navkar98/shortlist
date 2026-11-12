@@ -1,0 +1,247 @@
+{
+ "meta": {
+  "totalCount": 12
+ },
+ "result": [
+  {
+   "id": "196",
+   "jobOpeningName": "Customer Support Rep",
+   "departmentId": "18439",
+   "departmentLabel": "Support",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "United States",
+    "state": "Arizona",
+    "province": null,
+    "city": "Phoenix"
+   },
+   "isRemote": null,
+   "locationType": "1"
+  },
+  {
+   "id": "260",
+   "jobOpeningName": "Head of IT & Security ",
+   "departmentId": "19016",
+   "departmentLabel": "IT",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "United States",
+    "state": "Arizona",
+    "province": null,
+    "city": "Phoenix"
+   },
+   "isRemote": null,
+   "locationType": "1"
+  },
+  {
+   "id": "261",
+   "jobOpeningName": "Integration and Automation Engineer ",
+   "departmentId": "19016",
+   "departmentLabel": "IT",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "United States",
+    "state": "Arizona",
+    "province": null,
+    "city": "Phoenix"
+   },
+   "isRemote": null,
+   "locationType": "1"
+  },
+  {
+   "id": "263",
+   "jobOpeningName": "Lead Data Engineer",
+   "departmentId": "19016",
+   "departmentLabel": "IT",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "United States",
+    "state": "Arizona",
+    "province": null,
+    "city": "Phoenix"
+   },
+   "isRemote": null,
+   "locationType": "1"
+  },
+  {
+   "id": "270",
+   "jobOpeningName": "GTM Enablement Program Manager",
+   "departmentId": "18838",
+   "departmentLabel": "RevOps",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "273",
+   "jobOpeningName": "SMB Account Executive I",
+   "departmentId": "18454",
+   "departmentLabel": "Sales",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "274",
+   "jobOpeningName": "Mid Market Account Executive I",
+   "departmentId": "18454",
+   "departmentLabel": "Sales",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "275",
+   "jobOpeningName": "Mid Market Sales Manager",
+   "departmentId": "18454",
+   "departmentLabel": "Sales",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "276",
+   "jobOpeningName": "Inbound Business Development Representative",
+   "departmentId": "18454",
+   "departmentLabel": "Sales",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "277",
+   "jobOpeningName": "SMB Outbound Business Development Representative",
+   "departmentId": "18454",
+   "departmentLabel": "Sales",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "278",
+   "jobOpeningName": "Mid-Market Business Development Representative",
+   "departmentId": "18454",
+   "departmentLabel": "Sales",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  },
+  {
+   "id": "279",
+   "jobOpeningName": "Fullbay Opportunities for Heavy-Duty Repair Professionals",
+   "departmentId": null,
+   "departmentLabel": null,
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Phoenix",
+    "state": "Arizona"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  }
+ ]
+}

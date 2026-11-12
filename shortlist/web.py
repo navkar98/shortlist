@@ -84,6 +84,15 @@ def _terms(text: str) -> list[str]:
     return [t.strip() for t in re.split(r"[,\n]", text) if t.strip()]
 
 
+def tail_file(path: Path, size: int = 64_000, lines: int = 150) -> str:
+    """The end of a log file, which can grow large; "" when there is none."""
+    if not path.exists():
+        return ""
+    with open(path, "rb") as f:
+        f.seek(max(0, path.stat().st_size - size))
+        return "\n".join(f.read().decode("utf-8", "replace").splitlines()[-lines:])
+
+
 # --- template helpers ----------------------------------------------------------------------------------------------
 
 def ago(iso: str | None) -> str:
@@ -344,14 +353,17 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         """A run this app didn't start is in progress: the scheduled task's, or one from a terminal."""
         return not activity.running and db.run_in_progress(cfg().db_path)
 
-    def scheduled_log(size: int = 64_000, lines: int = 150) -> str:
-        """The end of the scheduled task's log, which can grow large."""
-        path = config_path.parent / "shortlist.log"
-        if not path.exists():
-            return ""
-        with open(path, "rb") as f:
-            f.seek(max(0, path.stat().st_size - size))
-            return "\n".join(f.read().decode("utf-8", "replace").splitlines()[-lines:])
+    def elsewhere() -> dict:
+        """The run this app didn't start, as it described itself when it took the run lock: what it is and the end of
+        its log. A run started by an earlier session of this app logs to its own file in logs/; the scheduled task's
+        logs to shortlist.log; one from a terminal without --log-file prints there, so it has no log to show."""
+        about = db.run_holder(cfg().db_path)
+        path = Path(about["log"]) if about.get("log") else None
+        if not about:  # an older version holds the lock, or it couldn't say: the scheduled task's log is the best guess
+            path = config_path.parent / "shortlist.log"
+        return {"label": about.get("command") or "run", "started_at": about.get("started_at"), "pid": about.get("pid"),
+                "log": tail_file(path) if path else "", "has_log": bool(path and path.exists()),
+                "terminal": bool(about) and not about.get("log")}
 
     def start_task(label: str, args: list[str]) -> None:
         if run_elsewhere():
@@ -370,7 +382,7 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
                                                           "group_labels": GROUP_LABELS, "fields": FIELDS,
                                                           "stage_groups": STAGES,
                                                           "stage_labels": STAGE_LABELS, "run_elsewhere": run_elsewhere(),
-                                                          "scheduled_log": scheduled_log, **context})
+                                                          "elsewhere": elsewhere, **context})
 
     @app.get("/")
     def home(request: Request):

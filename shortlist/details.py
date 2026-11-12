@@ -15,7 +15,8 @@ from urllib.parse import parse_qs, urlparse
 import httpx
 from bs4 import BeautifulSoup, Comment
 
-from .fetchers import MAX_DESCRIPTION_CHARS, Job, clean_text, describe_error, html_to_text, parse_greenhouse, parse_lever
+from .fetchers import (MAX_DESCRIPTION_CHARS, Job, clean_text, describe_error, html_to_text, parse_bamboohr_detail,
+                       parse_greenhouse, parse_lever, parse_rippling_detail)
 from .polite import USER_AGENT, Blocked, Polite
 from .render import Renderer, RenderUnavailable
 
@@ -27,13 +28,19 @@ SLUG_FIRST_HOSTS = {"jobs.lever.co": "lever", "jobs.ashbyhq.com": "ashby"}  # ht
 
 
 def canonical_identity(url: str) -> tuple[str, str, str] | None:
-    """(ats, slug, job_id) when the link is a Greenhouse, Lever, or Ashby posting, so it matches our own fetches."""
+    """(ats, slug, job_id) when the link is a Greenhouse, Lever, Ashby, Rippling, or BambooHR posting, so it matches
+    our own fetches."""
     parsed = urlparse(url)
     host, parts = parsed.netloc.lower(), [p for p in parsed.path.split("/") if p]
     if host in GREENHOUSE_HOSTS and len(parts) >= 3 and parts[1] == "jobs":
         return "greenhouse", parts[0], parts[2]
     if host in SLUG_FIRST_HOSTS and len(parts) >= 2:
         return SLUG_FIRST_HOSTS[host], parts[0], parts[1]
+    if host == "ats.rippling.com" and len(parts) >= 3 and parts[-2] == "jobs":  # /[<locale>/]<slug>/jobs/<uuid>
+        return "rippling", parts[-3], parts[-1]
+    if (m := re.fullmatch(r"([a-z0-9-]+)\.bamboohr\.com", host)) and len(parts) >= 2 and parts[0] == "careers" \
+            and parts[1].isdigit():
+        return "bamboohr", m.group(1), parts[1]
     return None
 
 
@@ -242,6 +249,14 @@ def _detail(job: Job, polite: Polite) -> tuple[str, str, str]:
         if ident and ident[0] == "lever":
             data = polite.get(f"https://api.lever.co/v0/postings/{ident[1]}/{ident[2]}", params={"mode": "json"}).json()
             return parse_lever([data], ident[1])[0].description, "board API", ""
+        if ident and ident[0] == "rippling":
+            data = polite.get(f"https://api.rippling.com/platform/api/ats/v1/board/{ident[1]}/jobs/{ident[2]}").json()
+            text, places = parse_rippling_detail(data)
+            return text, "board API", places
+        if ident and ident[0] == "bamboohr":
+            data = polite.get(f"https://{ident[1]}.bamboohr.com/careers/{ident[2]}/detail").json()
+            text, place = parse_bamboohr_detail(data)
+            return text, "board API", place
         response = polite.get(job.detail_url)
         if response.status_code != 200 or not response.text.strip():  # a bot challenge: never rendered around
             return "", f"HTTP {response.status_code} without a page", ""

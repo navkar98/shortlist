@@ -1,0 +1,1445 @@
+[
+ {
+  "uuid": "ef0b7266-678c-4a23-a439-1a5e7362b604",
+  "name": " Account Executive, Broker Channel (Arkansas) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ef0b7266-678c-4a23-a439-1a5e7362b604",
+  "workLocation": {
+   "label": "AR",
+   "id": "AR"
+  }
+ },
+ {
+  "uuid": "2f770fc2-e1f2-4538-beba-ca9cb69352a6",
+  "name": "Account Executive, Broker Channel (Boston)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/2f770fc2-e1f2-4538-beba-ca9cb69352a6",
+  "workLocation": {
+   "label": "Boston, MA",
+   "id": "Boston, MA"
+  }
+ },
+ {
+  "uuid": "528f45e5-4c17-4fb7-affe-41e0c12c7c15",
+  "name": " Account Executive, Broker Channel (Dallas) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/528f45e5-4c17-4fb7-affe-41e0c12c7c15",
+  "workLocation": {
+   "label": "Remote (Dallas, Texas, US)",
+   "id": "Remote (Dallas, Texas, US)"
+  }
+ },
+ {
+  "uuid": "3d6f17b5-e4de-4d25-8043-02a225497a1a",
+  "name": "Account Executive, Broker Channel (Louisiana) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/3d6f17b5-e4de-4d25-8043-02a225497a1a",
+  "workLocation": {
+   "label": "LA",
+   "id": "LA"
+  }
+ },
+ {
+  "uuid": "2fe7e773-c2fe-4eb0-8d25-dd7d5be6a0b1",
+  "name": "Account Executive, Broker Channel (Louisville) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/2fe7e773-c2fe-4eb0-8d25-dd7d5be6a0b1",
+  "workLocation": {
+   "label": "Louisville, KY",
+   "id": "Louisville, KY"
+  }
+ },
+ {
+  "uuid": "bd9d3cc8-c0c3-470d-ba2b-6d6982c27c43",
+  "name": "Account Executive, Broker Channel (Oklahoma) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/bd9d3cc8-c0c3-470d-ba2b-6d6982c27c43",
+  "workLocation": {
+   "label": "OK",
+   "id": "OK"
+  }
+ },
+ {
+  "uuid": "f6253878-a8c0-43f8-adac-00b4a4885258",
+  "name": "Account Executive, Broker Channel (Orlando / Jacksonville) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/f6253878-a8c0-43f8-adac-00b4a4885258",
+  "workLocation": {
+   "label": "Orlando, FL",
+   "id": "Orlando, FL"
+  }
+ },
+ {
+  "uuid": "f6253878-a8c0-43f8-adac-00b4a4885258",
+  "name": "Account Executive, Broker Channel (Orlando / Jacksonville) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/f6253878-a8c0-43f8-adac-00b4a4885258",
+  "workLocation": {
+   "label": "Jacksonville, FL",
+   "id": "Jacksonville, FL"
+  }
+ },
+ {
+  "uuid": "94486f41-6474-446a-b67a-c164e11354ea",
+  "name": "Account Executive, Broker Channel (Pittsburgh or Cleveland)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/94486f41-6474-446a-b67a-c164e11354ea",
+  "workLocation": {
+   "label": "Pittsburgh, PA",
+   "id": "Pittsburgh, PA"
+  }
+ },
+ {
+  "uuid": "94486f41-6474-446a-b67a-c164e11354ea",
+  "name": "Account Executive, Broker Channel (Pittsburgh or Cleveland)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/94486f41-6474-446a-b67a-c164e11354ea",
+  "workLocation": {
+   "label": "Cleveland, OH",
+   "id": "Cleveland, OH"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Los Gatos, CA",
+   "id": "Los Gatos, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Santa Clara, CA",
+   "id": "Santa Clara, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Sunnyvale, CA",
+   "id": "Sunnyvale, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "San Jose, CA",
+   "id": "San Jose, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Mountain View, CA",
+   "id": "Mountain View, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Palo Alto, CA",
+   "id": "Palo Alto, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Saratoga, CA",
+   "id": "Saratoga, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Redwood City, CA",
+   "id": "Redwood City, CA"
+  }
+ },
+ {
+  "uuid": "1584be38-83a9-41a8-94e8-f733332ace4e",
+  "name": "Account Executive, Broker Channel (San Jose / South Bay)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1584be38-83a9-41a8-94e8-f733332ace4e",
+  "workLocation": {
+   "label": "Milpitas, CA",
+   "id": "Milpitas, CA"
+  }
+ },
+ {
+  "uuid": "4ee57366-6a32-46ca-9887-ee49a9b88c9a",
+  "name": "Account Executive, Broker Channel (St. Louis)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/4ee57366-6a32-46ca-9887-ee49a9b88c9a",
+  "workLocation": {
+   "label": "St. Louis, MO",
+   "id": "St. Louis, MO"
+  }
+ },
+ {
+  "uuid": "ae3e59dd-9db5-4ef5-9498-dbf2cf54c070",
+  "name": "Account Executive, Broker Channel (Upstate New York)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ae3e59dd-9db5-4ef5-9498-dbf2cf54c070",
+  "workLocation": {
+   "label": "Syracuse, NY",
+   "id": "Syracuse, NY"
+  }
+ },
+ {
+  "uuid": "ae3e59dd-9db5-4ef5-9498-dbf2cf54c070",
+  "name": "Account Executive, Broker Channel (Upstate New York)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ae3e59dd-9db5-4ef5-9498-dbf2cf54c070",
+  "workLocation": {
+   "label": "Rochester, NY",
+   "id": "Rochester, NY"
+  }
+ },
+ {
+  "uuid": "ae3e59dd-9db5-4ef5-9498-dbf2cf54c070",
+  "name": "Account Executive, Broker Channel (Upstate New York)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ae3e59dd-9db5-4ef5-9498-dbf2cf54c070",
+  "workLocation": {
+   "label": "Buffalo, NY",
+   "id": "Buffalo, NY"
+  }
+ },
+ {
+  "uuid": "b81ad8f4-e2f6-449e-88ee-60bff5f07b84",
+  "name": "Account Executive - Germany",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b81ad8f4-e2f6-449e-88ee-60bff5f07b84",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "b81ad8f4-e2f6-449e-88ee-60bff5f07b84",
+  "name": "Account Executive - Germany",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b81ad8f4-e2f6-449e-88ee-60bff5f07b84",
+  "workLocation": {
+   "label": "Berlin",
+   "id": "Berlin"
+  }
+ },
+ {
+  "uuid": "2e011e13-e230-4c16-aa5f-fd40809548de",
+  "name": "Account Executive, Global ASEAN",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/2e011e13-e230-4c16-aa5f-fd40809548de",
+  "workLocation": {
+   "label": "Singapore, Singapore",
+   "id": "Singapore, Singapore"
+  }
+ },
+ {
+  "uuid": "55e90ad6-f5cf-4be2-83d6-d65e26ae3636",
+  "name": "Account Executive, Global - Benelux",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/55e90ad6-f5cf-4be2-83d6-d65e26ae3636",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "ca31b1fb-4c3a-4b06-ac01-3cc320dc456f",
+  "name": "Account Executive, Global - MENA",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ca31b1fb-4c3a-4b06-ac01-3cc320dc456f",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "70657987-b405-4f86-9a55-276c524d461d",
+  "name": "Account Executive, Global Payroll",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/70657987-b405-4f86-9a55-276c524d461d",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "293f0059-d10e-49de-85ea-49b5cbaeb28d",
+  "name": "Account Executive - Global Payroll - Central and Eastern Europe",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/293f0059-d10e-49de-85ea-49b5cbaeb28d",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "2f69a3b3-54ed-4f9b-8274-0e4ea49adc8f",
+  "name": "Account Executive, LATAM",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/2f69a3b3-54ed-4f9b-8274-0e4ea49adc8f",
+  "workLocation": {
+   "label": "Mexico City",
+   "id": "Mexico City"
+  }
+ },
+ {
+  "uuid": "a2936063-107c-40ea-a7ba-43284abbef1f",
+  "name": "Account Executive, Mid-Market (Central)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/a2936063-107c-40ea-a7ba-43284abbef1f",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "90f927e0-1f50-496b-a76e-b11dca824af5",
+  "name": "Account Executive, Mid-Market (East)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/90f927e0-1f50-496b-a76e-b11dca824af5",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "1d8aeb2f-05ff-47c5-b82a-6556f08f727a",
+  "name": "Account Executive - Mid Market (UK/Ireland)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/1d8aeb2f-05ff-47c5-b82a-6556f08f727a",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "81dae1f5-88eb-4816-9844-f2826824599f",
+  "name": "Account Executive, Mid-Market (Verticals)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/81dae1f5-88eb-4816-9844-f2826824599f",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "81dae1f5-88eb-4816-9844-f2826824599f",
+  "name": "Account Executive, Mid-Market (Verticals)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/81dae1f5-88eb-4816-9844-f2826824599f",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "81dae1f5-88eb-4816-9844-f2826824599f",
+  "name": "Account Executive, Mid-Market (Verticals)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/81dae1f5-88eb-4816-9844-f2826824599f",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "19be9cf3-a2ed-4ae4-a259-7c10800a9a81",
+  "name": "Account Executive, Mid-Market (West)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/19be9cf3-a2ed-4ae4-a259-7c10800a9a81",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "2c230ed5-b44a-4dad-97da-5e167a2c3579",
+  "name": "Account Executive, Mid-Market (West)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/2c230ed5-b44a-4dad-97da-5e167a2c3579",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "a1d75550-0c0d-43dd-acd1-1358f2d3b7b2",
+  "name": "Account Executive - New Logo Sales, NAMER (ESB)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/a1d75550-0c0d-43dd-acd1-1358f2d3b7b2",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "0560517a-7512-4b3c-9f76-d699cd76a93c",
+  "name": "Account Executive - New Logo Sales, SSB (NAMER)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0560517a-7512-4b3c-9f76-d699cd76a93c",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "8701b2e3-947e-421c-b05a-f11215c662a9",
+  "name": "Account Executive, NLS ESB, Global Products - NAMER",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/8701b2e3-947e-421c-b05a-f11215c662a9",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "name": "Account Executive, Private Equity",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "name": "Account Executive, Private Equity",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "name": "Account Executive, Private Equity",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "name": "Account Executive, Private Equity",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/46b4af52-824b-4803-be84-e8ed57bd33a1",
+  "workLocation": {
+   "label": "Remote (United States)",
+   "id": "Remote (United States)"
+  }
+ },
+ {
+  "uuid": "961b1cc2-0a3b-4aed-8e63-ed34d7b796c5",
+  "name": "Account Executive - SMB - Central",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/961b1cc2-0a3b-4aed-8e63-ed34d7b796c5",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "name": "Accounting Manager",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "workLocation": {
+   "label": "Remote (United States)",
+   "id": "Remote (United States)"
+  }
+ },
+ {
+  "uuid": "19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "name": "Accounting Manager",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "workLocation": {
+   "label": "Austin, TX",
+   "id": "Austin, TX"
+  }
+ },
+ {
+  "uuid": "19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "name": "Accounting Manager",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "name": "Accounting Manager",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "name": "Accounting Manager",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/19ae5b34-e7b7-4164-99d4-fc8f84bb37fe",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "e759f0c1-7e02-48f9-af5a-8db79cd45636",
+  "name": "Account Manager",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/e759f0c1-7e02-48f9-af5a-8db79cd45636",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "056001f2-50e3-490d-8578-ff7a61078c79",
+  "name": "Account Manager- Enterprise, Growth & Retention (Partner Referred Business)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/056001f2-50e3-490d-8578-ff7a61078c79",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "056001f2-50e3-490d-8578-ff7a61078c79",
+  "name": "Account Manager- Enterprise, Growth & Retention (Partner Referred Business)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/056001f2-50e3-490d-8578-ff7a61078c79",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "056001f2-50e3-490d-8578-ff7a61078c79",
+  "name": "Account Manager- Enterprise, Growth & Retention (Partner Referred Business)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/056001f2-50e3-490d-8578-ff7a61078c79",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "056001f2-50e3-490d-8578-ff7a61078c79",
+  "name": "Account Manager- Enterprise, Growth & Retention (Partner Referred Business)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/056001f2-50e3-490d-8578-ff7a61078c79",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "94183be4-f86e-4a6e-946a-73774c761d37",
+  "name": "Account Manager - Ent, Growth & Retention (HR Services Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/94183be4-f86e-4a6e-946a-73774c761d37",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "94183be4-f86e-4a6e-946a-73774c761d37",
+  "name": "Account Manager - Ent, Growth & Retention (HR Services Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/94183be4-f86e-4a6e-946a-73774c761d37",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "94183be4-f86e-4a6e-946a-73774c761d37",
+  "name": "Account Manager - Ent, Growth & Retention (HR Services Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/94183be4-f86e-4a6e-946a-73774c761d37",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "94183be4-f86e-4a6e-946a-73774c761d37",
+  "name": "Account Manager - Ent, Growth & Retention (HR Services Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/94183be4-f86e-4a6e-946a-73774c761d37",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "8f451e22-e290-47f0-bb0b-7dd68e40f51c",
+  "name": "Account Manager, Mid-Market (Canada) ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/8f451e22-e290-47f0-bb0b-7dd68e40f51c",
+  "workLocation": {
+   "label": "Toronto, Canada",
+   "id": "Toronto, Canada"
+  }
+ },
+ {
+  "uuid": "44c7b9f1-e7f6-403a-852f-6ef108b6d123",
+  "name": "Account Manager, Mid-Market - French ",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/44c7b9f1-e7f6-403a-852f-6ef108b6d123",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "d144f20b-af18-48c3-8818-21887f1887d6",
+  "name": "Account Manager- Mid-Market, Growth & Retention (Core)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/d144f20b-af18-48c3-8818-21887f1887d6",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "d144f20b-af18-48c3-8818-21887f1887d6",
+  "name": "Account Manager- Mid-Market, Growth & Retention (Core)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/d144f20b-af18-48c3-8818-21887f1887d6",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "d144f20b-af18-48c3-8818-21887f1887d6",
+  "name": "Account Manager- Mid-Market, Growth & Retention (Core)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/d144f20b-af18-48c3-8818-21887f1887d6",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "d144f20b-af18-48c3-8818-21887f1887d6",
+  "name": "Account Manager- Mid-Market, Growth & Retention (Core)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/d144f20b-af18-48c3-8818-21887f1887d6",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "625eb748-317f-48e5-bcd5-05a776161322",
+  "name": "Account Manager,  Mid-Market Standalone (Growth)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/625eb748-317f-48e5-bcd5-05a776161322",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "625eb748-317f-48e5-bcd5-05a776161322",
+  "name": "Account Manager,  Mid-Market Standalone (Growth)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/625eb748-317f-48e5-bcd5-05a776161322",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "625eb748-317f-48e5-bcd5-05a776161322",
+  "name": "Account Manager,  Mid-Market Standalone (Growth)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/625eb748-317f-48e5-bcd5-05a776161322",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "625eb748-317f-48e5-bcd5-05a776161322",
+  "name": "Account Manager,  Mid-Market Standalone (Growth)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/625eb748-317f-48e5-bcd5-05a776161322",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "name": "Account Manager, Rippling Spend",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "name": "Account Manager, Rippling Spend",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "name": "Account Manager, Rippling Spend",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "name": "Account Manager, Rippling Spend",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b0a33f3d-02b0-49dc-9dc9-ef3c776d746f",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "87fc66f5-c5af-42ce-9bd0-0f17faf77b7a",
+  "name": "Account Manager, SMB APAC",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/87fc66f5-c5af-42ce-9bd0-0f17faf77b7a",
+  "workLocation": {
+   "label": "Sydney, Australia",
+   "id": "Sydney, Australia"
+  }
+ },
+ {
+  "uuid": "8821ce19-8918-4780-b94a-12053fd55829",
+  "name": "Account Manager- SMB, Growth & Retention (Canada)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/8821ce19-8918-4780-b94a-12053fd55829",
+  "workLocation": {
+   "label": "Toronto, Canada",
+   "id": "Toronto, Canada"
+  }
+ },
+ {
+  "uuid": "fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "name": "Account Manager- SMB, Growth & Retention (Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "name": "Account Manager- SMB, Growth & Retention (Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "name": "Account Manager- SMB, Growth & Retention (Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "name": "Account Manager- SMB, Growth & Retention (Channel)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/fdad0c89-46f3-4fe2-8744-5b754d4b8f37",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "0fbc5ada-67f2-422b-b00f-01fe98990d4d",
+  "name": "Account Manager- SMB, Growth & Retention (Core)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0fbc5ada-67f2-422b-b00f-01fe98990d4d",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "0fbc5ada-67f2-422b-b00f-01fe98990d4d",
+  "name": "Account Manager- SMB, Growth & Retention (Core)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0fbc5ada-67f2-422b-b00f-01fe98990d4d",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "name": "Account Manager -SMB, Growth & Retention (HR Services)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "name": "Account Manager -SMB, Growth & Retention (HR Services)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "name": "Account Manager -SMB, Growth & Retention (HR Services)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "name": "Account Manager -SMB, Growth & Retention (HR Services)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/0fce4ea3-7f0b-48f7-a9a6-711129292e4a",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "name": "Account Manager- Strategic Accounts (Growth & Retention)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "name": "Account Manager- Strategic Accounts (Growth & Retention)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "workLocation": {
+   "label": "Chicago, IL",
+   "id": "Chicago, IL"
+  }
+ },
+ {
+  "uuid": "22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "name": "Account Manager- Strategic Accounts (Growth & Retention)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "workLocation": {
+   "label": "Seattle, WA",
+   "id": "Seattle, WA"
+  }
+ },
+ {
+  "uuid": "22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "name": "Account Manager- Strategic Accounts (Growth & Retention)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/22fb5c03-5a69-413b-8c9c-86d51d9bcc82",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "bc0bf386-e53a-446f-b78a-ab10a79655dc",
+  "name": "AI Deployment Lead ",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/bc0bf386-e53a-446f-b78a-ab10a79655dc",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "bc0bf386-e53a-446f-b78a-ab10a79655dc",
+  "name": "AI Deployment Lead ",
+  "department": {
+   "id": "Finance",
+   "label": "Finance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/bc0bf386-e53a-446f-b78a-ab10a79655dc",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "5e271e46-72f8-466d-84b3-fd2e8c4837f4",
+  "name": "AML Compliance Specialist",
+  "department": {
+   "id": "Legal & Compliance",
+   "label": "Legal & Compliance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/5e271e46-72f8-466d-84b3-fd2e8c4837f4",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "ac2c9603-0634-4b6d-a5c4-5bf362258b91",
+  "name": "Associate General Counsel, Corporate",
+  "department": {
+   "id": "Legal & Compliance",
+   "label": "Legal & Compliance"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ac2c9603-0634-4b6d-a5c4-5bf362258b91",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "d30dec92-696f-4c62-96eb-ef080848a720",
+  "name": "Audience Marketing Manager Lead, Verticals (Hybrid)",
+  "department": {
+   "id": "Marketing",
+   "label": "Marketing"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/d30dec92-696f-4c62-96eb-ef080848a720",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "d30dec92-696f-4c62-96eb-ef080848a720",
+  "name": "Audience Marketing Manager Lead, Verticals (Hybrid)",
+  "department": {
+   "id": "Marketing",
+   "label": "Marketing"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/d30dec92-696f-4c62-96eb-ef080848a720",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "f4495a99-3406-447b-89b2-05b3363d4934",
+  "name": "Benefits Operations Analyst, EDI",
+  "department": {
+   "id": "Operations",
+   "label": "Operations"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/f4495a99-3406-447b-89b2-05b3363d4934",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "76d7ddd8-3a9e-4db4-ba97-4002ef7cf7ea",
+  "name": "Benefits Operations Associate, EDI",
+  "department": {
+   "id": "Operations",
+   "label": "Operations"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/76d7ddd8-3a9e-4db4-ba97-4002ef7cf7ea",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "b189c339-e006-4224-a7c7-7e7512efe731",
+  "name": "Benefits Operations Supervisor",
+  "department": {
+   "id": "Operations",
+   "label": "Operations"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/b189c339-e006-4224-a7c7-7e7512efe731",
+  "workLocation": {
+   "label": "Bangalore, India",
+   "id": "Bangalore, India"
+  }
+ },
+ {
+  "uuid": "c86a2631-f926-418b-b4e1-0f48cd0c5b6b",
+  "name": "Benefits Support Analyst, Missed Enrollments (US)",
+  "department": {
+   "id": "Operations",
+   "label": "Operations"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/c86a2631-f926-418b-b4e1-0f48cd0c5b6b",
+  "workLocation": {
+   "label": "Remote (United States)",
+   "id": "Remote (United States)"
+  }
+ },
+ {
+  "uuid": "3c766805-b80e-4820-9484-7d700075c968",
+  "name": "Benefits Support Analyst, Missed Enrollments (US)",
+  "department": {
+   "id": "Operations",
+   "label": "Operations"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/3c766805-b80e-4820-9484-7d700075c968",
+  "workLocation": {
+   "label": "Phoenix, AZ",
+   "id": "Phoenix, AZ"
+  }
+ },
+ {
+  "uuid": "40e0065b-8612-40f6-8ae4-3c54ff9dfd2a",
+  "name": "Business Development Representative, Outbound (German speaking)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/40e0065b-8612-40f6-8ae4-3c54ff9dfd2a",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "627ea8d3-507e-4e32-b284-ec5a1fa6b16d",
+  "name": "Business Development Representative, Outbound (German speaking)",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/627ea8d3-507e-4e32-b284-ec5a1fa6b16d",
+  "workLocation": {
+   "label": "Berlin",
+   "id": "Berlin"
+  }
+ },
+ {
+  "uuid": "84d388b6-7656-434c-8862-0312eb6b97ac",
+  "name": "Business Operations Manager",
+  "department": {
+   "id": "Bizops",
+   "label": "Bizops"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/84d388b6-7656-434c-8862-0312eb6b97ac",
+  "workLocation": {
+   "label": "New York, NY",
+   "id": "New York, NY"
+  }
+ },
+ {
+  "uuid": "84d388b6-7656-434c-8862-0312eb6b97ac",
+  "name": "Business Operations Manager",
+  "department": {
+   "id": "Bizops",
+   "label": "Bizops"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/84d388b6-7656-434c-8862-0312eb6b97ac",
+  "workLocation": {
+   "label": "San Francisco, CA",
+   "id": "San Francisco, CA"
+  }
+ },
+ {
+  "uuid": "00dbe4a0-da1e-4696-8c15-d4724a402c42",
+  "name": "Business Systems Developer",
+  "department": {
+   "id": "Revenue Operations",
+   "label": "Revenue Operations"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/00dbe4a0-da1e-4696-8c15-d4724a402c42",
+  "workLocation": {
+   "label": "Remote (United States)",
+   "id": "Remote (United States)"
+  }
+ },
+ {
+  "uuid": "3fbf53a0-5d9e-48e8-86dc-91e92d30afcd",
+  "name": "Channel Account Executive - Accountants",
+  "department": {
+   "id": "Sales",
+   "label": "Sales"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/3fbf53a0-5d9e-48e8-86dc-91e92d30afcd",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "68e56f57-2ba2-4b54-87b1-94d713a3be4c",
+  "name": "Content and Community Manager - EMEA (Contractor)",
+  "department": {
+   "id": "Marketing",
+   "label": "Marketing"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/68e56f57-2ba2-4b54-87b1-94d713a3be4c",
+  "workLocation": {
+   "label": "Dublin, Ireland",
+   "id": "Dublin, Ireland"
+  }
+ },
+ {
+  "uuid": "ada61e13-84d7-416f-9390-8745dd53dea8",
+  "name": "Content Marketing Manager",
+  "department": {
+   "id": "Marketing",
+   "label": "Marketing"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ada61e13-84d7-416f-9390-8745dd53dea8",
+  "workLocation": {
+   "label": "Hybrid (New York, New York, US)",
+   "id": "Hybrid (New York, New York, US)"
+  }
+ },
+ {
+  "uuid": "ada61e13-84d7-416f-9390-8745dd53dea8",
+  "name": "Content Marketing Manager",
+  "department": {
+   "id": "Marketing",
+   "label": "Marketing"
+  },
+  "url": "https://ats.rippling.com/rippling/jobs/ada61e13-84d7-416f-9390-8745dd53dea8",
+  "workLocation": {
+   "label": "Hybrid (San Francisco, California, US)",
+   "id": "Hybrid (San Francisco, California, US)"
+  }
+ }
+]

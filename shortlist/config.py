@@ -107,6 +107,9 @@ def _check_companies(companies: list[str]) -> list[str]:
     bad = [c for c in companies if c.startswith("workday:") and not re.fullmatch(r"[\w-]+\.wd\d+/[\w-]+", c[8:])]
     if bad:
         raise ValueError(f"Workday entries look like 'workday:<tenant>.wd<N>/<site>', got {bad}")
+    bad = [c for c in companies if c.startswith("bamboohr:") and not re.fullmatch(r"[a-z0-9-]+", c[9:])]
+    if bad:  # the slug is the board's host name, <slug>.bamboohr.com
+        raise ValueError(f"BambooHR entries look like 'bamboohr:<company>' from <company>.bamboohr.com, got {bad}")
     return list(dict.fromkeys(companies))
 
 

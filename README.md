@@ -32,7 +32,8 @@ It only notifies. It never applies to anything.
 
 ### Finding jobs
 
-- **Job board APIs.** Reads the public JSON APIs of Greenhouse, Lever, Ashby, Workday, Workable, and Amazon Jobs,
+- **Job board APIs.** Reads the public JSON APIs of Greenhouse, Lever, Ashby, Workday, Workable, Rippling, BambooHR,
+  and Amazon Jobs,
   so a company on one of them costs one request per run, not a page crawl.
 - **Careers-page discovery.** Give it any company's careers URL and it works out how to read it, cheapest first:
   a job board linked from the page; a board guessed from the company name (kept only if that board really belongs
@@ -45,7 +46,7 @@ It only notifies. It never applies to anything.
 - **GitHub job lists.** Reads job lists kept on GitHub in the SimplifyJobs `listings.json` format, with filters for
   category, degree, sponsorship status, and age. Descriptions are fetched only for new listings that pass your
   filters.
-- **Company packs.** Ready-made source lists to start from: about 3,500 companies in five packs by field (AI/ML and
+- **Company packs.** Ready-made source lists to start from: about 3,700 companies in five packs by field (AI/ML and
   data, software, hardware, product, quant), about 100 AI labs, about 100 consumer-tech companies with ranking,
   search, and ads teams, and the SimplifyJobs new-grad list.
 - **Only new roles.** Newest-first boards are read until the first page with nothing new, with a full read once a
@@ -168,8 +169,10 @@ career_pages:                  # careers pages whose board you don't know: disco
 | `greenhouse:<slug>` | `boards.greenhouse.io/<slug>` or `job-boards.greenhouse.io/<slug>` |
 | `lever:<slug>` | `jobs.lever.co/<slug>` |
 | `ashby:<slug>` | `jobs.ashbyhq.com/<slug>` |
-| `workday:<tenant>.wd<N>/<site>` | `https://<tenant>.wd<N>.myworkdayjobs.com/<site>` |
+| `workday:<tenant>.wd<N>/<site>` | `https://<tenant>.wd<N>.myworkdayjobs.com/<site>`, or `https://wd<N>.myworkdaysite.com/recruiting/<tenant>/<site>` |
 | `workable:<account>` | `apply.workable.com/<account>` |
+| `rippling:<slug>` | `ats.rippling.com/<slug>` |
+| `bamboohr:<company>` | `https://<company>.bamboohr.com/careers` |
 | `amazon:<search words>` | a search on amazon.jobs; the newest 500 matches |
 
 When you don't know a company's board, add its careers page to `career_pages` (or on the web app's Sources page)
@@ -209,15 +212,16 @@ entries come first; a board or URL that is already in your config is not added t
 | `ai-labs` | About 100 AI labs and AI-first companies (careers pages for discovery), plus machine-learning searches on NVIDIA, Hugging Face, Mila, Amazon, Meta, and Snap |
 | `consumer-tech` | About 100 consumer-tech, marketplace, media, and ad-tech companies with recommendation, ranking, search, and ads teams (Greenhouse, Lever, Ashby, Workday) |
 | `new-grad` | The SimplifyJobs New-Grad-Positions list on GitHub |
-| `ai-ml-data` | 2,124 companies that posted AI, machine learning, or data roles for new grads or interns |
-| `software` | 1,974 companies that posted software engineering roles |
-| `hardware` | 688 companies that posted hardware engineering roles |
-| `product` | 618 companies that posted product management roles |
-| `quant` | 317 companies that posted quantitative finance roles |
+| `ai-ml-data` | 2,210 companies that posted AI, machine learning, or data roles for new grads or interns |
+| `software` | 2,065 companies that posted software engineering roles |
+| `hardware` | 746 companies that posted hardware engineering roles |
+| `product` | 644 companies that posted product management roles |
+| `quant` | 326 companies that posted quantitative finance roles |
 
 The five field packs hold every company board linked from the SimplifyJobs new-grad and internship lists that
-Shortlist can read (Greenhouse, Lever, Ashby, Workday, Workable), grouped by the roles each company posted, and each
-board listed open jobs when the pack was built (2026-11-01). Workday boards with more than 2,000 open jobs (mostly
+Shortlist can read (Greenhouse, Lever, Ashby, Workday, Workable, Rippling, BambooHR), grouped by the roles each company
+posted, and each board listed open jobs when the pack was built (2026-11-01; Rippling and BambooHR boards, and
+Workday boards linked through myworkdaysite.com, 2026-11-11). Workday boards with more than 2,000 open jobs (mostly
 store and retail jobs) are left out; add one to `companies` yourself if you want it. A pack's file says how long a
 run takes with it.
 
@@ -468,7 +472,8 @@ GitHub job lists ────────────────────┘
 - **Your ratings.** Up to `scoring.feedback_examples` jobs you judged go into the prompt: a thumbs up or applying
   counts as a good fit, a thumbs down or "not interested" as a poor one. Ratings that disagree with the score come
   first, since they show where scoring went wrong.
-- **Closed postings.** Greenhouse, Lever, Ashby, Workable, and GitHub lists show every open job each run, so a job
+- **Closed postings.** Greenhouse, Lever, Ashby, Workable, Rippling, BambooHR, and GitHub lists show every open job
+  each run, so a job
   missing from a read of its board is closed; Workday boards are read to the end weekly, so a job unseen for 8 days
   is. Amazon searches (newest 500) and HTML pages (limited pages) can drop open jobs, so they are never marked.
 - **Locking.** A run, a discovery, and the scheduled task take the same lock, so they never overlap.
