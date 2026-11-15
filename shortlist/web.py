@@ -214,7 +214,27 @@ def nav_counts(conn, min_score: int) -> dict:
                            f" AND coalesce(t.stage, 'new') = 'new' AND NOT {db.CLOSED}", (min_score,)).fetchone()[0]
     active = conn.execute("SELECT count(*) FROM tracking WHERE stage IN ('saved', 'applied', 'interviewing', 'offer')"
                           ).fetchone()[0]
-    return {"matches": waiting, "tracker": active}
+    questions = conn.execute("SELECT count(*) FROM apply_questions WHERE answer IS NULL").fetchone()[0]
+    queued = conn.execute("SELECT count(*) FROM apply_queue WHERE status IN ('queued', 'running')").fetchone()[0]
+    return {"matches": waiting, "tracker": active, "questions": questions, "queue": queued}
+
+
+def question_groups(conn) -> list[dict]:
+    """What application forms asked, by job, newest first: the questions waiting for your answer and the ones you
+    confirmed, with the job's number (to apply from here) and stage when it is a stored job."""
+    jobs: dict[str, dict] = {}
+    for r in conn.execute("SELECT * FROM apply_questions ORDER BY id"):
+        group = jobs.setdefault(r["job"], {"key": r["job"], "company": r["company"], "title": r["title"],
+                                           "url": r["url"], "open": [], "confirmed": [], "id": None, "stage": "new"})
+        group["open" if r["answer"] is None else "confirmed"].append(dict(r))
+    for group in jobs.values():
+        parts = group["key"].split(":", 2)
+        row = len(parts) == 3 and not group["key"].startswith("http") and conn.execute(
+            "SELECT j.rowid AS id, coalesce(t.stage, 'new') AS stage FROM jobs j LEFT JOIN tracking t"
+            " USING (ats, slug, job_id) WHERE j.ats = ? AND j.slug = ? AND j.job_id = ?", parts).fetchone()
+        if row:
+            group.update(id=row["id"], stage=row["stage"])
+    return sorted(jobs.values(), key=lambda g: (not g["open"], -max(q["id"] for q in g["open"] + g["confirmed"])))
 
 
 def overview(conn, min_score: int) -> dict:
@@ -412,6 +432,9 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
         filters = dict(q=q, min_score=min_score, stage=stage, company=company, source=source, remote=bool(remote),
                        days=days, closed=bool(closed))
         rows, total = search_jobs(c, level=level, field=field, sort=sort, offset=max(0, offset), **filters)
+        queue = db.queue_statuses(c)
+        for row in rows:
+            row["queue"] = queue.get(row["id"], "")
         counts = group_counts(c, level=level, field=field, **filters) if offset == 0 else None
         return page(request, "_match_rows.html", rows=rows, total=total, offset=offset, page_size=PAGE_SIZE,
                     since=last_run_start(c), group_tally=counts, level=level, field=field)
@@ -442,6 +465,59 @@ def create_app(config_path: str | Path, *, allowed_hosts: set[str] | None = LOCA
                 {1: "Marked as a good fit", -1: "Marked as a poor fit"}.get(feedback, "Fit rating cleared")
             events = {"jobChanged": None, "toast": message}
         return Response(status_code=204, headers={"HX-Trigger": json.dumps(events)})
+
+    @app.get("/questions")
+    def questions(request: Request):
+        config = cfg()
+        return page(request, "questions.html", nav="questions", jobs=question_groups(conn()), mode=config.apply.mode)
+
+    @app.post("/questions/{question_id}")
+    def answer_question(question_id: int, answer: str = Form(""), reuse: str = Form("")):
+        if not answer.strip():
+            raise HTTPException(400, "Write an answer first")
+        db.answer_question(conn(), question_id, answer.strip(), bool(reuse), _now())
+        return Response(status_code=204, headers={"HX-Trigger": json.dumps({"questionsChanged": None,
+                                                                             "toast": "Answer confirmed"})})
+
+    @app.post("/apply")
+    def start_apply(job: str = Form(...)):
+        """Apply to a stored job (its number) or a link, as the `apply` command does: in review mode a browser window
+        opens with the form filled, for you to send."""
+        if not (job.isdigit() or job.startswith(("https://", "http://"))):
+            raise HTTPException(400, "unknown job")
+        start_task("apply", ["apply", job])
+        return Response(status_code=204, headers={"HX-Trigger": json.dumps(
+            {"toast": "Applying: a browser window opens with the form" if cfg().apply.mode == "review"
+             else "Applying in the background; see Runs"})})
+
+    @app.get("/queue")
+    def queue(request: Request):
+        rows = [dict(r) for r in db.queue_rows(conn())]
+        waiting = sum(db.queue_waiting(r) for r in rows)  # what "Start" would work through
+        return page(request, "queue.html", nav="queue", rows=rows, waiting=waiting, mode=cfg().apply.mode,
+                    applying=activity.running and activity.label.startswith("apply"))
+
+    @app.post("/queue/add")
+    def queue_add(ids: list[int] = Form(...)):
+        added = db.queue_add(conn(), ids, _now())
+        message = (f"{added} job{'s' if added != 1 else ''} in the apply queue" if added
+                   else "Nothing added: already applied to")
+        return Response(status_code=204, headers={"HX-Trigger": json.dumps(
+            {"jobChanged": None, "queueChanged": None, "toast": message})})
+
+    @app.post("/queue/remove")
+    def queue_remove(job: int | None = Form(None)):
+        """Take one job out of the queue; without a job, every one that was applied to."""
+        db.queue_remove(conn(), job)
+        return Response(status_code=204, headers={"HX-Trigger": json.dumps({"jobChanged": None, "queueChanged": None})})
+
+    @app.post("/queue/start")
+    def queue_start(mode: str = Form(...)):
+        """Work through the queue as `apply --queued` does, in a browser window on this computer."""
+        if mode not in ("review", "auto"):
+            raise HTTPException(400, "unknown mode")
+        start_task("apply queue", ["apply", "--queued", "--mode", mode])
+        return Response(status_code=204, headers={"HX-Refresh": "true"})  # the page then follows it, with its log
 
     @app.get("/tracker")
     def tracker(request: Request):

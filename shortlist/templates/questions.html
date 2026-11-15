@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, mono %}
+{% block title %}Questions · Shortlist{% endblock %}
+{% block main %}
+<header class="page-head">
+  <div>
+    <h1>Questions</h1>
+    <p class="lede">What application forms asked that your answers didn't cover. Each comes with a suggested answer:
+      edit it if you like, then confirm. When a job has no question left, it can be applied to.</p>
+  </div>
+</header>
+
+<div id="questions" hx-get="/questions" hx-trigger="questionsChanged from:body" hx-select="#questions" hx-target="this" hx-swap="outerHTML">
+{% if not jobs %}
+<div class="card intro">{{ icon("edit", "big") }}
+  <div><b>No questions yet.</b>
+    <p class="muted">When you apply to a job from its panel on <a href="/matches">Matches</a> and its form asks something
+      your <code>answers.yaml</code> doesn't cover, the question lands here with a suggested answer.</p></div>
+</div>
+{% endif %}
+
+{% for job in jobs %}
+<section class="card qjob">
+  <header class="card-head">
+    <div class="qjob-name">{{ mono(job.company, "sm") }}
+      <div><b>{{ job.company or "Unknown company" }}</b>
+        {% if job.id %}<a href="#" hx-get="/jobs/{{ job.id }}" hx-target="#drawer">{{ job.title }}</a>
+        {% else %}<a href="{{ job.url }}" target="_blank" rel="noopener noreferrer">{{ job.title or job.url }}</a>{% endif %}</div>
+    </div>
+    {% if job.open %}<span class="pill">{{ job.open | length }} to answer</span>
+    {% elif job.stage == "applied" %}<span class="pill">{{ icon("check") }} Applied</span>
+    {% else %}
+    <button class="btn primary sm" type="button" hx-post="/apply" hx-vals='{"job": "{{ job.id or job.url }}"}' hx-swap="none"
+            hx-confirm="{{ 'Open a browser window with this application filled in, for you to check and send?' if mode == 'review' else 'Fill in and send this application now?' }}"
+            data-confirm-ok="Apply">{{ icon("send") }} Apply</button>
+    {% endif %}
+  </header>
+  <div class="card-body">
+    {% for q in job.open %}
+    <form class="question" hx-post="/questions/{{ q.id }}" hx-swap="none">
+      <label for="q-{{ q.id }}">{{ q.question }}</label>
+      <textarea id="q-{{ q.id }}" name="answer" rows="{{ 5 if q.suggested | length > 160 else 2 }}"
+                placeholder="Your answer">{{ q.suggested }}</textarea>
+      <div class="question-foot">
+        <label class="check"><input type="checkbox" name="reuse" value="1" {{ "checked" if q.reuse }}>
+          Same answer for other companies</label>
+        <span class="hint">suggested by the agent; nothing is sent until you confirm</span>
+        <button class="btn primary sm" type="submit">Confirm</button>
+      </div>
+    </form>
+    {% endfor %}
+    {% if job.confirmed %}
+    <details class="confirmed" {{ "open" if not job.open and job.stage != "applied" }}>
+      <summary>{{ job.confirmed | length }} confirmed answer{{ "s" if job.confirmed | length != 1 }}</summary>
+      {% for q in job.confirmed %}
+      <form class="question done" hx-post="/questions/{{ q.id }}" hx-swap="none">
+        <label for="q-{{ q.id }}">{{ q.question }}</label>
+        <textarea id="q-{{ q.id }}" name="answer" rows="{{ 5 if q.answer | length > 160 else 2 }}">{{ q.answer }}</textarea>
+        <div class="question-foot">
+          <label class="check"><input type="checkbox" name="reuse" value="1" {{ "checked" if q.reuse }}>
+            Same answer for other companies</label>
+          <button class="btn sm" type="submit">Save change</button>
+        </div>
+      </form>
+      {% endfor %}
+    </details>
+    {% endif %}
+  </div>
+</section>
+{% endfor %}
+</div>
+{% endblock %}

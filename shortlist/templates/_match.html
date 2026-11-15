@@ -1,5 +1,7 @@
 {% from "_ui.html" import icon, ring, mono, track_button, feedback_button %}
 <article class="match" data-id="{{ r.id }}">
+  <span class="pick-box">{% if r.stage != "applied" and not r.closed %}<input type="checkbox" class="pick" value="{{ r.id }}" data-action="pick"
+    aria-label="Pick {{ r.title }} for the apply queue" title="Pick for the apply queue">{% endif %}</span>
   {{ ring(r.score) }}
   {{ mono(r.company) }}
   <div class="match-body">
@@ -12,6 +14,7 @@
       {% for g in r.groups %}<span class="pill group">{{ group_labels[g] }}</span>{% endfor %}
       {% if r.closed %}<span class="pill closed" title="Its board no longer lists it; last seen {{ r.last_seen | ago }}">Closed</span>{% endif %}
       {% if r.stage != "new" %}<span class="pill stage-{{ r.stage }}">{{ stage_labels[r.stage] }}</span>{% endif %}
+      {% if r.queue and r.stage != "applied" %}<a class="pill queued" href="/queue" title="In the apply queue">{{ "Queued to apply" if r.queue in ("queued", "running") else "In the apply queue" }}</a>{% endif %}
       <span class="src">{{ r.ats }}</span>
     </div>
     {% if r.result.one_line_reason %}<p class="reason">{{ r.result.one_line_reason }}</p>{% endif %}

@@ -5,7 +5,8 @@
   <div class="list"><div class="empty-state">{{ icon("search", "big") }}<h3>No jobs match these filters</h3>
     <p>Lower the minimum score, widen the time range, or clear the search.</p></div></div>
   {% else %}
-  <div class="list-head"><span><b class="num">{{ "{:,}".format(total) }}</b> job{{ "" if total == 1 else "s" }}</span>
+  <div class="list-head"><span><label class="pick-all" title="Pick every job shown, for the apply queue"><input type="checkbox" data-pick-all
+      aria-label="Pick every job shown"></label><b class="num">{{ "{:,}".format(total) }}</b> job{{ "" if total == 1 else "s" }}</span>
     <span class="hint">Press <kbd>J</kbd> <kbd>K</kbd> to move, <kbd>O</kbd> to open, <kbd>?</kbd> for all keys</span></div>
   <div class="list">
   {% endif %}

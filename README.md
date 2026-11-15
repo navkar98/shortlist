@@ -2,7 +2,8 @@
 
 Shortlist watches the job boards of the companies you care about, scores every new opening against your resume
 with an LLM, and sends you the good ones. It runs on your own computer, needs no account or server, and comes
-with a small web app for browsing matches and tracking your applications.
+with a small web app for browsing matches and tracking your applications. If you want, it also fills in the
+application forms of the jobs you pick, with your own stored answers, in a browser window on your computer.
 
 Each run it:
 
@@ -12,7 +13,8 @@ Each run it:
 4. scores each **new** job against `resume.md` and your preferences (every job is scored at most once, ever),
 5. sends a digest of the matches at or above your `min_score` by Telegram, or keeps them in the web app.
 
-It only notifies. It never applies to anything.
+Runs only notify. Applying happens only for jobs you pick, and by default Shortlist fills the form in and leaves
+the button that sends it to you; sending on its own is a setting you turn on. See [Applying](#applying).
 
 ![The overview: strong matches waiting, the best new ones, the score distribution, and strong matches per day](docs/screenshots/overview.png)
 
@@ -23,6 +25,7 @@ It only notifies. It never applies to anything.
   [preferences](#resume-and-preferences), [scoring backends](#scoring-backends),
   [scoring prompt](#scoring-prompt-and-re-scoring), [notifications](#notifications), [discovery](#discovery),
   [schedule](#running-on-a-schedule)
+- [Applying](#applying)
 - [The web app](#the-web-app)
 - [How it works](#how-it-works)
 - [Responsible scraping](#responsible-scraping) and [privacy](#privacy-and-your-data)
@@ -88,6 +91,23 @@ It only notifies. It never applies to anything.
 - **Settings:** filters, preferences, the scoring model and prompt, re-scoring, notifications, packs, schedule, and
   your resume.
 
+### Applying (optional)
+
+- **From the job's link, on any site.** An agent reads the application page and fills it in with your stored
+  answers, your resume (education and work history), and your preferences (where you will work). It works the
+  same on Greenhouse, Lever, Ashby, Workday, or a company's own form.
+- **Review or on its own.** By default it stops at the button that sends the application and leaves the form open
+  for you; `apply.mode: auto` presses it too.
+- **New questions come to you.** A required question your answers don't cover stops that application: you get a
+  message with the question and a suggested answer, confirm or edit it in the web app, and the job can be applied
+  to. An answer you mark as holding everywhere is used for other companies too, so `answers.yaml` stays short.
+- **An apply queue.** Tick jobs on Matches, add them to the queue, and Shortlist works through them in one browser
+  window, a tab each.
+- **Accounts.** A site that wants an account gets one with your email and a password you keep in `.env`; the model
+  never sees the password.
+- **No working around checks.** A CAPTCHA, a bot check, or a code the site emails you hands the tab over to you,
+  with a message, and the queue moves on.
+
 ### Running it
 
 - **Guided setup:** `python install.py` creates the environment and asks a few questions; `python -m shortlist
@@ -144,6 +164,8 @@ the scoring over several runs.
 | `python -m shortlist discover --site NAME` | Rediscover one careers page from scratch |
 | `python -m shortlist sites [--forget NAME]` | Show what each careers page was discovered as; forget one so it is rediscovered |
 | `python -m shortlist web` | Open the web app (`--port`, `--no-browser`) |
+| `python -m shortlist apply JOB` | Apply to one job, by its link or its number in the web app (`--mode review\|auto`; `--company` and `--title` with a link) |
+| `python -m shortlist apply --queued` | Work through the apply queue (the jobs picked in the web app) |
 
 Every command takes `--config PATH` (default `./config.yaml`) and `--log-file PATH` (append the log to a file).
 
@@ -402,6 +424,75 @@ battery too, and only with a network. Output goes to `shortlist.log`. Try it wit
 
 With `claude_cli`, also set `scoring.claude_path` to the output of `which claude`.
 
+## Applying
+
+Shortlist can fill in a job's application form for you: an agent opens the job's link in a browser window, reads
+the page, and fills in, picks, ticks, and uploads with your answers, one page at a time, until the form is ready.
+Nothing is applied to unless you pick the job.
+
+**Set it up once.**
+
+1. Install the browser if `install.py` didn't: `python -m playwright install chromium`.
+2. Copy [answers.example.yaml](answers.example.yaml) to `answers.yaml` (gitignored) and fill it in: the facts that
+   hold for every application (name, contact, links, work authorization, sponsorship, self-identification), and
+   under `files` the resume to attach, as a PDF next to it. One answer can differ by kind of job or by country ("for
+   research roles ..., for software engineering roles ..."). An empty self-identification answer gets the form's
+   "decline to answer" option.
+3. Optional: put a password for job-site accounts in `.env` as `SHORTLIST_APPLY_PASSWORD`, for sites that want an
+   account before you apply. Use one you don't use anywhere else.
+
+```yaml
+apply:
+  mode: review                    # review: you press the button that sends it; auto: Shortlist presses it
+  answers_path: answers.yaml
+  model: ""                       # the agent's model; empty: scoring.model
+  max_calls_per_job: 30           # agent calls per form before it gives up
+  profile_dir: ~/.shortlist/browser   # the browser's own profile, so site sign-ins are kept
+```
+
+**Apply.** In the web app, open a job and press Apply, or tick jobs on Matches (<kbd>P</kbd>), press "Add to apply
+queue", and start the queue on the Apply queue page with "Fill in, I send" or "Apply on its own". From the command
+line: `python -m shortlist apply <link or number>` or `python -m shortlist apply --queued`.
+
+The browser window is Shortlist's own (with its own profile, not your everyday browser), so you can keep working
+while it fills forms. The queue opens one tab per job. A form filled in for you to send keeps its tab; check it,
+press its button, then "I sent it" on the Apply queue page. Closing the window stops the queue, and what wasn't
+finished stays queued. While the window is open, the web app starts no run or other task, so close it when you are
+done.
+
+**What the agent uses.** Your stored answers, and the answers you confirmed on the Questions page; your resume for
+education and work history (every degree, and whether you worked at a company); and your preferences and the places
+in your filters for "will you work at this office" questions. Work authorization, sponsorship, pay, and anything you
+certify come only from a stored answer, never from a guess.
+
+**When it stops.**
+
+| What happened | Result |
+|---|---|
+| A required question that nothing answers | The job waits on the Questions page with a suggested answer, and you get a message. Once you confirm every answer, the next start of the queue takes it again. |
+| A CAPTCHA, a "verify you are human" check, or a code or link the site sends you | Its tab stays open for you to finish, and you get a message right away. It is never worked around. |
+| The posting is closed, robots.txt disallows the page, the site rejects the password, or the form asks again what you already answered (the answer may not fit its options) | Stopped, with the reason. |
+| Stuck (three turns in a row whose actions failed), or `max_calls_per_job` reached | Failed, with the last thing that went wrong. "Try again" queues it again. |
+
+An application sent in `auto` mode moves the job to "applied" in your tracker. Sent means the agent pressed the
+button and the page read as done; a site's confirmation email is the surest sign. When the button was pressed but
+the page never said so, the job is left open for you instead, with "check the tab and your email before trying
+again", so it is never sent twice by accident.
+
+**Speed and cost.** Each turn is one model call with the page, your answers, and your resume. Measured on real
+forms (2026-11-14, `claude_cli` with Sonnet): 5 to 23 calls and 45 seconds to about 2 minutes per form, most of it
+spent waiting for the model.
+
+**Accounts.** The agent creates an account with your email and `{password}`, a placeholder: Shortlist types the
+real password itself, only into password fields, and removes it from everything the model and the log see (a page
+can show a password field's contents to the agent otherwise). It is typed only on the job link's own site, the site
+the link led to, and the big job boards (Greenhouse, Lever, Ashby, Workday, Workable, Rippling, BambooHR, Amazon,
+iCIMS, JazzHR, Jobvite); anywhere else the tab is handed over to you, so no page can talk the agent into typing it
+on another site. Sites where it was typed are remembered, so the next application there signs in instead.
+
+**Your responsibility.** Many job sites' terms of use don't allow automated applications; check them, and review
+what is sent in your name. Start with `review` mode and switch to `auto` once you trust what it fills in.
+
 ## The web app
 
 ```bash
@@ -428,6 +519,11 @@ python -m shortlist web       # opens http://127.0.0.1:8765
   100 jobs to the scorer asks first.
 - **Applications:** a board with a column per stage. Drag a card to move it (or use its menu); moving a job to
   applied records the date. Rejected and not interested sit in a closed row below. CSV export.
+- **Apply queue:** the jobs you ticked on Matches (or queued from a job's panel), with each one's result: sent,
+  filled in for you to send, left open for you, waiting for your answers, stopped, or failed, and why. Two buttons
+  start it: "Fill in, I send" and "Apply on its own". See [Applying](#applying).
+- **Questions:** what application forms asked that your answers didn't cover, each with a suggested answer to
+  confirm or edit, and whether the same answer holds for other companies.
 - **Sources:** what each careers page was discovered as, its model calls, and whether it still returns jobs; add a
   careers page (discovered right away) or rediscover one. Every job board's health, with a filter box.
 - **Runs:** buttons for discovery, a dry run, or a real run, with a live log; a chart of new and scored jobs per run;
@@ -438,8 +534,8 @@ python -m shortlist web       # opens http://127.0.0.1:8765
   rewrites only the sections you changed and keeps the previous file as `config.yaml.bak`.
 
 Keyboard on Matches: <kbd>J</kbd>/<kbd>K</kbd> move, <kbd>O</kbd> opens, <kbd>S</kbd> saves, <kbd>A</kbd> marks
-applied, <kbd>G</kbd>/<kbd>B</kbd> rate the fit, <kbd>X</kbd> hides, <kbd>/</kbd> searches, <kbd>?</kbd> lists
-them all. Light and dark follow your system; the moon or sun button in the sidebar switches.
+applied, <kbd>G</kbd>/<kbd>B</kbd> rate the fit, <kbd>X</kbd> hides, <kbd>P</kbd> ticks for the apply queue,
+<kbd>/</kbd> searches, <kbd>?</kbd> lists them all. Light and dark follow your system; the moon or sun button in the sidebar switches.
 
 The app is for you on your computer: it listens on 127.0.0.1 and has no login. It answers only requests addressed to
 localhost (which blocks DNS rebinding), and every change needs a token from the page, so other websites open in your
@@ -492,6 +588,9 @@ Shortlist reads public job listings for one person, and it is built to be a good
   used only for pages that load fine but need JavaScript to show their content.
 - **Public APIs first.** Job board APIs are designed to be read by programs and are far lighter than page crawls.
 - **Excluded on purpose:** LinkedIn, Indeed, Glassdoor, and search engines, whose terms forbid automated access.
+- **Applying** happens in a browser window, one job at a time and only for jobs you pick. The job's page is opened
+  only if robots.txt allows it, the browser identifies itself with the same User-Agent, and a CAPTCHA, bot check,
+  or emailed code is handed to you, never worked around.
 
 Check the terms of any site you add yourself. You are responsible for how you use this tool.
 
@@ -501,7 +600,11 @@ Check the terms of any site you add yourself. You are responsible for how you us
   all four are in `.gitignore`.
 - **Your resume and preferences go to the model you choose**, with each batch of jobs: to Anthropic through Claude
   Code or the API, or to OpenAI through Codex or the API. Their data policies apply.
-- **Digests go to Telegram** when you turn it on.
+- **When you apply, the agent's model sees each page of the form, your answers (self-identification and citizenship
+  included), and your resume**, and the site gets what the form asks for. Your account password is never sent to the
+  model. `answers.yaml`, a resume PDF next to `config.yaml`, and the browser profile (`~/.shortlist/browser`, which
+  keeps your site sign-ins) stay on your computer; the first two are in `.gitignore`.
+- **Digests go to Telegram** when you turn it on, and so do application questions and results.
 - Job sites see ordinary requests for their public listings. Shortlist sends no telemetry and has no server.
 - Secrets are read from the environment or `.env` and never logged; error messages leave out the bot token.
 
@@ -523,6 +626,11 @@ Check the terms of any site you add yourself. You are responsible for how you us
 - **The first run takes long**: every Workday board is read to the end once, and each run scores up to
   `scoring.max_jobs_per_run` jobs. An interrupted run carries on where it stopped.
 - **"Run now" says a run is already in progress**: the scheduled run is working. The Runs page shows its log.
+- **An application stops with `no answers in answers.yaml yet`**: copy `answers.example.yaml` to `answers.yaml`
+  next to `config.yaml` and fill it in; a file listed under `files` must exist.
+- **An application failed**: its reason is on the Apply queue page, and every action is in the log (on that page
+  while it runs, then in the `logs` folder next to `config.yaml`). "Try again" queues it again; a form whose fields
+  keep failing is worth applying to by hand.
 
 ## Contributing
 

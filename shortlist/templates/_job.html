@@ -13,6 +13,13 @@
   <div class="drawer-body">
     <div class="drawer-bar">
       <a class="btn primary" href="{{ job.url }}" target="_blank" rel="noopener noreferrer">Open the posting {{ icon("external-link") }}</a>
+      {% if job.stage != "applied" and not job.closed %}
+      <button class="btn" type="button" hx-post="/apply" hx-vals='{"job": "{{ job.id }}"}' hx-swap="none"
+              hx-confirm="Apply with your stored answers? A form that asks something new stops and puts the question on the Questions page."
+              data-confirm-ok="Apply" title="Fill in the application in a browser with your stored answers">{{ icon("send") }} Apply</button>
+      <button class="btn" type="button" hx-post="/queue/add" hx-vals='{"ids": "{{ job.id }}"}' hx-swap="none"
+              title="Put it in the apply queue, to be applied to with the others you picked">{{ icon("inbox") }} Queue</button>
+      {% endif %}
       <div class="actions">
         <span class="hint">Fit?</span>
         {{ feedback_button(job, "good", 1, "Good fit", "thumbs-up") }}

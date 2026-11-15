@@ -337,12 +337,24 @@ def main(argv: list[str] | None = None) -> int:
     web_cmd.add_argument("--host", default="127.0.0.1",
                          help="interface to listen on (default 127.0.0.1: only this computer can reach the app)")
     web_cmd.add_argument("--no-browser", action="store_true", help="don't open a browser tab")
-    for cmd in (init_cmd, check_cmd, run_cmd, discover_cmd, rescore_cmd, sites_cmd, web_cmd):
+    apply_cmd = commands.add_parser("apply", help="apply to a job in a browser, with your answers from answers.yaml")
+    apply_cmd.add_argument("job", nargs="?", help="the job's link, or its number in the web app (/jobs/<number>)")
+    apply_cmd.add_argument("--queued", action="store_true",
+                           help="work through the apply queue (the jobs picked in the web app) instead of one job")
+    apply_cmd.add_argument("--mode", choices=["review", "auto"],
+                           help="review: fill in and leave sending to you; auto: send (default: apply.mode in the config)")
+    apply_cmd.add_argument("--company", default="", help="the company, when applying from a link")
+    apply_cmd.add_argument("--title", default="", help="the job title, when applying from a link")
+    apply_cmd.add_argument("--headless", action="store_true", help="no browser window (nothing to review: for trials)")
+    apply_cmd.add_argument("--screenshot", metavar="FILE", help="save a picture of the page as the agent left it")
+    for cmd in (init_cmd, check_cmd, run_cmd, discover_cmd, rescore_cmd, sites_cmd, web_cmd, apply_cmd):
         cmd.add_argument("--config", default="config.yaml", help="path to config.yaml (default: ./config.yaml)")
         cmd.add_argument("--log-file", help="append log lines to this file instead of the console")
     args = parser.parse_args(argv)
     if getattr(args, "limit", None) is not None and args.limit < 1:
         parser.error("--limit must be at least 1")
+    if args.command == "apply" and bool(args.job) == args.queued:
+        parser.error("apply takes a job (its link or number) or --queued")
 
     for stream in (sys.stdout, sys.stderr):  # job titles are not always representable in the Windows console codepage
         if stream is not None:  # both are None under pythonw.exe, which the scheduled task uses
@@ -370,6 +382,20 @@ def main(argv: list[str] | None = None) -> int:
             if args.forget:
                 print(f"forgot {db.forget_site(conn, args.forget)} site(s); the next run rediscovers them")
             return show_sites(conn)
+        if args.command == "apply":
+            from .apply import apply_now, apply_queued  # imported here: only this command drives a browser
+
+            if args.queued:
+                return apply_queued(cfg, headless=args.headless, mode=args.mode)
+            job = {"url": args.job, "company": args.company, "title": args.title}
+            if args.job.isdigit():
+                row = db.job_row(db.connect(cfg.db_path), int(args.job))
+                if row is None:
+                    log.error("no job numbered %s", args.job)
+                    return 2
+                job = {"url": row["url"], "company": row["company"], "title": row["title"], "rowid": int(args.job),
+                       "key": f"{row['ats']}:{row['slug']}:{row['job_id']}"}
+            return apply_now(cfg, job, headless=args.headless, screenshot=args.screenshot, mode=args.mode)
         if args.command == "web":
             from .web import serve  # imported here: only the web command needs FastAPI
 

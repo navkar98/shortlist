@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, mono, ring %}
+{% block title %}Apply queue · Shortlist{% endblock %}
+{% block main %}
+<div id="queue" hx-get="/queue" hx-select="#queue" hx-target="this" hx-swap="outerHTML"
+     hx-trigger="queueChanged from:body, jobChanged from:body{{ ', every 3s' if applying }}">
+<header class="page-head">
+  <div>
+    <h1>Apply queue</h1>
+    <p class="lede">The jobs you picked on <a href="/matches">Matches</a>. Shortlist opens its own browser window and works
+      through them one after another with your stored answers. A form that asks something new leaves its job waiting
+      on <a href="/questions">Questions</a>, and the next one starts. A site that shows a CAPTCHA or emails you a code
+      keeps its tab open for you to finish, and you get a message.</p>
+  </div>
+  <div class="actions">
+    {% set busy = activity.running or run_elsewhere or not waiting %}
+    <button class="btn {{ 'primary' if mode == 'review' }}" {{ "disabled" if busy }} hx-post="/queue/start" hx-vals='{"mode": "review"}' hx-swap="none"
+            hx-confirm="Fill in {{ waiting }} application{{ 's' if waiting != 1 }} in a browser window, each in its own tab, and leave sending to you?"
+            data-confirm-ok="Fill them in" title="Each form is filled in and left open; you press its last button">{{ icon("eye") }} Fill in, I send</button>
+    <button class="btn {{ 'primary' if mode == 'auto' }}" {{ "disabled" if busy }} hx-post="/queue/start" hx-vals='{"mode": "auto"}' hx-swap="none"
+            hx-confirm="Send {{ waiting }} application{{ 's' if waiting != 1 }} without asking you again? A form that asks something new is not sent: its questions wait for you."
+            data-confirm-ok="Send them" title="Each form is filled in and sent">{{ icon("send") }} Apply on its own</button>
+  </div>
+</header>
+
+{% if applying %}
+<div class="callout muted section-gap">{{ icon("activity") }}<div><b>Applying</b> in the browser window Shortlist opened.
+  Until that window is closed, the web app starts nothing else; closing it stops the queue, and what was not finished
+  stays queued.</div></div>
+{% endif %}
+
+{% if not rows %}
+<div class="card intro">{{ icon("inbox", "big") }}
+  <div><b>Nothing in the queue.</b>
+    <p class="muted">On <a href="/matches">Matches</a>, tick the jobs you want applied to and press "Add to apply queue".</p></div>
+</div>
+{% else %}
+<section class="card table-wrap">
+<table class="table queue">
+  <thead><tr><th class="r">Score</th><th>Job</th><th>Result</th><th></th></tr></thead>
+  <tbody>
+    {% for r in rows %}
+    {% set applied = r.status == "submitted" or r.stage == "applied" %}
+    <tr>
+      <td class="r">{{ r.score if r.score is not none else "" }}</td>
+      <td><a href="#" hx-get="/jobs/{{ r.id }}" hx-target="#drawer"><b>{{ r.title }}</b></a>
+        <div class="hint">{{ r.company }}{% if r.location %} · {{ r.location | truncate(60, true, "…") }}{% endif %}</div></td>
+      <td class="note">
+        {% if applied %}<span class="status ok">Applied</span>
+        {% elif r.status == "running" and applying %}<span class="status warn">Applying now</span>
+        {% elif r.status in ("queued", "running") %}<span class="status pending">Queued</span>
+        {% elif r.status == "ready" %}<span class="status recipe">Filled in, yours to send</span>
+        {% elif r.status == "your_turn" %}<span class="status warn" title="Its tab stays open in the browser window Shortlist opened">Left open for you</span>
+        {% elif r.status == "questions" and r.open %}<span class="status warn"><a href="/questions">{{ r.open }} question{{ "s" if r.open != 1 }} to answer</a></span>
+        {% elif r.status == "questions" %}<span class="status pending">Answered: queued again</span>
+        {% else %}<span class="status bad">{{ "Stopped" if r.status == "stopped" else "Failed" }}</span>{% endif %}
+        {% if r.note and r.status in ("stopped", "failed", "ready", "your_turn") and not applied %}<div>{{ r.note }}</div>{% endif %}
+        {% if r.tried_at %}<div class="hint">{{ r.tried_at | ago }}</div>{% endif %}
+      </td>
+      <td class="r nowrap">
+        {% if r.status in ("ready", "your_turn") and not applied %}
+        <button class="btn sm" type="button" hx-post="/jobs/{{ r.id }}/track" hx-vals='{"stage": "applied"}' hx-swap="none"
+                title="You sent it from the browser window">{{ icon("check") }} I sent it</button>
+        {% endif %}
+        {% if r.status in ("stopped", "failed", "ready", "your_turn") and not applied %}
+        <button class="btn sm" type="button" hx-post="/queue/add" hx-vals='{"ids": "{{ r.id }}"}' hx-swap="none">{{ icon("refresh") }} Try again</button>
+        {% endif %}
+        <button class="icon-btn" type="button" title="Take out of the queue" aria-label="Take out of the queue"
+                hx-post="/queue/remove" hx-vals='{"job": "{{ r.id }}"}' hx-swap="none">{{ icon("x") }}</button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</section>
+{% if rows | selectattr("stage", "equalto", "applied") | list or rows | selectattr("status", "equalto", "submitted") | list %}
+<p class="section-gap"><button class="btn ghost sm" type="button" hx-post="/queue/remove" hx-swap="none">{{ icon("x") }} Clear the ones applied to</button></p>
+{% endif %}
+{% endif %}
+
+</div>
+
+{# Outside the part that refreshes every few seconds: the log keeps its own pace and its scroll position. #}
+{% if activity.label.startswith("apply") %}
+<div class="section-gap">{% include "_activity.html" %}</div>
+{% endif %}
+{% endblock %}

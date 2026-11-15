@@ -2,6 +2,7 @@
 import json
 import re
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from dotenv import load_dotenv
@@ -100,6 +101,15 @@ class Schedule(BaseModel):
     min_hours_between_runs: float = Field(6, ge=0)
 
 
+class Apply(BaseModel):
+    """Applying from the job's link in a browser (`python -m shortlist apply`); nothing is applied to unless asked."""
+    mode: Literal["review", "auto"] = "review"       # review: you press the final button; auto: Shortlist does
+    answers_path: str = "answers.yaml"               # your answers to application questions, next to config.yaml
+    model: str = ""                                  # model for the agent; empty: scoring.model
+    max_calls_per_job: int = Field(30, ge=1)
+    profile_dir: str = "~/.shortlist/browser"        # the browser's own profile: sign-ins are kept here
+
+
 def _check_companies(companies: list[str]) -> list[str]:
     bad = [c for c in companies if c.partition(":")[0] not in FETCHERS or not c.partition(":")[2]]
     if bad:
@@ -139,6 +149,7 @@ class Config(BaseModel):
     notify: list[str] = []          # telegram; empty: see matches in the web app only
     discovery: Discovery = Discovery()
     schedule: Schedule = Schedule()
+    apply: Apply = Apply()
     min_score: int = Field(70, ge=0, le=100)
     db_path: str = "shortlist.db"
     resume_path: str = "resume.md"
@@ -199,6 +210,9 @@ def load_config(path: str | Path) -> Config:
     cfg = with_packs(Config.model_validate(yaml.safe_load(path.read_text(encoding="utf-8")) or {}), path.parent)
     cfg.db_path = str(path.parent / cfg.db_path)
     cfg.resume_path = str(path.parent / cfg.resume_path)
+    cfg.apply = cfg.apply.model_copy(update={
+        "answers_path": str(path.parent / cfg.apply.answers_path),
+        "profile_dir": str(path.parent / Path(cfg.apply.profile_dir).expanduser())})
     workdir = path.parent / Path(cfg.scoring.workdir).expanduser()
     # `claude -p` loads CLAUDE.md from its cwd and every parent folder, and `codex exec` loads AGENTS.md from its cwd
     # (tested with both), so a workdir inside this repo would leak the repo's rules into scoring.
