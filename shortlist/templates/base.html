@@ -19,11 +19,13 @@
       <nav class="nav" aria-label="Main">
         {% for key, label, glyph, href in [("overview", "Overview", "grid", "/"), ("matches", "Matches", "target", "/matches"),
                                            ("filtered", "Filtered out", "filter", "/filtered"),
-                                           ("tracker", "Applications", "columns", "/tracker"), ("sources", "Sources", "globe", "/sources"),
+                                           ("tracker", "Applications", "columns", "/tracker"),
+                                           ("queue", "Apply queue", "inbox", "/queue"),
+                                           ("questions", "Questions", "edit", "/questions"), ("sources", "Sources", "globe", "/sources"),
                                            ("runs", "Runs", "activity", "/runs"), ("settings", "Settings", "sliders", "/settings")] %}
         <a href="{{ href }}" class="{{ 'active' if nav == key }}" {{ 'aria-current="page"' | safe if nav == key }}>
           {{ icon(glyph) }}<span class="label">{{ label }}</span>
-          {% if counts and counts.get(key) %}<span class="count" title="{{ 'Strong matches nobody has acted on' if key == 'matches' else 'Applications in play' }}">{{ counts[key] }}</span>{% endif %}
+          {% if counts and counts.get(key) %}<span class="count" title="{{ {'matches': 'Strong matches nobody has acted on', 'questions': 'Application questions waiting for your answer', 'queue': 'Jobs waiting in the apply queue'}.get(key, 'Applications in play') }}">{{ counts[key] }}</span>{% endif %}
         </a>
         {% endfor %}
       </nav>
@@ -40,6 +42,11 @@
   </div>
   <div id="backdrop" class="backdrop"></div>
   <aside id="drawer" class="drawer" aria-label="Job details"></aside>
+  <div id="pick-bar" class="pick-bar" hidden>
+    <span><b data-pick-count>0</b> picked</span>
+    <button class="btn primary sm" type="button" data-pick-add>{{ icon("inbox") }} Add to apply queue</button>
+    <button class="btn ghost sm" type="button" data-pick-clear>Clear</button>
+  </div>
   <div id="toasts" class="toasts" aria-live="polite"></div>
   <dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="confirm-text">
     <form method="dialog">

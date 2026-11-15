@@ -2,8 +2,10 @@
 
 Fetch open jobs from configured companies and careers pages, pre-filter them with cheap rules, score new ones
 against the user's resume with an LLM, and send a digest (Telegram). A local web app browses
-matches and tracks applications. Notify only: never apply to anything automatically. See README.md for users and
-CONTRIBUTING.md for contributors; this file holds the rules and verified facts for working on the code.
+matches and tracks applications. Runs only notify: applying happens only for jobs the user picks (one, or the apply
+queue), in review mode by default (the user presses the button that sends it); `apply.mode: auto` sends. See
+README.md for users and CONTRIBUTING.md for contributors; this file holds the rules and verified facts for working
+on the code.
 
 ## Layout (flat modules in `shortlist/`)
 - `__main__.py` CLI and the run pipeline (discover -> fetch -> store -> pre-filter -> details -> score -> notify).
@@ -15,6 +17,9 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
 - `scoring.py` `BACKENDS` (claude_cli, codex_cli, anthropic_api, openai_api): prompt + JSON schema in, dict out.
 - `notify.py` digest formatting and `SENDERS`; `db.py` SQLite; `polite.py` robots.txt + pacing; `prefilter.py`;
   `categories.py` groups jobs by career stage and field from their titles (Matches, and a shared daily list later).
+- `apply.py` the apply agent (accessibility snapshot in, actions out, through the scoring backend), its Playwright
+  `Browser`, and the runners for one job and the apply queue; answers in the user's `answers.yaml`, per-job questions
+  and the queue in the database.
 - `web.py` + `templates/` + `static/` the web app; `wizard.py` `init` and `check`; `install.py` (repo root) setup.
 
 ## Rules
@@ -25,7 +30,9 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
 3. Fixtures: trimmed excerpts of real responses (< 120 KB each), scanned for secrets by `tests/test_fixtures_clean.py`.
 4. Every request goes through `polite.Polite`: robots.txt (RFC 9309), ~1 request/second per host, the Shortlist
    User-Agent. Never work around 403/429/bot challenges. The browser renders only pages that return 200 with HTML
-   but no readable content. `ignore_robots` is set only by the user, per board.
+   but no readable content. `ignore_robots` is set only by the user, per board. The apply browser opens a job's
+   page only if robots.txt allows it; a CAPTCHA, a bot check, or a code the site emails is handed to the user
+   (`hand_over`: the tab stays open), never worked around.
 5. One company, page, batch, or channel failing is logged on one line and skipped; it never crashes a run.
 6. Secrets come from the environment or `.env`; never log them or URLs that contain them.
 7. Small and flat: plain functions and dicts, no ABCs, no frameworks. Ask before adding a dependency. Don't use the
@@ -119,3 +126,18 @@ CONTRIBUTING.md for contributors; this file holds the rules and verified facts f
   jobs. A pending match counts as still listed if seen within 48 hours.
 - Windows: Python's `write_text` writes CRLF unless `newline="\n"`; config.yaml, resume.md, and .env are written
   with LF.
+- Apply browser (Playwright 1.64.1): `aria_snapshot(mode="ai")` shows what a password field holds, so the password
+  is replaced by `{password}` in the snapshot, errors, history, and log. A locator chained from `aria-ref=` counted a
+  Greenhouse drop-down's options but read their texts as []; options are looked up from the frame. The `popup` event
+  fires for `rel=noopener` links too, so `Browser.page` follows the application's own tabs and never one the user
+  opened (2026-11-14).
+- Workday's search box (`data-uxi-widget-type="selectinput"`, one live form, 2026-11-14): typing shows nothing until
+  Enter; a search with one result picks it by itself (searching "in" picked "Indeed"); picks are `selectedItem`s in
+  the container whose id is the input's `data-uxi-multiselect-id`, and Delete on one clears it; the open list is
+  `activeListContainer` > `menuItem` (virtualized), and an item may open a sub-list ("Social Media" > LinkedIn). A
+  pick covers the input, so it is focused, not clicked; a new pick replaces the old. The input is outside any
+  `<form>`.
+- Real apply queue (2026-11-14, 8 jobs, auto): a Greenhouse form and a company's own form emailed an 8-character
+  code after Submit; one form showed a reCAPTCHA, one a Cloudflare check; one Workday job page is disallowed by
+  robots.txt; an Ashby form locked itself after Submit with no confirmation text, yet the confirmation email came.
+  A form took 5-23 agent calls, 45 s to ~2 min, mostly waiting for the model.

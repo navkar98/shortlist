@@ -398,3 +398,63 @@ def test_a_run_from_a_terminal_says_where_its_output_goes(app):
     with db.single_run(f"{db_path}.lock", {"command": "discovery", "log": None}):
         panel = client.get("/activity").text
         assert "Discovery started outside this page" in panel and "terminal that started it" in panel
+
+
+def test_questions_are_confirmed_then_the_job_can_be_applied_to(app):
+    client, tmp_path, ids, started = app
+    assert "No questions yet" in client.get("/questions").text
+    conn = db.connect(str(tmp_path / "shortlist.db"))
+    acme = {"key": "greenhouse:acme:1", "company": "Acme Robotics", "title": "ML Engineer, Ranking", "url": "https://acme.example/jobs/1"}
+    db.add_questions(conn, acme, [{"question": "Why Acme?", "suggested": "Robots.", "reusable": False},
+                                  {"question": "Notice period?", "suggested": "One month", "reusable": True}],
+                     "2026-11-12T10:00:00+00:00")
+    page = client.get("/questions").text
+    assert "Why Acme?" in page and "Robots." in page and "2 to answer" in page and 'hx-post="/apply"' not in page
+    assert '<span class="count" title="Application questions waiting for your answer">2</span>' in page
+    first, second = [r["id"] for r in db.open_questions(conn)]
+    assert client.post(f"/questions/{first}", data={"answer": "I like robots."}).status_code == 403  # no token
+    assert client.post(f"/questions/{first}", data={"answer": "  "}, headers=TOKEN).status_code == 400
+    assert client.post(f"/questions/{first}", data={"answer": "I like robots."}, headers=TOKEN).status_code == 204
+    assert client.post(f"/questions/{second}", data={"answer": "One month", "reuse": "1"}, headers=TOKEN).status_code == 204
+    assert [(r["question"], r["answer"], r["own"]) for r in db.confirmed_answers(conn, "greenhouse:acme:1")] == [
+        ("Why Acme?", "I like robots.", 1), ("Notice period?", "One month", 1)]
+    assert [r["question"] for r in db.confirmed_answers(conn, "lever:globex:9")] == ["Notice period?"]  # the reusable one
+    page = client.get("/questions").text
+    assert "2 confirmed answers" in page and "I like robots." in page
+    assert f'hx-vals=\'{{"job": "{ids["ML Engineer, Ranking"]}"}}\'' in page  # nothing left to answer: Apply
+    assert client.post("/apply", data={"job": str(ids["ML Engineer, Ranking"])}, headers=TOKEN).status_code == 204
+    assert started == [("apply", ["apply", str(ids["ML Engineer, Ranking"])])]
+    assert client.post("/apply", data={"job": "--config=x"}, headers=TOKEN).status_code == 400
+    assert 'hx-post="/apply"' in client.get(f"/jobs/{ids['ML Engineer, Ranking']}").text  # and from the job panel
+
+def test_jobs_are_picked_into_the_apply_queue_and_it_is_started_from_its_page(app):
+    client, tmp_path, ids, started = app
+    strong, weak = ids["ML Engineer, Ranking"], ids["Data Scientist, Payments"]
+    assert "Nothing in the queue" in client.get("/queue").text
+    rows = client.get("/matches/rows").text
+    assert f'class="pick" value="{strong}"' in rows and "Queued to apply" not in rows
+    assert client.post("/queue/add", data={"ids": [strong, weak]}).status_code == 403  # no token
+    assert client.post("/queue/add", data={"ids": [strong, weak]}, headers=TOKEN).status_code == 204
+    assert client.get("/matches/rows").text.count("Queued to apply") == 2
+    page = client.get("/queue").text
+    assert "ML Engineer, Ranking" in page and "Data Scientist, Payments" in page and page.count("Queued</span>") == 2
+    assert '<span class="count" title="Jobs waiting in the apply queue">2</span>' in page
+    assert "Send 2 applications without asking you again?" in page
+
+    assert client.post("/queue/start", data={"mode": "everything"}, headers=TOKEN).status_code == 400
+    response = client.post("/queue/start", data={"mode": "auto"}, headers=TOKEN)
+    assert response.status_code == 204 and response.headers["HX-Refresh"] == "true"
+    assert started == [("apply queue", ["apply", "--queued", "--mode", "auto"])]
+
+    conn = db.connect(str(tmp_path / "shortlist.db"))
+    db.queue_set(conn, strong, "submitted", "Thank you.", "2026-11-12T10:00:00+00:00")
+    db.queue_set(conn, weak, "stopped", "The site asks for a code sent by email.", "2026-11-12T10:00:00+00:00")
+    page = client.get("/queue").text
+    assert "Applied</span>" in page and "The site asks for a code sent by email." in page and "Try again" in page
+    assert "disabled" in page  # nothing left that Start would work through
+    assert client.post("/queue/add", data={"ids": [weak]}, headers=TOKEN).status_code == 204  # try again
+    assert db.queue_statuses(conn) == {strong: "submitted", weak: "queued"}
+    assert client.post("/queue/remove", headers=TOKEN).status_code == 204  # clear the ones applied to
+    assert db.queue_statuses(conn) == {weak: "queued"}
+    assert client.post("/queue/remove", data={"job": weak}, headers=TOKEN).status_code == 204
+    assert db.queue_statuses(conn) == {} and "Nothing in the queue" in client.get("/queue").text

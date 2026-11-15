@@ -254,7 +254,7 @@ a.kpi:hover { text-decoration: none; border-color: var(--line-strong); transform
 .range input { width: 110px; }
 .list-head { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 4px 10px; color: var(--muted); font-size: 13px; }
 .list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); overflow: hidden; }
-.match { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 14px; align-items: start; padding: 15px 16px;
+.match { display: grid; grid-template-columns: 16px auto auto minmax(0, 1fr); gap: 14px; align-items: start; padding: 15px 16px;
   border-bottom: 1px solid var(--line); transition: background 0.15s; position: relative; outline: none; }
 .match:last-child { border-bottom: 0; }
 .match:hover { background: var(--bg-elev); }
@@ -463,7 +463,7 @@ textarea.prompt { min-height: 300px; }
   main { padding: 20px 16px 80px; }
   h1 { font-size: 25px; }
   .toolbar { position: static; }
-  .match { grid-template-columns: auto minmax(0, 1fr); }
+  .match { grid-template-columns: 16px auto minmax(0, 1fr); }
   .match .mono { display: none; }
   .board, .board.closed { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; overflow-x: auto;
     scroll-snap-type: x mandatory; padding-bottom: 8px; }
@@ -506,3 +506,32 @@ textarea.prompt { min-height: 300px; }
 .confirm-dialog[open] { animation: toast-in 0.18s ease; }
 .confirm-dialog p { margin: 0 0 18px; font-size: 15px; line-height: 1.55; }
 .confirm-dialog .actions { justify-content: flex-end; }
+
+/* Questions: what application forms asked, by job, with the agent's suggested answers to confirm */
+.qjob { margin-bottom: 16px; }
+.qjob-name { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.qjob-name > div { display: flex; flex-direction: column; min-width: 0; }
+.qjob-name a { font-size: 13.5px; }
+.question { padding: 14px 0; border-top: 1px solid var(--line); }
+.question > label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px; white-space: pre-line; }
+.question-foot { display: flex; align-items: center; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+.question-foot .btn { margin-left: auto; }
+.question-foot .check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.confirmed { border-top: 1px solid var(--line); padding-top: 10px; }
+.confirmed summary { cursor: pointer; color: var(--muted); font-size: 13.5px; padding: 4px 0; }
+.question.done textarea { background: var(--surface-2); }
+
+/* Apply queue: ticking jobs on Matches, the bar that adds the ticked ones, and the queue's own page */
+.pick-box { display: grid; place-items: center; height: 36px; }
+.pick, .pick-all input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+.pick-all { display: inline-grid; place-items: center; width: 16px; margin: 0 26px 0 12px; vertical-align: -3px; }
+.pill.queued { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-line); }
+.pill.queued:hover { text-decoration: none; filter: brightness(0.97); }
+.pick-bar { position: fixed; left: 50%; bottom: 76px; z-index: 60; transform: translateX(-50%); display: flex; align-items: center;
+  gap: 12px; padding: 9px 12px 9px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-lg); font-size: 13.5px; white-space: nowrap; }
+.pick-bar[hidden] { display: none; }
+.table.queue td { vertical-align: top; }
+.table.queue td .btn, .table.queue td .icon-btn { vertical-align: middle; }
+.table.queue td.note { max-width: 460px; }
+.table.queue td.note > div { margin-top: 3px; }

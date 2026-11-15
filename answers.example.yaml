@@ -1,0 +1,42 @@
+# Your answers to job application questions. Copy this file to answers.yaml (gitignored) and make it yours; only you
+# edit it.
+# `answers`: facts that hold for every application. A question worded differently on a form gets the same answer when
+# it asks the same thing, and an answer can differ by kind of job or by country ("for research roles ..., for
+# software engineering roles ..."). An entry with an empty `answer` is ignored.
+# What one company's form asks beyond these is not kept here: it goes to the web app's Questions page with a
+# suggested answer for you to confirm.
+# `files`: what can be attached, by name; paths are relative to this file.
+files:
+  resume: resume.pdf
+answers:
+- question: First name
+  answer: Alex
+- question: Last name
+  answer: Example
+- question: Email
+  answer: alex@example.com
+- question: Phone (with country)
+  answer: "+1 555 010 0100, United States"
+- question: Where do you live (city, state or region, country)?
+  answer: Springfield, Illinois, United States
+- question: LinkedIn profile
+  answer: https://www.linkedin.com/in/alex-example
+- question: Website or portfolio
+  answer: https://alex.example
+- question: Are you legally authorized to work in the country this job is in?
+  answer: "Yes"
+- question: Will you now or in the future require visa sponsorship?
+  answer: "No"
+- question: How did you hear about this job?
+  answer: Company careers page
+# Voluntary self-identification: with an empty answer, forms get their "decline to answer" option.
+- question: Gender (voluntary self-identification)
+  answer: ""
+- question: Race or ethnicity (voluntary self-identification)
+  answer: ""
+- question: Are you Hispanic or Latino? (voluntary self-identification)
+  answer: ""
+- question: Veteran status (voluntary self-identification)
+  answer: ""
+- question: Disability status (voluntary self-identification)
+  answer: ""

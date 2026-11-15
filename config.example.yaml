@@ -88,6 +88,15 @@ schedule:
   max_runs_per_day: 2
   min_hours_between_runs: 6
 
+# Applying from a job's link in a browser window, only for jobs you pick (README: Applying). Your answers go in
+# answers.yaml (copy answers.example.yaml); a password for job-site accounts in .env as SHORTLIST_APPLY_PASSWORD.
+apply:
+  mode: review                    # review: you press the button that sends it; auto: Shortlist presses it
+  answers_path: answers.yaml
+  model: ""                       # agent model; empty: same as scoring.model
+  max_calls_per_job: 30           # agent calls per form before it gives up
+  profile_dir: ~/.shortlist/browser   # the browser's own profile, so site sign-ins are kept
+
 # Notify about jobs scoring at least this (0-100): 85+ apply now, 70-84 strong fit, 40-69 partial fit.
 min_score: 70
 db_path: shortlist.db

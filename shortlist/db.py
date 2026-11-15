@@ -1,6 +1,7 @@
 """SQLite storage. Each job is stored once per (ats, slug, job_id), scored at most once, and notified at most once."""
 import json
 import os
+import re
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -81,6 +82,42 @@ CREATE TABLE IF NOT EXISTS boards (
     board_seen TEXT NOT NULL,   -- the latest last_seen of its jobs
     PRIMARY KEY (ats, slug)
 )"""
+# What application forms asked that the stored answers didn't cover (apply.py): one row per job and question, with
+# the agent's suggested answer until you confirm or edit it. Kept here, not in answers.yaml, which stays your own
+# short list of facts.
+QUESTIONS_SCHEMA = """
+CREATE TABLE IF NOT EXISTS apply_questions (
+    id          INTEGER PRIMARY KEY,
+    job         TEXT NOT NULL,     -- "ats:slug:job_id" for a stored job, else the link applied from
+    company     TEXT NOT NULL DEFAULT '',
+    title       TEXT NOT NULL DEFAULT '',
+    url         TEXT NOT NULL DEFAULT '',
+    question    TEXT NOT NULL,
+    suggested   TEXT NOT NULL DEFAULT '',
+    answer      TEXT,              -- NULL until you confirm one
+    reuse       INTEGER NOT NULL DEFAULT 0,  -- 1: the answer holds at other companies too
+    asked_at    TEXT NOT NULL,
+    answered_at TEXT
+)"""
+# The jobs you picked to be applied to, which apply.py works through in one browser window, and how each went.
+QUEUE_SCHEMA = """
+CREATE TABLE IF NOT EXISTS apply_queue (
+    ats      TEXT NOT NULL,
+    slug     TEXT NOT NULL,
+    job_id   TEXT NOT NULL,
+    added_at TEXT NOT NULL,
+    status   TEXT NOT NULL DEFAULT 'queued',  -- queued | running | ready (filled, yours to send) | submitted |
+                                              -- questions | stopped | failed
+    note     TEXT NOT NULL DEFAULT '',
+    tried_at TEXT,
+    PRIMARY KEY (ats, slug, job_id)
+)"""
+# Sites the account password was typed into, by host: the next application there signs in before creating an account.
+ACCOUNTS_SCHEMA = """
+CREATE TABLE IF NOT EXISTS apply_accounts (
+    host     TEXT PRIMARY KEY,
+    first_at TEXT NOT NULL
+)"""
 # Scored jobs are a tiny part of `jobs`; the web app mostly reads those. Both indexes change only when a job is first
 # stored or scored, not with each run's last_seen.
 INDEXES = ("CREATE INDEX IF NOT EXISTS jobs_scored ON jobs(score) WHERE status = 'scored'",
@@ -151,7 +188,8 @@ def connect(path: str, *, any_thread: bool = False) -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     # " ml research " for a title, so a query can pick a group: job_groups(title) LIKE '% ml %'
     conn.create_function("job_groups", 1, lambda title: f" {' '.join(groups(title))} ", deterministic=True)
-    for schema in (SCHEMA, RUNS_SCHEMA, SITES_SCHEMA, SCANS_SCHEMA, TRACKING_SCHEMA, BOARDS_SCHEMA):
+    for schema in (SCHEMA, RUNS_SCHEMA, SITES_SCHEMA, SCANS_SCHEMA, TRACKING_SCHEMA, BOARDS_SCHEMA, QUESTIONS_SCHEMA,
+                   QUEUE_SCHEMA, ACCOUNTS_SCHEMA):
         conn.execute(schema)
     with conn:
         for table, columns in ADDED_COLUMNS.items():
@@ -256,6 +294,109 @@ def set_tracking(conn: sqlite3.Connection, rowid: int, now: str, *, stage: str |
                      " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                      (row["ats"], row["slug"], row["job_id"], stage, notes if notes is not None else row["notes"],
                       feedback if feedback is not None else row["feedback"], applied_at, now))
+
+
+def queue_waiting(row) -> bool:
+    """Whether a `queue_rows` row is for the next start of the queue: queued, or left "running" by a process that was
+    killed, or waiting for answers you have all given since; never a job you applied to meanwhile."""
+    return row["stage"] != "applied" and (row["status"] in ("queued", "running")
+                                          or (row["status"] == "questions" and not row["open"]))
+
+
+def _plain(text: str) -> str:
+    return re.sub(r"[\W_]+", " ", text).strip().lower()
+
+
+def add_questions(conn: sqlite3.Connection, job: dict, questions: list[dict], now: str) -> int:
+    """Store what a job's form asked (`job`: key, company, title, url), unanswered, with the suggested answers.
+    A question this job already has keeps its row (and your answer). Returns how many were new."""
+    have = {_plain(r["question"]) for r in conn.execute("SELECT question FROM apply_questions WHERE job = ?", (job["key"],))}
+    new = [q for q in questions if _plain(q["question"]) not in have]
+    with conn:
+        conn.executemany(
+            "INSERT INTO apply_questions (job, company, title, url, question, suggested, reuse, asked_at)"
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [(job["key"], job.get("company") or "", job.get("title") or "", job.get("url") or "", q["question"],
+              q.get("suggested") or "", int(bool(q.get("reusable"))), now) for q in new])
+    return len(new)
+
+
+def confirmed_answers(conn: sqlite3.Connection, job_key: str) -> list[sqlite3.Row]:
+    """The answers you confirmed that apply to this job: its own, and the ones marked as holding everywhere."""
+    return conn.execute("SELECT question, answer, job = ? AS own FROM apply_questions WHERE answer IS NOT NULL"
+                        " AND (job = ? OR reuse = 1) ORDER BY id", (job_key, job_key)).fetchall()
+
+
+def open_questions(conn: sqlite3.Connection, job_key: str | None = None) -> list[sqlite3.Row]:
+    """Questions still waiting for your answer, oldest first; for one job, or all."""
+    where, args = (" AND job = ?", (job_key,)) if job_key else ("", ())
+    return conn.execute(f"SELECT * FROM apply_questions WHERE answer IS NULL{where} ORDER BY id", args).fetchall()
+
+
+def answer_question(conn: sqlite3.Connection, question_id: int, answer: str, reuse: bool, now: str) -> None:
+    with conn:
+        conn.execute("UPDATE apply_questions SET answer = ?, reuse = ?, answered_at = ? WHERE id = ?",
+                     (answer, int(reuse), now, question_id))
+
+
+def queue_add(conn: sqlite3.Connection, rowids: list[int], now: str) -> int:
+    """Put jobs (by their number) in the apply queue; one already there is queued again, for another try. Jobs
+    already applied to are left out. Returns how many are now queued."""
+    added = 0
+    with conn:
+        for rowid in rowids:
+            row = job_row(conn, rowid)
+            if row is None or row["stage"] == "applied":
+                continue
+            conn.execute("INSERT INTO apply_queue (ats, slug, job_id, added_at) VALUES (?, ?, ?, ?)"
+                         " ON CONFLICT DO UPDATE SET status = 'queued', note = ''",
+                         (row["ats"], row["slug"], row["job_id"], now))
+            added += 1
+    return added
+
+
+def queue_remove(conn: sqlite3.Connection, rowid: int | None = None) -> None:
+    """Take one job out of the apply queue; without a job, every one that was applied to."""
+    with conn:
+        if rowid is None:
+            conn.execute("DELETE FROM apply_queue WHERE status = 'submitted' OR (ats, slug, job_id) IN"
+                         " (SELECT ats, slug, job_id FROM tracking WHERE stage = 'applied')")
+        else:
+            conn.execute("DELETE FROM apply_queue WHERE (ats, slug, job_id) ="
+                         " (SELECT ats, slug, job_id FROM jobs WHERE rowid = ?)", (rowid,))
+
+
+def queue_set(conn: sqlite3.Connection, rowid: int, status: str, note: str, now: str) -> None:
+    with conn:
+        conn.execute("UPDATE apply_queue SET status = ?, note = ?, tried_at = ? WHERE (ats, slug, job_id) ="
+                     " (SELECT ats, slug, job_id FROM jobs WHERE rowid = ?)", (status, note, now, rowid))
+
+
+def queue_rows(conn: sqlite3.Connection) -> list[sqlite3.Row]:
+    """The apply queue in the order the jobs were added, each with its job, tracker stage, and how many of its
+    form's questions still wait for your answer (`open`)."""
+    return conn.execute(
+        "SELECT j.rowid AS id, j.ats, j.slug, j.job_id, j.company, j.title, j.location, j.url, j.score,"
+        " coalesce(t.stage, 'new') AS stage, q.status, q.note, q.added_at, q.tried_at,"
+        " (SELECT count(*) FROM apply_questions a WHERE a.answer IS NULL"
+        "  AND a.job = j.ats || ':' || j.slug || ':' || j.job_id) AS open"
+        " FROM apply_queue q JOIN jobs j USING (ats, slug, job_id) LEFT JOIN tracking t USING (ats, slug, job_id)"
+        " ORDER BY q.added_at, j.rowid").fetchall()
+
+
+def queue_statuses(conn: sqlite3.Connection) -> dict[int, str]:
+    """Job number -> its status in the apply queue, for the jobs that are in it."""
+    return dict(conn.execute("SELECT j.rowid, q.status FROM apply_queue q JOIN jobs j USING (ats, slug, job_id)"))
+
+
+def account_hosts(conn: sqlite3.Connection) -> dict[str, str]:
+    """Host -> the day the account password was first typed there."""
+    return dict(conn.execute("SELECT host, substr(first_at, 1, 10) FROM apply_accounts"))
+
+
+def add_account_hosts(conn: sqlite3.Connection, hosts: list[str], now: str) -> None:
+    with conn:
+        conn.executemany("INSERT OR IGNORE INTO apply_accounts (host, first_at) VALUES (?, ?)", [(h, now) for h in hosts])
 
 
 def upsert_jobs(conn: sqlite3.Connection, jobs: list[Job], now: str) -> int:

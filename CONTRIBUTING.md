@@ -110,10 +110,20 @@ Add its message size to `LIMITS`, its environment variables to `REQUIRED_ENV`, a
 `notify.py`; then the wizard question in `wizard.py`, a section in `.env.example`, a row in the README, and tests
 showing that errors never contain the secret.
 
+### Make the apply agent handle a kind of form
+
+The agent (`apply.py`) sees each page as Playwright's accessibility snapshot and answers with actions that
+`Browser` carries out. When a kind of form keeps failing, look at the real page first (a short Playwright script that
+opens it and prints the element's attributes and what it shows), then teach `Browser` how that widget works, as
+`_choose_workday` does for Workday's search box, rather than adding rules to the prompt. Write down what you saw
+under "Verified facts" in CLAUDE.md. Never press a form's submit button while trying things, and never add code
+that gets past a CAPTCHA or a bot check: those go to the user (`hand_over`). Tests use a recording `FakeBrowser`
+(`tests/test_apply.py`) and never start a real browser.
+
 ## Pull requests
 
 - One topic per pull request, with tests. Run `python -m pytest -q` before pushing.
 - Describe what you verified for real (which endpoint, which page, which version) and what you could not verify.
 - Match the surrounding code: names, comment density, and line length (about 120).
-- Keep personal files out of the diff: `config.yaml`, `resume.md`, `.env`, and `shortlist.db` are in `.gitignore` for
-  that reason.
+- Keep personal files out of the diff: `config.yaml`, `resume.md`, `answers.yaml`, `.env`, and `shortlist.db` are in
+  `.gitignore` for that reason.

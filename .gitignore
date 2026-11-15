@@ -9,6 +9,8 @@ scorer_workdir/*
 !scorer_workdir/.gitkeep
 config.yaml
 resume.md
+answers.yaml
+/*.pdf
 *.lock
 *.lock.json
 config.yaml.bak

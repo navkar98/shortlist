@@ -1,5 +1,5 @@
-// Shortlist web app behavior: theme, toasts, the job drawer, keyboard shortcuts, tracker drag and drop, and the
-// tag inputs on Settings. Plain JavaScript on top of htmx; no build step.
+// Shortlist web app behavior: theme, toasts, the job drawer, keyboard shortcuts, picking jobs for the apply queue,
+// tracker drag and drop, and the tag inputs on Settings. Plain JavaScript on top of htmx; no build step.
 (() => {
   const root = document.documentElement;
   const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -92,10 +92,11 @@
     j: () => select(selected + 1), ArrowDown: () => select(selected + 1),
     k: () => select(selected - 1), ArrowUp: () => select(selected - 1),
     o: () => act("open"), Enter: () => act("open"), s: () => act("save"), a: () => act("apply"),
-    x: () => act("hide"), g: () => act("good"), b: () => act("bad"),
+    x: () => act("hide"), g: () => act("good"), b: () => act("bad"), p: () => act("pick"),
   };
   document.addEventListener("keydown", (event) => {
-    if (event.target.closest("input, textarea, select, [contenteditable]")) {
+    // A ticked box keeps the focus but takes no typing: the keys go on working after a job is picked with the mouse.
+    if (event.target.closest("input:not([type=checkbox]), textarea, select, [contenteditable]")) {
       if (event.key === "Escape") event.target.blur();
       return;
     }
@@ -111,6 +112,32 @@
     const row = event.target.closest(".match");
     if (row) select(items().indexOf(row));
   });
+
+  // --- picking jobs for the apply queue: the ticks outlive the list being redrawn or filtered -------------------------
+  const picked = new Set();
+  function showPicked() {
+    $$(".pick").forEach((box) => { box.checked = picked.has(box.value); });
+    const all = $("[data-pick-all]"), boxes = $$(".pick");
+    if (all) all.checked = boxes.length > 0 && boxes.every((box) => box.checked);
+    $("[data-pick-count]").textContent = picked.size;
+    $("#pick-bar").hidden = picked.size === 0;
+  }
+  document.addEventListener("change", (event) => {
+    const box = event.target;
+    if (box.matches("[data-pick-all]")) $$(".pick").forEach((one) => picked[box.checked ? "add" : "delete"](one.value));
+    else if (box.matches(".pick")) picked[box.checked ? "add" : "delete"](box.value);
+    else return;
+    showPicked();
+  });
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("[data-pick-clear]")) { picked.clear(); showPicked(); }
+    const add = event.target.closest("[data-pick-add]");
+    if (!add || !picked.size) return;
+    htmx.ajax("POST", "/queue/add", { source: add, swap: "none", values: { ids: [...picked] } });
+    picked.clear();
+    showPicked();
+  });
+  document.body.addEventListener("htmx:afterSwap", showPicked);
 
   // --- tracker: drag a card onto another column to change its stage ------------------------------------------------
   document.addEventListener("dragstart", (event) => {
